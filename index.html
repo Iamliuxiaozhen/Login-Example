@@ -71,12 +71,12 @@
                 alert("请先完成人机验证");
                 return;
             }
-            const loginUrl = `https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize?client_id=7bb3e9f8-cace-4a24-86a1-62f2696fed4c&response_type=code&redirect_uri=https://login---example.pages.dev/auth/microsoft&response_mode=query&scope=openid%20profile%20email%20User.Read&prompt=consent`;
+            const loginUrl = `https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize?client_id=7bb3e9f8-cace-4a24-86a1-62f2696fed4c&response_type=code&redirect_uri=https://login-example.liuxiaozhen.dev/auth/microsoft&response_mode=query&scope=openid%20profile%20email%20User.Read&prompt=consent`;
             window.location.href = loginUrl;
         })
 
         document.getElementById("google-login").addEventListener("click",function(){
-            window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=805290356269-vto4bacmf9tkbe4fi6rc5auspbgn829l.apps.googleusercontent.com&redirect_uri=https://login---example.pages.dev/auth/Google/&response_type=code&scope=openid%20email%20profile`
+            window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=805290356269-vto4bacmf9tkbe4fi6rc5auspbgn829l.apps.googleusercontent.com&redirect_uri=https://login-example.liuxiaozhen.dev/auth/Google/&response_type=code&scope=openid%20email%20profile`
         })
 
         document.getElementById('Terms_Service').addEventListener('click',function(){

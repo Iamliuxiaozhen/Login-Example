@@ -20,7 +20,7 @@
 
 本网站仅作为登录演示使用，不包含任何钓鱼内容。本网站及其后端代码均已开源，如有疑问可自行审查源代码。
 
-**仓库地址：** [https://github.com/Iamliuxiaozhen/Login---Example](https://github.com/Iamliuxiaozhen/Login---Example)
+**仓库地址：** [https://github.com/Iamliuxiaozhen/Login---Example](https://github.com/Iamliuxiaozhen/Login-Example)
 
 ---
 
@@ -29,10 +29,9 @@
 This website is for **OAuth login demonstration purposes only** and does **not** contain any phishing content.  
 Both the frontend and backend code are **open-source**, and anyone may review the source code for verification.
 
-**Repository:** [https://github.com/Iamliuxiaozhen/Login---Example](https://github.com/Iamliuxiaozhen/Login---Example)
+**Repository:** [https://github.com/Iamliuxiaozhen/Login---Example](https://github.com/Iamliuxiaozhen/Login-Example)
 
 © 2025 Login-example.
 [服务协议](agreement/terms-service/text.md)
 [隐私政策](agreement/PrivacyPolicy/text.md)  
-本作品采用 CC BY-NC 4.0 国际许可协议
- 进行许可。禁止商用，转载需署名。
+本作品采用 Apache License开源

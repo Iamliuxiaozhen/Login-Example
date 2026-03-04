@@ -92,7 +92,7 @@
 
 ## 十、许可信息
 
-本项目依据 **[知识共享署名-非商业性使用 4.0 国际许可协议（CC BY-NC 4.0）](https://creativecommons.org/licenses/by-nc/4.0/deed.zh-hans)** 开源。  
+本项目依据 Apache License 开源。  
 使用本项目即表示您同意遵守该协议的条款。
 
 ---

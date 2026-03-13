@@ -1,9 +1,9 @@
-Received: from mta-87-158.sparkpostmail.com (mta-87-158.sparkpostmail.com [192.174.87.158])
+Received: from mta-87-158.sparkpostmail.com (mta-87-158.sparkpostmail.com [[REDACTED@IP]])
 	by newxmmxszb43-1.qq.com (NewMX) with SMTP id 45E242EC
-	for <2418587005@qq.com>; Wed, 22 Oct 2025 20:17:30 +0800
+	for <[REDACTED@email]>; Wed, 22 Oct 2025 20:17:30 +0800
 X-QQ-mid: xmmxzb43-1t1761135450thdb9xw65
-Sender: msprvs1=20390l-armac-=bounces-265094@notify.cloudflare.com
-X-QQ-CSender: msprvs1=20390l-armac-=bounces-265094@notify.cloudflare.com
+Sender: msprvs1=20390l-armac-=[REDACTED@email]
+X-QQ-CSender: msprvs1=20390l-armac-=[REDACTED@email]
 X-QQ-XMAILINFO: NCUC8fA7d7lNj5B7BHufb2RmTrsK/gSg1ckKikwW7ErCzkdCi+ihY21407j0lM
 	 lA+mvZxdb9veBrUCMaISwYrnNj6kWB0sUTSCDoIdQYGh8rAXYP6dhi4Udo7sf/VIUosNBTX/Dm+s
 	 PpUjQqOIh8LqQsCgx/MHyK+iDIH3WgDTo0IJ+TGFNT42nSILqBa7VahBOW3zqOg/5Ee7COe74IwQ
@@ -24,11 +24,11 @@ X-QQ-XMAILINFO: NCUC8fA7d7lNj5B7BHufb2RmTrsK/gSg1ckKikwW7ErCzkdCi+ihY21407j0lM
 	 2VEPevzkfv0P/xk8XMjJjfOIth58zORQgqY6zB5n3SbEO9P+2aepRirn2UbNe0axb3nv1cJvmi4S
 	 WuekMZHzGcWEiojcVy6k2k7TjDmb+1X8ptyDpDE62zfTrTvsd8wQ7UcZQhlrqN3jXF
 X-QQ-XMRINFO: MSVp+SPm3vtS1Vd6Y4Mggwc=
-Authentication-Results: mx.qq.com; spf=pass(192.174.87.158) smtp.mailfrom=<msp
-	 rvs1=20390l-armac-=bounces-265094@notify.cloudflare.com>; dkim=pass(signatur
+Authentication-Results: mx.qq.com; spf=pass([REDACTED@IP]) smtp.mailfrom=<msp
+	 rvs1=20390l-armac-=[REDACTED@email]>; dkim=pass(signatur
 	 e was verified) header.d=notify.cloudflare.com; dmarc=pass(p=REJECT sp=REJEC
 	 T pct=100) header.from=notify.cloudflare.com
-Return-Path: <msprvs1=20390L-aRMAc-=bounces-265094@notify.cloudflare.com>
+Return-Path: <msprvs1=20390L-aRMAc-=[REDACTED@email]>
 X-MSFBL: iLNOxRbQyPpweqX0gTTk/iqJdHoyn4wVn43ZQqZXQCw=|eyJzdWJhY2NvdW50X2l
 	kIjoiMCIsIm1lc3NhZ2VfaWQiOiI2OGVlNTljYmY4NjhiMWY1NzlmMiIsInRlbmF
 	udF9pZCI6InNwYyIsInIiOiIyNDE4NTg3MDA1QHFxLmNvbSIsImN1c3RvbWVyX2l
@@ -41,18 +41,18 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	b=K0x6piSGzh5GxL/7DSCyRWfONtIpzY/Mo2GT54cgNFhZvtPndxtd6fkaTD441XtnD
 	 uCLbSK4j4MxfoWk2dpgetadvT5a/hOvrT6EQc/Kr7VyglsbXXEcapQGI32QvlhjYDI
 	 a/7cAgIDzLzL4iJQ/y8199nUiMHTlRaNmmFa5nhU=
-Received: from [10.90.24.243] ([10.90.24.243])
-	by i-023220bd6c5741581.mta1vrest.sd.prd.sparkpost (ecelerity 5.1.0.74632 r(msys-ecelerity:tags/5.1.0.14)) with REST
+Received: from [[REDACTED@IP]] ([[REDACTED@IP]])
+	by i-023220bd6c5741581.mta1vrest.sd.prd.sparkpost (ecelerity [REDACTED@IP]32 r(msys-ecelerity:tags/[REDACTED@IP])) with REST
 	id 2F/9F-64344-95BC8F86; Wed, 22 Oct 2025 12:17:29 +0000
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="UTF-8"
 Subject: [d537a3ab3038e9e1]: Phishing report received regarding your site
-Message-ID: <2F.9F.64344.95BC8F86@i-023220bd6c5741581.mta1vrest.sd.prd.sparkpost>
-To: 2418587005@qq.com
+Message-ID: <[REDACTED@email]>
+To: [REDACTED@email]
 Date: Wed, 22 Oct 2025 12:17:29 +0000
 MIME-Version: 1.0
-Reply-To: noreply@notify.cloudflare.com
-From: "Cloudflare Trust & Safety" <abuse@notify.cloudflare.com>
+Reply-To: [REDACTED@email]
+From: "Cloudflare Trust & Safety" <[REDACTED@email]>
 
 Hello,
 
@@ -67,7 +67,7 @@ To respond to this complaint through the Cloudflare dashboard, you can click thi
 3. Find abuse report d537a3ab3038e9e1
 4. Select View mitigations > Request review
 
-If you have questions about this abuse report, please send an email to abusereply@cloudflare.com with the following details:
+If you have questions about this abuse report, please send an email to [REDACTED@email] with the following details:
 - The report identification number included in the subject line
 - Any additional details, context or evidence you can provide regarding the content that was reported.
 

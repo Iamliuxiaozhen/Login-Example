@@ -11,20 +11,20 @@ Received: from DS2PEPF00003442.namprd04.prod.outlook.com
  (2603:10b6:610:74::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.15 via Frontend Transport; Fri,
  31 Oct 2025 15:12:32 +0000
-Authentication-Results: spf=pass (sender IP is 192.174.87.158)
+Authentication-Results: spf=pass (sender IP is [REDACTED@IP])
  smtp.mailfrom=notify.cloudflare.com; dkim=pass (signature was verified)
  header.d=notify.cloudflare.com;dmarc=pass action=none
  header.from=notify.cloudflare.com;compauth=pass reason=100
 Received-SPF: Pass (protection.outlook.com: domain of notify.cloudflare.com
- designates 192.174.87.158 as permitted sender)
- receiver=protection.outlook.com; client-ip=192.174.87.158;
+ designates [REDACTED@IP] as permitted sender)
+ receiver=protection.outlook.com; client-ip=[REDACTED@IP];
  helo=mta-87-158.sparkpostmail.com; pr=E
-Received: from mta-87-158.sparkpostmail.com (192.174.87.158) by
- DS2PEPF00003442.mail.protection.outlook.com (10.167.17.69) with Microsoft
+Received: from mta-87-158.sparkpostmail.com ([REDACTED@IP]) by
+ DS2PEPF00003442.mail.protection.outlook.com ([REDACTED@IP]) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.9275.10 via Frontend Transport; Fri, 31 Oct 2025 15:12:48 +0000
 X-IncomingTopHeaderMarker: OriginalChecksum:CDBDBB9C796FDFC7D89EF5A65A8105A11FC9AC7340556BB060214EC46B3CD412;UpperCasedChecksum:FB18DC6EADC48A08394A6FB14B071257FB758BBC520C14F7F0F9E565B4F79DD4;SizeAsReceived:1391;Count:13
-Return-Path: msprvs1=20399YdOGAT1g=bounces-265094@notify.cloudflare.com
+Return-Path: msprvs1=20399YdOGAT1g=[REDACTED@email]
 X-MSFBL: eqYVZxdLkCtHchgG2+tVXjFVUz/cdttJ/Gs2fY0EBkI=|eyJjdXN0b21lcl9pZCI
 	6IjI2NTA5NCIsInIiOiJvbGl2ZXJ4aWFvemhlbkBvdXRsb29rLmNvbSIsInN1YmF
 	jY291bnRfaWQiOiIwIiwidGVuYW50X2lkIjoic3BjIiwibWVzc2FnZV9pZCI6IjY
@@ -37,17 +37,17 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	b=e7re6lzJcySrR5MQJgarGfMZq3Z4G2407Ovd5m/XMANVXWqVlQxxIK5RN2fuJaU9c
 	 lQp8TsbRM30L3FTsWM/AnBLV9ilKM8/tNIUQVLaHdR0v6IIy/ciiOOTb1EYDWM5O2d
 	 WhfBIn8XU2I0sAFGHAhsaVYGBiwPDDnCGYAqLXxA=
-Received: from [10.90.33.87] ([10.90.33.87])
-	by i-09c4bb9a953389478.mta1vrest.sd.prd.sparkpost (ecelerity 5.1.0.74659 r(msys-ecelerity:tags/5.1.0.17)) with REST
+Received: from [[REDACTED@IP]] ([[REDACTED@IP]])
+	by i-09c4bb9a953389478.mta1vrest.sd.prd.sparkpost (ecelerity [REDACTED@IP]59 r(msys-ecelerity:tags/[REDACTED@IP])) with REST
 	id 68/B3-16523-FE1D4096; Fri, 31 Oct 2025 15:12:47 +0000
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="UTF-8"
 Subject: 2cefad12a6111d60: Abuse Report Confirmation
-Message-ID: <68.B3.16523.FE1D4096@i-09c4bb9a953389478.mta1vrest.sd.prd.sparkpost>
-To: oliverxiaozhen@outlook.com
+Message-ID: <[REDACTED@email]>
+To: [REDACTED@email]
 Date: Fri, 31 Oct 2025 15:12:47 +0000
-Reply-To: noreply@notify.cloudflare.com
-From: "Cloudflare Trust & Safety" <abuse@notify.cloudflare.com>
+Reply-To: [REDACTED@email]
+From: "Cloudflare Trust & Safety" <[REDACTED@email]>
 X-IncomingHeaderCount: 13
 X-MS-Exchange-Organization-ExpirationStartTime: 31 Oct 2025 15:12:48.6522
  (UTC)
@@ -65,8 +65,8 @@ X-MS-Exchange-Organization-AuthAs: Anonymous
 X-MS-UserLastLogonTime: 10/31/2025 3:11:52 PM
 X-MS-Office365-Filtering-Correlation-Id: 1e9e7bc6-6668-49a5-a13b-08de188ff404
 X-MS-Exchange-EOPDirect: true
-X-Sender-IP: 192.174.87.158
-X-SID-PRA: ABUSE@NOTIFY.CLOUDFLARE.COM
+X-Sender-IP: [REDACTED@IP]
+X-SID-PRA: [REDACTED@email]
 X-SID-Result: PASS
 X-MS-Exchange-Organization-SCL: 1
 X-Microsoft-Antispam: BCL:3;ARA:1444111002|15092099004|58200799018|47200799021|461199028|1360799030|1370799030|1380799030|56899033|3412199025|440099028|19025499012|26104999006;
@@ -136,7 +136,7 @@ Cloudflare received your Complaint regarding: httpslogin---example.pages.dev.
 
 This may be the only response you receive to your report. Given the high volume of reports we receive, you may not receive a personalized response to this report.
 
-To respond to this issue, please reply to abusereply@cloudflare.com.
+To respond to this issue, please reply to [REDACTED@email].
 
 Below is the report we received:
 

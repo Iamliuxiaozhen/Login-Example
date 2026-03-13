@@ -11,19 +11,19 @@ Received: from AM2PEPF0001C70F.eurprd05.prod.outlook.com
  (2603:10a6:401:73::19) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.15 via Frontend Transport; Fri,
  31 Oct 2025 15:07:38 +0000
-Authentication-Results: spf=pass (sender IP is 156.70.35.83)
+Authentication-Results: spf=pass (sender IP is [REDACTED@IP])
  smtp.mailfrom=bounce2.cloudflare.com; dkim=pass (signature was verified)
  header.d=notify.cloudflare.com;dmarc=pass action=none
  header.from=notify.cloudflare.com;compauth=pass reason=100
 Received-SPF: Pass (protection.outlook.com: domain of bounce2.cloudflare.com
- designates 156.70.35.83 as permitted sender) receiver=protection.outlook.com;
- client-ip=156.70.35.83; helo=mta-70-35-83.sparkpostmail.com; pr=E
-Received: from mta-70-35-83.sparkpostmail.com (156.70.35.83) by
- AM2PEPF0001C70F.mail.protection.outlook.com (10.167.16.203) with Microsoft
+ designates [REDACTED@IP] as permitted sender) receiver=protection.outlook.com;
+ client-ip=[REDACTED@IP]; helo=mta-70-35-83.sparkpostmail.com; pr=E
+Received: from mta-70-35-83.sparkpostmail.com ([REDACTED@IP]) by
+ AM2PEPF0001C70F.mail.protection.outlook.com ([REDACTED@IP]) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.9275.10 via Frontend Transport; Fri, 31 Oct 2025 15:07:38 +0000
 X-IncomingTopHeaderMarker: OriginalChecksum:BDEDBF962ADDD50D43D3E53A970EBB986E2490DCBB2ACADFBA3B892834A2E9E7;UpperCasedChecksum:88995DF0668160B6A149E1B3BE0F7C5DD0AD29FCCC6FDD20FB2A5699D04AD619;SizeAsReceived:1402;Count:13
-Return-Path: msprvs1=20399eIufogd1=bounces-14594@bounce2.cloudflare.com
+Return-Path: msprvs1=20399eIufogd1=[REDACTED@email]
 X-MSFBL: p01CcSJDvFiGA4eKAg2Bg0HKys4lD4sIfNBKbpe+PK0=|eyJ0ZW5hbnRfaWQiOiJ
 	zcGNldSIsInN1YmFjY291bnRfaWQiOiIwIiwiciI6Im9saXZlcnhpYW96aGVuQG9
 	1dGxvb2suY29tIiwiY3VzdG9tZXJfaWQiOiIxNDU5NCIsIm1lc3NhZ2VfaWQiOiI
@@ -36,17 +36,17 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	b=Z+VaWQDRc22XuJkBdATfgBIgvymGoUEl4ekLiK5zHpm7VQlvvzfOraU3pLCV9/Wh4
 	 mdJG00CZBzH5KcgZUkivmhmsF9hnlXdCgMbbcZ6M/q1LglyO2Dz4jt930hOS7urQtd
 	 DkAZY7hWPmEqfp4oPbZRbrE6iujcsA51W0+rq+rE=
-Received: from [10.95.201.10] ([10.95.201.10])
-	by i-0ccd2f9127ab5a118.mta3vrest.sd.prd.sparkpost (ecelerity 5.1.0.74659 r(msys-ecelerity:tags/5.1.0.17)) with REST
+Received: from [[REDACTED@IP]] ([[REDACTED@IP]])
+	by i-0ccd2f9127ab5a118.mta3vrest.sd.prd.sparkpost (ecelerity [REDACTED@IP]59 r(msys-ecelerity:tags/[REDACTED@IP])) with REST
 	id A8/69-42244-AB0D4096; Fri, 31 Oct 2025 15:07:38 +0000
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="UTF-8"
 Subject: [a53d09e37daf2122]: Response to your Phishing report
-Message-ID: <A8.69.42244.AB0D4096@i-0ccd2f9127ab5a118.mta3vrest.sd.prd.sparkpost>
-To: oliverxiaozhen@outlook.com
+Message-ID: <[REDACTED@email]>
+To: [REDACTED@email]
 Date: Fri, 31 Oct 2025 15:07:38 +0000
-Reply-To: noreply@notify.cloudflare.com
-From: "Cloudflare Trust & Safety" <abuse@notify.cloudflare.com>
+Reply-To: [REDACTED@email]
+From: "Cloudflare Trust & Safety" <[REDACTED@email]>
 X-IncomingHeaderCount: 13
 X-MS-Exchange-Organization-ExpirationStartTime: 31 Oct 2025 15:07:38.3577
  (UTC)
@@ -64,8 +64,8 @@ X-MS-Exchange-Organization-AuthAs: Anonymous
 X-MS-UserLastLogonTime: 10/31/2025 3:06:35 PM
 X-MS-Office365-Filtering-Correlation-Id: 58c56a47-655b-4af6-7182-08de188f3b11
 X-MS-Exchange-EOPDirect: true
-X-Sender-IP: 156.70.35.83
-X-SID-PRA: ABUSE@NOTIFY.CLOUDFLARE.COM
+X-Sender-IP: [REDACTED@IP]
+X-SID-PRA: [REDACTED@email]
 X-SID-Result: PASS
 X-MS-Exchange-Organization-SCL: 1
 X-Microsoft-Antispam: BCL:3;ARA:1444111002|15092099004|58200799018|47200799021|461199028|1360799030|1370799030|1380799030|3412199025|440099028|19025499012|26104999006|5005499004;
@@ -136,7 +136,7 @@ Cloudflare received your Phishing report regarding: login---example[.]pages[.]de
 
 Your abuse report has been forwarded to the website owner.
 
-To respond to this issue, please reply to abusereply@cloudflare.com.
+To respond to this issue, please reply to [REDACTED@email].
 
 Below is the report we received:
 
@@ -157,7 +157,7 @@ Best regards,
 
 Oliver
 
-oliverxiaozhen@outlook.com
+[REDACTED@email]
 
 October 31, 2025 (UTC&#43;8)
 

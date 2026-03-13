@@ -15,8 +15,8 @@ X-QQ-XMAILINFO: NGbyafB8LluuGD36JW4WYAyYiirc2umqPURLBycc1Oq8yHRuyBcyI2Pg/Zq6yV
 	 f8lgsGx9FMQhvfRn2F6oI04VFJp4A4PiA2oiCCrsKPyvubjvD9FWRNt/ZA4Ld3ywZxkzw1AHu67hI
 	 XctkbHvM9a+xQjqKgMG1Z7hY1AWDUyayf5VF3XCae5NEc+0ufxnOnMSH7mdGXSnT2zGUn6bac4swL
 	 L0HYptDYx27Plg==
-From: "=?utf-8?B?5YiY5bCP5Zyz?=" <2418587005@qq.com>
-To: "=?utf-8?B?bm9yZXBseQ==?=" <noreply@notify.cloudflare.com>
+From: "=?utf-8?B?5YiY5bCP5Zyz?=" <[REDACTED@email]>
+To: "=?utf-8?B?bm9yZXBseQ==?=" <[REDACTED@email]>
 Subject: =?utf-8?B?5Zue5aSN77yaW2Q1MzdhM2FiMzAzOGU5ZTFdOiBQ?=
  =?utf-8?B?aGlzaGluZyByZXBvcnQgcmVjZWl2ZWQgcmVnYXJk?=
  =?utf-8?B?aW5nIHlvdXIgc2l0ZQ==?=
@@ -26,12 +26,12 @@ Content-Type: multipart/alternative;
 Content-Transfer-Encoding: 8Bit
 Date: Thu, 23 Oct 2025 20:22:25 +0800
 X-Priority: 3
-Message-ID: <tencent_4F25694FCC3B342D9114A4001DE4E62D3F0A@qq.com>
+Message-ID: <[REDACTED@email]>
 X-QQ-MIME: TCMime 1.0 by Tencent
 X-Mailer: QQMail 2.x
 X-QQ-Mailer: QQMail 2.x
-References: <2F.9F.64344.95BC8F86@i-023220bd6c5741581.mta1vrest.sd.prd.sparkpost>
-In-Reply-To: <2F.9F.64344.95BC8F86@i-023220bd6c5741581.mta1vrest.sd.prd.sparkpost>
+References: <[REDACTED@email]>
+In-Reply-To: <[REDACTED@email]>
 X-QQ-mid: xmseza48-0t1761222145t5yw6kl9p
 
 This is a multi-part message in MIME format.

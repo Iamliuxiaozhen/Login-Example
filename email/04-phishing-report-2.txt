@@ -11,20 +11,20 @@ Received: from DB5PEPF00014B8A.eurprd02.prod.outlook.com
  (2603:10a6:10:110::31) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.13 via Frontend Transport; Fri,
  24 Oct 2025 06:13:43 +0000
-Authentication-Results: spf=pass (sender IP is 147.253.211.95)
+Authentication-Results: spf=pass (sender IP is [REDACTED@IP])
  smtp.mailfrom=notify.cloudflare.com; dkim=pass (signature was verified)
  header.d=notify.cloudflare.com;dmarc=pass action=none
  header.from=notify.cloudflare.com;compauth=pass reason=100
 Received-SPF: Pass (protection.outlook.com: domain of notify.cloudflare.com
- designates 147.253.211.95 as permitted sender)
- receiver=protection.outlook.com; client-ip=147.253.211.95;
+ designates [REDACTED@IP] as permitted sender)
+ receiver=protection.outlook.com; client-ip=[REDACTED@IP];
  helo=mta-253-211-95.sparkpostmail.com; pr=E
-Received: from mta-253-211-95.sparkpostmail.com (147.253.211.95) by
- DB5PEPF00014B8A.mail.protection.outlook.com (10.167.8.198) with Microsoft
+Received: from mta-253-211-95.sparkpostmail.com ([REDACTED@IP]) by
+ DB5PEPF00014B8A.mail.protection.outlook.com ([REDACTED@IP]) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.9253.7 via Frontend Transport; Fri, 24 Oct 2025 06:13:43 +0000
 X-IncomingTopHeaderMarker: OriginalChecksum:E7BDE87C4B19ADBB575C785D142147DB820C5FC9FAF0BA168344D2E6C5B5803B;UpperCasedChecksum:15B7050BA499EF4070C09623AEEA7D51330C5FA6A201E397ECADF1BAC4ED8422;SizeAsReceived:1414;Count:13
-Return-Path: msprvs1=203921Eb2P1oW=bounces-265094@notify.cloudflare.com
+Return-Path: msprvs1=203921Eb2P1oW=[REDACTED@email]
 X-MSFBL: pRUMZ5g3cOwY7ZAE4462HCU8bmZTADuAsVrkCEVPCbk=|eyJyIjoib2xpdmVyeGl
 	hb3poZW5Ab3V0bG9vay5jb20iLCJtZXNzYWdlX2lkIjoiNjhmOTE2MTlmYjY4MDg
 	2Njc2MjgiLCJ0ZW5hbnRfaWQiOiJzcGMiLCJzdWJhY2NvdW50X2lkIjoiMCIsImN
@@ -37,17 +37,17 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	b=dhgGJ/2aVhfqm3dvxNGceZlgf52CPRCwAbEEnzICImR/rRwjkgEc3cmcewPLQJ7yD
 	 Zn12QMixAG8ddTORXC3GNoyTkVitr4glr0jToK8y0VM8lMQ7GTlgL8JlUHI7yKyYhc
 	 fJB6Ck4X3XZPBt0PxBKtsvhhJYb2xNf7+5TC6Bco=
-Received: from [10.90.46.190] ([10.90.46.190])
-	by i-0a095cab0f323650f.mta1vrest.sd.prd.sparkpost (ecelerity 5.1.0.74632 r(msys-ecelerity:tags/5.1.0.14)) with REST
+Received: from [[REDACTED@IP]] ([[REDACTED@IP]])
+	by i-0a095cab0f323650f.mta1vrest.sd.prd.sparkpost (ecelerity [REDACTED@IP]32 r(msys-ecelerity:tags/[REDACTED@IP])) with REST
 	id 82/67-20932-6191BF86; Fri, 24 Oct 2025 06:13:42 +0000
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="UTF-8"
 Subject: [6b64db67b67deef9]: Phishing report received regarding your site
-Message-ID: <82.67.20932.6191BF86@i-0a095cab0f323650f.mta1vrest.sd.prd.sparkpost>
-To: oliverxiaozhen@outlook.com
+Message-ID: <[REDACTED@email]>
+To: [REDACTED@email]
 Date: Fri, 24 Oct 2025 06:13:42 +0000
-Reply-To: noreply@notify.cloudflare.com
-From: "Cloudflare Trust & Safety" <abuse@notify.cloudflare.com>
+Reply-To: [REDACTED@email]
+From: "Cloudflare Trust & Safety" <[REDACTED@email]>
 X-IncomingHeaderCount: 13
 X-MS-Exchange-Organization-ExpirationStartTime: 24 Oct 2025 06:13:43.7482
  (UTC)
@@ -65,8 +65,8 @@ X-MS-Exchange-Organization-AuthAs: Anonymous
 X-MS-UserLastLogonTime: 10/23/2025 2:35:03 PM
 X-MS-Office365-Filtering-Correlation-Id: 5f7caf3e-c7f0-49aa-b1cc-08de12c47c0f
 X-MS-Exchange-EOPDirect: true
-X-Sender-IP: 147.253.211.95
-X-SID-PRA: ABUSE@NOTIFY.CLOUDFLARE.COM
+X-Sender-IP: [REDACTED@IP]
+X-SID-PRA: [REDACTED@email]
 X-SID-Result: PASS
 X-MS-Exchange-Organization-SCL: 1
 X-Microsoft-Antispam: BCL:3;ARA:1444111002|970799057|28070799003|12800799019|58200799018|47200799021|461199028|1380799030|1370799030|1360799030|440099028|3412199025|19025499012|26104999006;
@@ -133,7 +133,7 @@ Hello,
 
 Cloudflare received an Phishing report regarding: login---example[.]pages[.]dev.
 
-If you have questions about this abuse report, please send an email to abusereply@cloudflare.com with the following details:
+If you have questions about this abuse report, please send an email to [REDACTED@email] with the following details:
 - The report identification number included in the subject line
 - Any additional details, context or evidence you can provide regarding the content that was reported.
 

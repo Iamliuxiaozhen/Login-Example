@@ -11,20 +11,20 @@ Received: from CH3PEPF00000018.namprd21.prod.outlook.com
  (2603:10b6:610:1f0::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.6 via Frontend Transport; Fri,
  31 Oct 2025 15:06:29 +0000
-Authentication-Results: spf=pass (sender IP is 147.253.211.95)
+Authentication-Results: spf=pass (sender IP is [REDACTED@IP])
  smtp.mailfrom=notify.cloudflare.com; dkim=pass (signature was verified)
  header.d=notify.cloudflare.com;dmarc=pass action=none
  header.from=notify.cloudflare.com;compauth=pass reason=100
 Received-SPF: Pass (protection.outlook.com: domain of notify.cloudflare.com
- designates 147.253.211.95 as permitted sender)
- receiver=protection.outlook.com; client-ip=147.253.211.95;
+ designates [REDACTED@IP] as permitted sender)
+ receiver=protection.outlook.com; client-ip=[REDACTED@IP];
  helo=mta-253-211-95.sparkpostmail.com; pr=E
-Received: from mta-253-211-95.sparkpostmail.com (147.253.211.95) by
- CH3PEPF00000018.mail.protection.outlook.com (10.167.244.123) with Microsoft
+Received: from mta-253-211-95.sparkpostmail.com ([REDACTED@IP]) by
+ CH3PEPF00000018.mail.protection.outlook.com ([REDACTED@IP]) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.9298.0 via Frontend Transport; Fri, 31 Oct 2025 15:06:33 +0000
 X-IncomingTopHeaderMarker: OriginalChecksum:AD778BBDF0DB626527EDFEFB61EE6AFEBA2686F120F744473DEC6127A7D1D575;UpperCasedChecksum:5F55691E2313EC7201CF4E098DD7D259224EF99B4CF568087532C5A61176F9AD;SizeAsReceived:1391;Count:13
-Return-Path: msprvs1=20399YdOGAT1g=bounces-265094@notify.cloudflare.com
+Return-Path: msprvs1=20399YdOGAT1g=[REDACTED@email]
 X-MSFBL: 33HpKcsv4C3pob2fRJDszpVsOGRGL0IdQTtDPGRsLgM=|eyJjdXN0b21lcl9pZCI
 	6IjI2NTA5NCIsInRlbmFudF9pZCI6InNwYyIsInIiOiJvbGl2ZXJ4aWFvemhlbkB
 	vdXRsb29rLmNvbSIsIm1lc3NhZ2VfaWQiOiI2OGZmNzhkMDA0Njk3MDQ2NGM4MSI
@@ -37,17 +37,17 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	b=G63Fv7Kg0hkNk5tI1ZSD/tI/0unyNtzTE/ZHAd8Ahjx7M7gnjlTayzQUwQ/p1vOKR
 	 OD7hSOo6uQOZGj8PATP7LzvpOfQPzJQOLgHKfOJmpiuKsxiqSKw1dtLX3sQjDENDLn
 	 Dd6BGiD5xQpTSGgOjYSna4dGgKJ5WgD324j+kYIc=
-Received: from [10.90.33.87] ([10.90.33.87])
-	by i-07374c767ad013089.mta1vrest.sd.prd.sparkpost (ecelerity 5.1.0.74659 r(msys-ecelerity:tags/5.1.0.17)) with REST
+Received: from [[REDACTED@IP]] ([[REDACTED@IP]])
+	by i-07374c767ad013089.mta1vrest.sd.prd.sparkpost (ecelerity [REDACTED@IP]59 r(msys-ecelerity:tags/[REDACTED@IP])) with REST
 	id 18/C4-48963-870D4096; Fri, 31 Oct 2025 15:06:32 +0000
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="UTF-8"
 Subject: a53d09e37daf2122: Abuse Report Confirmation
-Message-ID: <18.C4.48963.870D4096@i-07374c767ad013089.mta1vrest.sd.prd.sparkpost>
-To: oliverxiaozhen@outlook.com
+Message-ID: <[REDACTED@email]>
+To: [REDACTED@email]
 Date: Fri, 31 Oct 2025 15:06:32 +0000
-Reply-To: noreply@notify.cloudflare.com
-From: "Cloudflare Trust & Safety" <abuse@notify.cloudflare.com>
+Reply-To: [REDACTED@email]
+From: "Cloudflare Trust & Safety" <[REDACTED@email]>
 X-IncomingHeaderCount: 13
 X-MS-Exchange-Organization-ExpirationStartTime: 31 Oct 2025 15:06:33.2377
  (UTC)
@@ -65,8 +65,8 @@ X-MS-Exchange-Organization-AuthAs: Anonymous
 X-MS-UserLastLogonTime: 10/31/2025 3:04:53 PM
 X-MS-Office365-Filtering-Correlation-Id: 5727614b-4764-43cc-eb2c-08de188f1440
 X-MS-Exchange-EOPDirect: true
-X-Sender-IP: 147.253.211.95
-X-SID-PRA: ABUSE@NOTIFY.CLOUDFLARE.COM
+X-Sender-IP: [REDACTED@IP]
+X-SID-PRA: [REDACTED@email]
 X-SID-Result: PASS
 X-MS-Exchange-Organization-SCL: 1
 X-Microsoft-Antispam: BCL:3;ARA:1444111002|15092099004|47200799021|58200799018|461199028|56899033|1370799030|1380799030|1360799030|440099028|3412199025|19025499012|5005499004|26104999006;
@@ -123,20 +123,20 @@ Received: from CH3PEPF00000018.namprd21.prod.outlook.com
  (2603:10b6:610:1f0::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.6 via Frontend Transport; Fri,
  31 Oct 2025 15:06:29 +0000
-Authentication-Results: spf=pass (sender IP is 147.253.211.95)
+Authentication-Results: spf=pass (sender IP is [REDACTED@IP])
  smtp.mailfrom=notify.cloudflare.com; dkim=pass (signature was verified)
  header.d=notify.cloudflare.com;dmarc=pass action=none
  header.from=notify.cloudflare.com;compauth=pass reason=100
 Received-SPF: Pass (protection.outlook.com: domain of notify.cloudflare.com
- designates 147.253.211.95 as permitted sender)
- receiver=protection.outlook.com; client-ip=147.253.211.95;
+ designates [REDACTED@IP] as permitted sender)
+ receiver=protection.outlook.com; client-ip=[REDACTED@IP];
  helo=mta-253-211-95.sparkpostmail.com; pr=E
-Received: from mta-253-211-95.sparkpostmail.com (147.253.211.95) by
- CH3PEPF00000018.mail.protection.outlook.com (10.167.244.123) with Microsoft
+Received: from mta-253-211-95.sparkpostmail.com ([REDACTED@IP]) by
+ CH3PEPF00000018.mail.protection.outlook.com ([REDACTED@IP]) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.9298.0 via Frontend Transport; Fri, 31 Oct 2025 15:06:33 +0000
 X-IncomingTopHeaderMarker: OriginalChecksum:AD778BBDF0DB626527EDFEFB61EE6AFEBA2686F120F744473DEC6127A7D1D575;UpperCasedChecksum:5F55691E2313EC7201CF4E098DD7D259224EF99B4CF568087532C5A61176F9AD;SizeAsReceived:1391;Count:13
-Return-Path: msprvs1=20399YdOGAT1g=bounces-265094@notify.cloudflare.com
+Return-Path: msprvs1=20399YdOGAT1g=[REDACTED@email]
 X-MSFBL: 33HpKcsv4C3pob2fRJDszpVsOGRGL0IdQTtDPGRsLgM=|eyJjdXN0b21lcl9pZCI
 	6IjI2NTA5NCIsInRlbmFudF9pZCI6InNwYyIsInIiOiJvbGl2ZXJ4aWFvemhlbkB
 	vdXRsb29rLmNvbSIsIm1lc3NhZ2VfaWQiOiI2OGZmNzhkMDA0Njk3MDQ2NGM4MSI
@@ -149,17 +149,17 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	b=G63Fv7Kg0hkNk5tI1ZSD/tI/0unyNtzTE/ZHAd8Ahjx7M7gnjlTayzQUwQ/p1vOKR
 	 OD7hSOo6uQOZGj8PATP7LzvpOfQPzJQOLgHKfOJmpiuKsxiqSKw1dtLX3sQjDENDLn
 	 Dd6BGiD5xQpTSGgOjYSna4dGgKJ5WgD324j+kYIc=
-Received: from [10.90.33.87] ([10.90.33.87])
-	by i-07374c767ad013089.mta1vrest.sd.prd.sparkpost (ecelerity 5.1.0.74659 r(msys-ecelerity:tags/5.1.0.17)) with REST
+Received: from [[REDACTED@IP]] ([[REDACTED@IP]])
+	by i-07374c767ad013089.mta1vrest.sd.prd.sparkpost (ecelerity [REDACTED@IP]59 r(msys-ecelerity:tags/[REDACTED@IP])) with REST
 	id 18/C4-48963-870D4096; Fri, 31 Oct 2025 15:06:32 +0000
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="UTF-8"
 Subject: a53d09e37daf2122: Abuse Report Confirmation
-Message-ID: <18.C4.48963.870D4096@i-07374c767ad013089.mta1vrest.sd.prd.sparkpost>
-To: oliverxiaozhen@outlook.com
+Message-ID: <[REDACTED@email]>
+To: [REDACTED@email]
 Date: Fri, 31 Oct 2025 15:06:32 +0000
-Reply-To: noreply@notify.cloudflare.com
-From: "Cloudflare Trust & Safety" <abuse@notify.cloudflare.com>
+Reply-To: [REDACTED@email]
+From: "Cloudflare Trust & Safety" <[REDACTED@email]>
 X-IncomingHeaderCount: 13
 X-MS-Exchange-Organization-ExpirationStartTime: 31 Oct 2025 15:06:33.2377
  (UTC)
@@ -177,8 +177,8 @@ X-MS-Exchange-Organization-AuthAs: Anonymous
 X-MS-UserLastLogonTime: 10/31/2025 3:04:53 PM
 X-MS-Office365-Filtering-Correlation-Id: 5727614b-4764-43cc-eb2c-08de188f1440
 X-MS-Exchange-EOPDirect: true
-X-Sender-IP: 147.253.211.95
-X-SID-PRA: ABUSE@NOTIFY.CLOUDFLARE.COM
+X-Sender-IP: [REDACTED@IP]
+X-SID-PRA: [REDACTED@email]
 X-SID-Result: PASS
 X-MS-Exchange-Organization-SCL: 1
 X-Microsoft-Antispam: BCL:3;ARA:1444111002|15092099004|47200799021|58200799018|461199028|56899033|1370799030|1380799030|1360799030|440099028|3412199025|19025499012|5005499004|26104999006;
@@ -247,7 +247,7 @@ Cloudflare received your Phishing report regarding: login---example.pages.dev.
 
 This may be the only response you receive to your report. Given the high volume of reports we receive, you may not receive a personalized response to this report.
 
-To respond to this issue, please reply to abusereply@cloudflare.com.
+To respond to this issue, please reply to [REDACTED@email].
 
 Below is the report we received:
 
@@ -268,7 +268,7 @@ Best regards,
 
 Oliver
 
-oliverxiaozhen@outlook.com
+[REDACTED@email]
 
 October 31, 2025 (UTC&#43;8)
 
@@ -303,7 +303,7 @@ Cloudflare received your Phishing report regarding: login---example.pages.dev.
 
 This may be the only response you receive to your report. Given the high volume of reports we receive, you may not receive a personalized response to this report.
 
-To respond to this issue, please reply to abusereply@cloudflare.com.
+To respond to this issue, please reply to [REDACTED@email].
 
 Below is the report we received:
 
@@ -324,7 +324,7 @@ Best regards,
 
 Oliver
 
-oliverxiaozhen@outlook.com
+[REDACTED@email]
 
 October 31, 2025 (UTC&#43;8)
 

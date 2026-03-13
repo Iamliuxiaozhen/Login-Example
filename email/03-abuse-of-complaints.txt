@@ -11,32 +11,32 @@ Received: from DS1PEPF0001708E.namprd03.prod.outlook.com
  (2603:10b6:4:ae::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.13 via Frontend Transport; Thu,
  23 Oct 2025 12:18:16 +0000
-Authentication-Results: spf=pass (sender IP is 192.161.149.2)
+Authentication-Results: spf=pass (sender IP is [REDACTED@IP])
  smtp.mailfrom=cloudflare.com; dkim=pass (signature was verified)
  header.d=cloudflare.com;dmarc=pass action=none
  header.from=cloudflare.com;compauth=pass reason=100
 Received-SPF: Pass (protection.outlook.com: domain of cloudflare.com
- designates 192.161.149.2 as permitted sender)
- receiver=protection.outlook.com; client-ip=192.161.149.2;
+ designates [REDACTED@IP] as permitted sender)
+ receiver=protection.outlook.com; client-ip=[REDACTED@IP];
  helo=mta-out2.pod19.use1.zdsys.com; pr=C
-Received: from mta-out2.pod19.use1.zdsys.com (192.161.149.2) by
- DS1PEPF0001708E.mail.protection.outlook.com (10.167.17.134) with Microsoft
+Received: from mta-out2.pod19.use1.zdsys.com ([REDACTED@IP]) by
+ DS1PEPF0001708E.mail.protection.outlook.com ([REDACTED@IP]) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.7
  via Frontend Transport; Thu, 23 Oct 2025 12:18:16 +0000
 X-IncomingTopHeaderMarker: OriginalChecksum:5A3E3BD53F6498BF967FC6370D3746D2C0331AA979527D5B0DD24298053709EA;UpperCasedChecksum:63DC31BC04E56C81D9A0850F4F10B8A12683A8476E1402C725494FDE6807ED5F;SizeAsReceived:1783;Count:19
-Received: from zendesk.com (unknown [127.0.0.6])
+Received: from zendesk.com (unknown [[REDACTED@IP]])
 	by mta-out15.pod19.use1.zdsys.com (Zendesk) with ESMTP
 	id 4ff7b940-4cca-4ca7-b3d8-04b4b8e4f122
-	for <oliverxiaozhen@outlook.com>;
+	for <[REDACTED@email]>;
 	Thu, 23 Oct 2025 12:18:16 +0000 (UTC)
 Date: Thu, 23 Oct 2025 12:18:16 +0000
-From: Cloudflare <abusereply@cloudflare.com>
-Reply-To: Cloudflare <abusereply@cloudflare.com>
-To: =?UTF-8?B?5YiY5bCP5Zyz?= <oliverxiaozhen@outlook.com>
-Message-ID: <21M4G0WPPX9_68fa1d08175f2_724175570dd398_sprut@zendesk.com>
-In-Reply-To: <SA1PR12MB5657821A19A298E9CB046157D1F0A@SA1PR12MB5657.namprd12.prod.outlook.com>
-References: <21M4G0WPPX9@zendesk.com>
- <SA1PR12MB5657821A19A298E9CB046157D1F0A@SA1PR12MB5657.namprd12.prod.outlook.com>
+From: Cloudflare <[REDACTED@email]>
+Reply-To: Cloudflare <[REDACTED@email]>
+To: =?UTF-8?B?5YiY5bCP5Zyz?= <[REDACTED@email]>
+Message-ID: <[REDACTED@email]>
+In-Reply-To: <[REDACTED@email]>
+References: <[REDACTED@email]>
+ <[REDACTED@email]>
 Subject: Report received: (#20507978) Abuse of complaints
 Content-Type: multipart/alternative;
  boundary="--==_mimepart_68fa1d0823c36_b615b053959";
@@ -54,7 +54,7 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cloudflare.com;
  h=date:from:reply-to:to:message-id:in-reply-to:references:subject:mime-version:content-type:content-transfer-encoding;
  b=SlxsrZaL4Gg+0kBuQSP0LgxDJsu3pcfvjxCk2WBGUgk3phDvXMOcousb5FqcaleSdYiZZHu5ZTDyqTC1hCMFY2vSbG+D6hYCwCgf++Jp2HfryZXuIKy3gnW4pP3cgBtUcLHSaLLTLbf4w7r4YbHTgU8XDX5IsvPxnj3bQkBFLXEyvKxKqdG4pFD4b4VUJKmTsjCXq6RSDBUSZ4wSN6wzMPxZ/r8zMzE2ybNjitmGV5uW/D06OiTkar+9ZkU6C4rUuJWE10nSOZgFp9K4IzhcSV700MSYZLlPhxWAhInw0ZCT1uV/4s9mPq8rMqQbbdlF5jUb2QglLQkc/cuHcFjhRw==
 X-IncomingHeaderCount: 19
-Return-Path: abusereply@cloudflare.com
+Return-Path: [REDACTED@email]
 X-MS-Exchange-Organization-ExpirationStartTime: 23 Oct 2025 12:18:16.7070
  (UTC)
 X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
@@ -71,8 +71,8 @@ X-MS-Exchange-Organization-AuthAs: Anonymous
 X-MS-UserLastLogonTime: 10/23/2025 12:14:45 PM
 X-MS-Office365-Filtering-Correlation-Id: c8bb4912-c77d-43a0-96f1-08de122e3ef2
 X-MS-Exchange-EOPDirect: true
-X-Sender-IP: 192.161.149.2
-X-SID-PRA: ABUSEREPLY@CLOUDFLARE.COM
+X-Sender-IP: [REDACTED@IP]
+X-SID-PRA: [REDACTED@email]
 X-SID-Result: PASS
 X-MS-Exchange-Organization-SCL: 1
 X-Microsoft-Antispam: BCL:0;ARA:1444111002|9400799040|461199028|440099028|4302099013|3412199025|1370799030|1360799030|1380799030|1602099012;

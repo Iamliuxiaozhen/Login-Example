@@ -7,6 +7,89 @@
     <link href="css/style.css" rel="stylesheet" >
 </head>
 <body>
+    <!-- 域名迁移和安全提示横幅 -->
+    <div class="notice-banner">
+        <div class="notice-content">
+            <div class="notice-icon">📢</div>
+            <div class="notice-text">
+                <div class="notice-title">重要通知</div>
+                <div class="notice-message">
+                    <p>⚠️ <strong>域名迁移提示：</strong>本网站已从 <code>login---example.pages.dev</code> 迁移至 <code>login-example.liuxiaozhen.dev</code>。旧域名已停止使用，请使用新域名访问。</p>
+                    <p>🔒 <strong>隐私保护声明：</strong>本网站仅用于 OAuth 登录演示，不会收集、存储或泄露您的任何个人隐私信息。所有登录数据仅用于演示目的，代码完全开源可审查。</p>
+                </div>
+            </div>
+            <button class="notice-close" onclick="this.parentElement.parentElement.style.display='none'">×</button>
+        </div>
+    </div>
+    <style>
+        .notice-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .notice-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .notice-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        .notice-text {
+            flex: 1;
+        }
+        .notice-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .notice-message {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .notice-message p {
+            margin: 4px 0;
+        }
+        .notice-message code {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .notice-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+        .notice-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        @media (max-width: 768px) {
+            .notice-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .notice-close {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+
     <div class="login-container">
         <h1>Login - Example</h1>
         <br>

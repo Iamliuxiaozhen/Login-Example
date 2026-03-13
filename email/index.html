@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudflare 沟通记录公示 - Login Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .notice {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .notice strong {
+            color: #856404;
+        }
+        .email-list {
+            display: grid;
+            gap: 15px;
+        }
+        .email-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .email-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .email-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .email-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        .email-date {
+            font-size: 12px;
+            color: #666;
+        }
+        .email-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+        .tag-phishing {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .tag-abuse {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        .tag-review {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        .tag-suspended {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+        .tag-response {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .email-preview {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            max-height: 100px;
+            overflow: hidden;
+        }
+        .email-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        .email-content {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+        .email-content.show {
+            display: block;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 13px;
+        }
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📧 Cloudflare 沟通记录公示</h1>
+            <p>Login Example 项目与 Cloudflare 的官方邮件往来记录</p>
+        </header>
+
+        <div class="notice">
+            <strong>📝 说明：</strong>
+            本页面公示了 Login Example 项目与 Cloudflare 团队就钓鱼举报、账号审核等事宜的官方沟通记录。
+            所有邮件均来自 Cloudflare 官方，旨在透明化展示项目合规性审查过程。
+            部分邮件可能不完整，我们正在持续整理上传中。
+        </div>
+
+        <div class="email-list" id="email-list">
+            <!-- 邮件列表将通过 JavaScript 加载 -->
+        </div>
+
+        <footer>
+            <p>© 2025 Login Example | <a href="/">返回首页</a> | <a href="https://github.com/Iamliuxiaozhen/Login-Example" target="_blank">GitHub</a></p>
+            <p>本项目采用 <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License 2.0</a> 开源协议</p>
+        </footer>
+    </div>
+
+    <script>
+        const emails = [
+            {
+                id: 1,
+                title: "Phishing report received regarding your site",
+                date: "2025-XX-XX",
+                tag: "phishing",
+                tagText: "钓鱼举报",
+                preview: "Cloudflare 收到的关于本网站的钓鱼举报通知...",
+                file: "01-phishing-report-received.txt"
+            },
+            {
+                id: 2,
+                title: "Re: Phishing report received regarding your site",
+                date: "2025-XX-XX",
+                tag: "response",
+                tagText: "回复",
+                preview: "对钓鱼举报的回复和申诉...",
+                file: "02-re-phishing-report.txt"
+            },
+            {
+                id: 3,
+                title: "Report received: Abuse of complaints",
+                date: "2025-XX-XX",
+                tag: "abuse",
+                tagText: "滥用举报",
+                preview: "关于滥用举报的投诉记录...",
+                file: "03-abuse-of-complaints.txt"
+            },
+            {
+                id: 4,
+                title: "Phishing report received regarding your site",
+                date: "2025-XX-XX",
+                tag: "phishing",
+                tagText: "钓鱼举报",
+                preview: "第二封钓鱼举报通知...",
+                file: "04-phishing-report-2.txt"
+            },
+            {
+                id: 6,
+                title: "Abuse Report Confirmation",
+                date: "2025-XX-XX",
+                tag: "abuse",
+                tagText: "滥用举报",
+                preview: "滥用举报确认回执...",
+                file: "06-abuse-confirmation.txt"
+            },
+            {
+                id: 7,
+                title: "Response to your Phishing report",
+                date: "2025-XX-XX",
+                tag: "response",
+                tagText: "官方回复",
+                preview: "Cloudflare 对钓鱼举报的官方回复...",
+                file: "07-response-to-phishing.txt"
+            },
+            {
+                id: 8,
+                title: "Phishing report received regarding your site",
+                date: "2025-XX-XX",
+                tag: "phishing",
+                tagText: "钓鱼举报",
+                preview: "第三封钓鱼举报通知...",
+                file: "08-phishing-report-3.txt"
+            },
+            {
+                id: 9,
+                title: "Abuse Report Confirmation",
+                date: "2025-XX-XX",
+                tag: "abuse",
+                tagText: "滥用举报",
+                preview: "第二封滥用举报确认...",
+                file: "09-abuse-confirmation-2.txt"
+            },
+            {
+                id: 12,
+                title: "Response to your Complaint",
+                date: "2025-XX-XX",
+                tag: "response",
+                tagText: "官方回复",
+                preview: "Cloudflare 对投诉的最终回复...",
+                file: "12-response-to-complaint.txt"
+            }
+        ];
+
+        function renderEmails() {
+            const container = document.getElementById('email-list');
+            container.innerHTML = emails.map(email => `
+                <div class="email-card" id="email-${email.id}">
+                    <div class="email-header">
+                        <div>
+                            <div class="email-title">
+                                <span class="email-tag tag-${email.tag}">${email.tagText}</span>
+                                ${email.title}
+                            </div>
+                            <div class="email-date">${email.date}</div>
+                        </div>
+                    </div>
+                    <div class="email-preview">${email.preview}</div>
+                    <div class="email-actions">
+                        <button class="btn btn-primary" onclick="toggleEmail(${email.id})">查看原文</button>
+                        <a href="email/${email.file}" class="btn btn-secondary" download>下载文件</a>
+                    </div>
+                    <div class="email-content" id="content-${email.id}">加载中...</div>
+                </div>
+            `).join('');
+        }
+
+        async function toggleEmail(id) {
+            const content = document.getElementById(`content-${id}`);
+            const email = emails.find(e => e.id === id);
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                return;
+            }
+
+            try {
+                const response = await fetch(`email/${email.file}`);
+                if (response.ok) {
+                    const text = await response.text();
+                    content.textContent = text;
+                    content.classList.add('show');
+                } else {
+                    content.textContent = '文件暂未上传，请稍后查看...';
+                    content.classList.add('show');
+                }
+            } catch (error) {
+                content.textContent = '加载失败：' + error.message;
+                content.classList.add('show');
+            }
+        }
+
+        // 初始化
+        renderEmails();
+    </script>
+</body>
+</html>

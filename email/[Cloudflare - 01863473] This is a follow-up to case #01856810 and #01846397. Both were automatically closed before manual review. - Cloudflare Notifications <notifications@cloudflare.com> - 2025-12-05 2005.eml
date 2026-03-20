@@ -1,0 +1,236 @@
+Received: from MN0PR12MB6248.namprd12.prod.outlook.com (2603:10b6:208:3c0::6)
+ by SA1PR12MB5657.namprd12.prod.outlook.com with HTTPS; Fri, 5 Dec 2025
+ 12:05:03 +0000
+Received: from BN9PR03CA0490.namprd03.prod.outlook.com (2603:10b6:408:130::15)
+ by MN0PR12MB6248.namprd12.prod.outlook.com (2603:10b6:208:3c0::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Fri, 5 Dec
+ 2025 12:05:02 +0000
+Received: from BN3PEPF0000B36D.namprd21.prod.outlook.com
+ (2603:10b6:408:130:cafe::bd) by BN9PR03CA0490.outlook.office365.com
+ (2603:10b6:408:130::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.11 via Frontend Transport; Fri,
+ 5 Dec 2025 12:04:57 +0000
+Authentication-Results: spf=pass (sender IP is 44.241.228.16)
+ smtp.mailfrom=x0vpz03c89lmb2vd.pipebaismwg62slq.g0oe1tz.o-yxikeac.usa234.bnc.salesforce.com;
+ dkim=pass (signature was verified) header.d=cloudflare.com;dmarc=pass
+ action=none header.from=cloudflare.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of
+ x0vpz03c89lmb2vd.pipebaismwg62slq.g0oe1tz.o-yxikeac.usa234.bnc.salesforce.com
+ designates 44.241.228.16 as permitted sender)
+ receiver=protection.outlook.com; client-ip=44.241.228.16;
+ helo=smtp-0f8243330de704b65.core1.sfdc-lywfpd.mta.salesforce.com; pr=E
+Received: from smtp-0f8243330de704b65.core1.sfdc-lywfpd.mta.salesforce.com
+ (44.241.228.16) by BN3PEPF0000B36D.mail.protection.outlook.com
+ (10.167.243.164) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.0 via Frontend Transport; Fri, 5
+ Dec 2025 12:05:02 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:674462E80E565D232B78F879750219B3B7F8556B5FD38A8D4E9DEFA52AAE693D;UpperCasedChecksum:4040C5B4BDA67E46C2C78E5046F554A79E61EDDFF1F8843440288D40B0CCD41B;SizeAsReceived:2445;Count:25
+Return-Path: notifications=cloudflare.com__0-3hbydeiskpzah1@x0vpz03c89lmb2vd.pipebaismwg62slq.g0oe1tz.o-yxikeac.usa234.bnc.salesforce.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=cloudflare.com;
+	s=salesforce.com; t=1764936301;
+	bh=0J2C8hCKhfZaRsdvvRTO0Gis/Y9fhUzPrnvdRyNhJHc=;
+	h=Date:From:To:Subject:MIME-Version:Content-Type;
+	b=VRTxVkd/vYnbT00oGZ7+hGRjoOxpK8wgXY9fP+Nwl18xwY+s6WCMwW4glO/GjJ7yK
+	 IDW1js98dBBBTMrZkFbJKFMA/Bu3cIwNHIXoi1AMzLP6+CJ2+Dz4FSNEdfBqgfIuTo
+	 s8P16Lu4C1rfEAljeiTofgVqsP+yHJRpp5ASXhau7f1vtFhKJscZvzIlTmq0IaOgUH
+	 C4SPXDg3DnieudWK5odfMqJKXeH/7IibdbRO6UdLUSFZEjkEkYDc/RH4o5lklSYPbe
+	 ZkHn0gDANv/gA8CPSM08ATd6pb/MFXX7Tt3OCC1/VZlubf6HsQRujpjwXwF8jXJUBw
+	 IHgGq6FMWa2nw==
+Received: from [127.0.0.1] ([127.0.0.1:60792] helo=eaas-40.eaas.emailinfra.svc.cluster.local)
+	by mx1.core1.sfdc-lywfpd.mta.salesforce.com (envelope-from <notifications=cloudflare.com__0-3hbydeiskpzah1@x0vpz03c89lmb2vd.pipebaismwg62slq.g0oe1tz.o-yxikeac.usa234.bnc.salesforce.com>)
+	(ecelerity 4.7.0.20111 r(msys-ecelerity:tags/4.7.0-ga^0)) with ESMTP
+	id 1A/18-34665-D6AC2396; Fri, 05 Dec 2025 12:05:01 +0000
+Received: from 127.0.0.1 (localhost. [127.0.0.1]) by eaas-40 (EaaS) id
+  <vwQH4000000000000000000000000000000000000000000000T6SPKD00Fuh9GXJVTQGjMmYb3M7uug@sfdc.net>
+  for <"oliverxiaozhen@outlook.com" <oliverxiaozhen@outlook.com>> Fri, 5 Dec
+  2025 12:05:01 GMT (GMT)
+Date: Fri, 5 Dec 2025 12:05:01 +0000 (GMT)
+From: Cloudflare Notifications <notifications@cloudflare.com>
+Reply-To: notifications@cloudflare.com
+To: "oliverxiaozhen@outlook.com" <oliverxiaozhen@outlook.com>
+Message-ID: <vwQH4000000000000000000000000000000000000000000000T6SPKD00Fuh9GXJVTQGjMmYb3M7uug@sfdc.net>
+References: <1233XjqORU2mEfQY4s6hTQ.qh8tTbShfkSz27ojA7p__wI@sfdc.net>
+Subject: [Cloudflare - 01863473] This is a follow-up to case #01856810 and
+ #01846397. Both were automatically closed before manual review.
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2488_1894002938.1764936301451"
+X-SFDC-LK: 00Do0000000Yxik
+X-SFDC-User: 005Nv000006B6oD
+X-Sender: postmaster@salesforce.com
+X-mail_abuse_inquiries: http://www.salesforce.com/company/abuse.jsp
+X-SFDC-TLS-NoRelay: 1
+X-SFDC-CORRELATION-ID: 00037sv3tf0unrbu
+X-SFDC-Binding: 1WrIRBV94myi25uB
+X-SFDC-App: coreapp
+X-SFDC-EmailCategory: apiSingleMailViaApex
+X-SFDC-EntityId: 500Nv00000WY0kk
+X-SFDC-Interface: internal
+X-IncomingHeaderCount: 25
+X-MS-Exchange-Organization-ExpirationStartTime: 05 Dec 2025 12:05:02.3478
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: a65f78a6-6bf9-4424-3d58-08de33f6853c
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36D:EE_|MN0PR12MB6248:EE_|SA1PR12MB5657:EE_
+X-MS-Exchange-Organization-AuthSource: BN3PEPF0000B36D.namprd21.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 12/5/2025 12:04:44 PM
+X-MS-Office365-Filtering-Correlation-Id: a65f78a6-6bf9-4424-3d58-08de33f6853c
+X-MS-Exchange-EOPDirect: true
+X-Sender-IP: 44.241.228.16
+X-SID-PRA: NOTIFICATIONS@CLOUDFLARE.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:4;ARA:1444111002|28070799003|9000799056|10300799035|9800799015|68400799013|58200799018|47200799021|461199028|4302099013|440099028|3412199025|30041999003|26104999006|1122599019|1370799030|1380799030|1360799030|1602099012|56899033;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2025 12:05:02.0813
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a65f78a6-6bf9-4424-3d58-08de33f6853c
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36D.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6248
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.4127076
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.9388.003
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;ex:0;auth:1;dest:I;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90011020)(91015020)(91040095)(9050020)(9065024)(9081003)(9100341)(944500132)(4810010)(4910033)(9930004)(9545005)(10172021)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0tMQ==
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?OFcvZFZtS29uNGM1VjdoTnBmMkpsOC9uUldtR0JsOU41VG9za05uRk96VU1s?=
+ =?utf-8?B?ckFqZGlpM0Q5aGFYWUJDRWU5RHNsRGw1RloxblMwR0RtSlIyVDFWcDV1UDNE?=
+ =?utf-8?B?MzF2WVVRQ1VJZkZvNHdTZXkyNDl5T0xyME44NjRtSUk1bWVGazYzcWVZa1Jr?=
+ =?utf-8?B?bmdOSGhmSXVYWHlPdHIwT3ZMMWNVOEw1Sy9MQXRUOWhyYzEzMEt6T2pycjA5?=
+ =?utf-8?B?QURBV28wME9RcEczUUl2RDhhNk9mWmFkaFZGdllaSm56bUgzWUlWVHBhV2ZP?=
+ =?utf-8?B?aGpCQUM5Qk8rU1VwWitobVd4clhxQ01jUWQvbVd5Zm14UWM5Zy9jdk5Ib3ZE?=
+ =?utf-8?B?Sng4dTNVUjFabCtzRDA0WU9SazJjUnkzNkNoZmdUZkRURmRmOCt1aXNVTHho?=
+ =?utf-8?B?eFlkOVpsdHVWeDVGcXNJYk9URzdncVVlU1FWTUY0L3o3QzVwSXkxMXd3emlo?=
+ =?utf-8?B?T2cwdFZhVVJKbGRsd1VoSzA1VEFTbkxGRWROVmZWMldnZGc2Y01FK0ZiSE1v?=
+ =?utf-8?B?UGZNNTEzVXdRT2hzQmtBV1ZhcWNhbEZkMTNEMmpHbFlmSFRwUU90MW9XU2ta?=
+ =?utf-8?B?N3kzNHNEbllscGhmZUxCL0YxTWpmZXBoang1TUIxOTVJTDVmL0Y3MytGY3p4?=
+ =?utf-8?B?NlUrcXpQR2pmSy9Pc0NNUFgxc1FyZ2IzcWNsTzh3Z2NDRlpzZU1aWDlId1BI?=
+ =?utf-8?B?aHFIajltQk1jUnc1NncyRWdQdkNYcWN6ZkdteEd5UTBqS1VwV1VnbEVpUzNQ?=
+ =?utf-8?B?eVF4V05keGVuRVNHRGdYUFpYZk94dDBKcE1aRVNwSCtqRENRWlN1NFE0dnN1?=
+ =?utf-8?B?d1poQzFnWnhSSVUzaEdzSVAzVERMMVh1d3FVbzU4a3lETFMyLy9FZFppdC9o?=
+ =?utf-8?B?ZW9DV3JEaHVNVmRPa1FibGR2R0Z6MDVvSkdsUWFiTmtEaTBwQ0JlTzIwck4v?=
+ =?utf-8?B?a0d4bmZIcDVYV1RjUzVVOW12MnhQd0ZvZ3k5VHd4Q0ZPSzc1VWE2NUVLOC9C?=
+ =?utf-8?B?YUxTYmNsZWVlK2twbFdDcEt6QWJSbnhCVUZLQlEvckVSMHJQczRKWGw4NnA5?=
+ =?utf-8?B?YXdYMklRTHB0NUxUQWZrRXNFRDdJcUoyQzdIUEVtS1hrT3ZiMVNZMFI5NG8y?=
+ =?utf-8?B?N0tYZnVMUlEyNGVVbjhUNjk2WEdhUEdoTmV5OUVoYitUbmhCMkk4V3lxMnA4?=
+ =?utf-8?B?U3NiVm1uR1FaU1g1M054Z1RCbHZYR256bzl4UGdYZG5kNkF0aFFLT0xqeFVO?=
+ =?utf-8?B?RWxPLzVycG9HbU5Sbk96am9yU2VvS0x2YkxjWEVSZ0RmR24yU0dKOVpHbWZ1?=
+ =?utf-8?B?ZE8vUUdpR3d5SE0zMU5oeHp3UXZXeXEveHdxdTlLUUVWVm4vVHFUcWt3VE1q?=
+ =?utf-8?B?QURWZy9Fa2FNUXdUMnZ4T2JETEFpNkJhS1pxVE5qWGlqTHErcWlwWEhidjZM?=
+ =?utf-8?B?bDRUa05KU1V5Y1ozWnl0NVF3SDFxMW04SXdKSnNMbC9JdzJyQlNyNHBFcG1T?=
+ =?utf-8?B?a3pOd2JKNUVCZVAvNWdFLzBINUZRdWJwVHN1c3RQZXppbHdadTlvR24rU2lh?=
+ =?utf-8?B?SGhmb2s0SXcyaW1OblV2d1orY0RScVhnYktEZVNaRGRrWHlmQ1M3SGRwYjZ4?=
+ =?utf-8?B?YVZ6cEt6ajNNbnJyaDVjTHZKNlhYaHh6aDF2OVFuSFNRVThHQXcxOHFrdUFZ?=
+ =?utf-8?B?ajZLdEJON0ZqcnJXSHgxNjM3dDVQYncyZGZrVnVRcjBYWDZFK3RKZWdxeE5z?=
+ =?utf-8?B?RW9aTTc0dE5aYzlaNXFLQkFlU0RiSXNSc1VLbmZKRWtYMkFXUGtFT2FCOEtQ?=
+ =?utf-8?B?Y2dDZ1Aza3JFQnZFTWNtUm51ZkdtbThIQTF1RWhJOXBRSlRrTGpPSFk1a3h3?=
+ =?utf-8?B?L1lJOHFlelUwYm4wNmR4Zmpud2lOM2l0bURSOXpudkl4NW43NzluallBRksy?=
+ =?utf-8?B?QllXU0lnRnBJdnd1VWJpWTlPcDdGRzE3TEM4K2tDYXdKT01neHBXWFIrOXpD?=
+ =?utf-8?B?Yk5MRU9NWEhGQi9DYnRtREk2TExhekVUcFQ0VzJGOVdsM3Q1NGwxb3BYSk5z?=
+ =?utf-8?B?M3IrblZRUWJxRHgvcEhMSnZMYlNEVDZzSVNUTm9rc2NWbUN6U3dBcjlvTzRj?=
+ =?utf-8?B?akVNS1M5VVJOcFlGTHJSbHRZR0hHSG1uOHZUSkZBTXlOTTJhODZYNXF1L3ln?=
+ =?utf-8?B?Q1dCVFN0OXF1S3d0S3ZoNFBiSW9WcVFWQ0Y2bnRPR25QakZxWC9EaVZXVU9H?=
+ =?utf-8?B?WnN5dmJDeml2VVdndDcwTGlDS1BGbEtjVE9pclBLaVpLRytQK0RNWENEaFNz?=
+ =?utf-8?B?RGV5QzhDQUkzZmYxVVg0cEM2R1A0dzNMNFNFeFZ1YkRJRzNCSW9VMkdUYXc3?=
+ =?utf-8?B?bEE3YTl4UUh6aEZUeVcySERwSjd3NkJiZzE5STVEcjE4cFpscFdBMkxicVh6?=
+ =?utf-8?B?dWdtRjJiaWJRR0FIdGl6TnhJVkNDYWVMSUM4SGgyZll2TkFqWXBhbkg1YzRr?=
+ =?utf-8?B?SVRseFFob2N3SmJtbnBoQ1Y1M1pmakVEVnJScGNHellNY0t3K3ZMK2U1M1NM?=
+ =?utf-8?B?WXhmVFdlOW04YVk0ZVZ0S3ZmOFQwR1dVWWNKMSswa1EyV3d4SE9NTnBHWitB?=
+ =?utf-8?B?dVl4My9mQTd5NThsQXpwNDN2YVhJSUZGR2FlUVFRNEp5RkQxc0RuMjdwM0dF?=
+ =?utf-8?B?YkRlVFBQL0t5WnBHV3lrbHlLZkhrK3lBZWZwNzA0dGlwa1JRQmRkVkhmU2ov?=
+ =?utf-8?B?QmJRYndlaGRnQUROK0ZodnJYMTdqYXlMWks3amFaTkJTbkR0KytueDFlRTI3?=
+ =?utf-8?B?OENDSExrL0VIRWhhaWtQc0t6THBoWFRoNXB1R1NYNithbGRHZFVFR2RKOVRp?=
+ =?utf-8?B?dEgrZzQ1dFBIRGNiVThRVEpacDcyK1NDZ3FuZmRRSEZkNDhGQlRHdHR3QXlO?=
+ =?utf-8?B?MTFOVzgvNW5PZzdjVU1ySk5zbVJJaU1Mek50MUUrT3VaRUg2Z2YwanlESlRW?=
+ =?utf-8?B?ZU9xbmduLzZFZDNZV1QyQjdlamdNRXNOSmJaRyt5dVdLU1gwU09TNHoyVzRo?=
+ =?utf-8?B?d295ZXYvelRzQVZCMjZDYzZMd2xIUEsvYzdYbjdmN1BUSURuTjR3Tk85cU05?=
+ =?utf-8?B?OEVGVUJ2K3VJMThENHYyeFdnTHZEcmx4SmRKSjN1OWhwV25Ka1pKeGVQcFF0?=
+ =?utf-8?Q?vg3rYQ7ImRYCId9gK1d0tto9UNx/?=
+MIME-Version: 1.0
+
+------=_Part_2488_1894002938.1764936301451
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2487_692144389.1764936301451"
+
+------=_Part_2487_692144389.1764936301451
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+Hi ,This technical support case is closed and cannot be reopened. Our Trust=
+ and Safety Team will reach out to you directly regarding the issues in thi=
+s case. If you need help with a technical issue, please open a new technica=
+l support case.=20
+
+=20
+
+ =A0
+
+ =A0
+------=_Part_2487_692144389.1764936301451
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1"><title></title></head><body style=3D"height: auto; min-height: auto;"><t=
+able border=3D"0" cellpadding=3D"1" width=3D"100%" cellspacing=3D"5" height=
+=3D"100%">
+<tbody>
+<tr>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<div id=3D"htmlValue" locked=3D"0">
+<p style=3D"line-height:1.38; margin-top:16px; margin-bottom:16px"><span st=
+yle=3D"font-size:14px;"><span style=3D"font-family:Arial,Helvetica,sans-ser=
+if;"><span style=3D"font-variant: normal; white-space: pre-wrap;"><span sty=
+le=3D"color:#181818"><span style=3D"background-color:#ffffff"><span style=
+=3D"font-weight:400"><span style=3D"font-style:normal"><span style=3D"text-=
+decoration:none">Hi ,</span></span></span></span></span></span></span></spa=
+n></p><p style=3D"line-height:1.38"><span style=3D"font-size:14px;"><span s=
+tyle=3D"font-family:Arial,Helvetica,sans-serif;"><span style=3D"font-varian=
+t: normal; white-space: pre-wrap;"><span style=3D"color:#181818"><span styl=
+e=3D"background-color:#ffffff"><span style=3D"font-weight:400"><span style=
+=3D"font-style:normal"><span style=3D"text-decoration:none">This technical =
+support case is closed and cannot be reopened. Our Trust and Safety Team wi=
+ll reach out to you directly regarding the issues in this case. If you need=
+ help with a technical issue, please open a new technical support case. </s=
+pan></span></span></span></span></span></span></span></p>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div>
+ <img alt=3D"Cloudflare Logo &#8212;&nbsp;Vertical &#8212; Dark@2x" class=
+=3D"" src=3D"https://cloudflare.file.force.com/file-asset-public/Cloudflare=
+_Logo_Vertical_Dark2x?oid=3D00Do0000000Yxik" style=3D"max-width: 645.525px;=
+ width: 101px; height: 34px;" title=3D"Cloudflare Logo &#8212;&nbsp;Vertica=
+l &#8212; Dark@2x">
+</div>
+<div id=3D"" style=3D"left: 20px; top: 20px;">
+ &nbsp;
+</div>
+<div id=3D"" style=3D"left: 20px; top: 20px;">
+ &nbsp;
+</div>
+</td>
+</tr>
+</tbody>
+</table></body></html>=
+
+------=_Part_2487_692144389.1764936301451--
+
+------=_Part_2488_1894002938.1764936301451--

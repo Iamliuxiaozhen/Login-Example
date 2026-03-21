@@ -396,8 +396,20 @@
             </div>
             <div class="mail-list-toolbar">
                 <button class="toolbar-btn" onclick="refreshMails()">🔄 刷新</button>
-                <button class="toolbar-btn" onclick="downloadAll()">📥 全部下载</button>
-                <button class="toolbar-btn" onclick="markAllRead()">✅ 全部标记已读</button>
+            </div>
+            
+            <!-- 隐私警告框 -->
+            <div class="privacy-warning" style="margin: 12px 20px; padding: 12px 16px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 6px; color: #856404;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 16px;">⚠️</span>
+                    <div>
+                        <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">隐私声明</div>
+                        <div style="font-size: 12px; line-height: 1.4;">
+                            本网站仅用于 OAuth 登录演示，不会收集用户隐私。所有邮件均经过脱敏处理，代码完全开源透明。
+                        </div>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.style.display='none'" style="background: none; border: none; color: #856404; cursor: pointer; font-size: 16px; margin-left: auto;">×</button>
+                </div>
             </div>
             <div class="mail-items" id="mailItems">
                 <!-- 邮件列表由 JS 生成 -->

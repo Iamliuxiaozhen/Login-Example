@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudflare 邮件 - Login Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f3f3f3;
+            color: #323130;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 顶部通知栏 */
+        .notification-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+        
+        .notification-bar .content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .notification-bar .close-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* 主容器 */
+        .app-container {
+            display: flex;
+            height: calc(100vh - 42px);
+        }
+
+        /* 中间邮件列表 */
+        .mail-list {
+            width: 100%;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        
+        .mail-list-header {
+            padding: 12px 20px;
+            border-bottom: 1px solid #e1dfdd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .mail-list-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .mail-list-toolbar {
+            padding: 10px 20px;
+            border-bottom: 1px solid #e1dfdd;
+            display: flex;
+            gap: 8px;
+            background: white;
+        }
+        
+        .toolbar-btn {
+            padding: 8px 16px;
+            border: 1px solid #8a8886;
+            background: white;
+            border-radius: 2px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .toolbar-btn:hover {
+            background: #f3f2f1;
+        }
+
+        .mail-items {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .mail-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e1dfdd;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+        
+        .mail-item:hover {
+            background: #f3f2f1;
+        }
+        
+        .mail-item.active {
+            background: #e1dfdd;
+            border-left: 3px solid #0078d4;
+        }
+        
+        .mail-item.unread {
+            background: #faf9f8;
+            border-left: 3px solid #0078d4;
+        }
+        
+        .mail-item.unread .mail-subject {
+            font-weight: 600;
+        }
+        
+        .mail-item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .mail-from {
+            font-size: 14px;
+            color: #323130;
+            font-weight: 500;
+        }
+        
+        .mail-date {
+            font-size: 12px;
+            color: #605e5c;
+        }
+        
+        .mail-subject {
+            font-size: 15px;
+            color: #323130;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .mail-preview {
+            font-size: 13px;
+            color: #605e5c;
+            line-height: 1.5;
+        }
+        
+        .mail-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-right: 8px;
+            font-weight: 500;
+        }
+        
+        .tag-phishing { background: #ffebee; color: #c62828; }
+        .tag-abuse { background: #fff3e0; color: #e65100; }
+        .tag-response { background: #e8f5e9; color: #2e7d32; }
+        .tag-review { background: #e3f2fd; color: #1565c0; }
+        .tag-suspended { background: #fce4ec; color: #c2185b; }
+        .tag-general { background: #f3e5f5; color: #7b1fa2; }
+
+        /* 邮件内容 */
+        .mail-content {
+            display: none;
+            position: fixed;
+            top: 52px;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: white;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .mail-content.show {
+            display: block;
+        }
+        
+        .mail-content-header {
+            padding: 20px;
+            border-bottom: 1px solid #e1dfdd;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1001;
+        }
+        
+        .mail-content-subject {
+            font-size: 20px;
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 16px;
+        }
+        
+        .mail-content-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            color: #605e5c;
+        }
+        
+        .sender-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .sender-avatar {
+            width: 48px;
+            height: 48px;
+            background: #0078d4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .sender-details .name {
+            font-weight: 600;
+            color: #323130;
+            font-size: 15px;
+        }
+        
+        .sender-details .email {
+            font-size: 12px;
+        }
+        
+        .mail-content-toolbar {
+            padding: 12px 20px;
+            border-bottom: 1px solid #e1dfdd;
+            display: flex;
+            gap: 12px;
+            background: white;
+            position: sticky;
+            top: 90px;
+            z-index: 1001;
+        }
+        
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #323130;
+        }
+        
+        .action-btn:hover {
+            background: #f3f2f1;
+        }
+        
+        .action-btn.primary {
+            background: #0078d4;
+            color: white;
+        }
+        
+        .action-btn.primary:hover {
+            background: #106ebe;
+        }
+
+        .mail-body {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+        
+        .mail-body pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #323130;
+            background: #faf9f8;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e1dfdd;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #605e5c;
+        }
+        
+        .empty-state .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .empty-state .text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .empty-state .subtitle {
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .mail-list-toolbar {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            
+            .toolbar-btn {
+                font-size: 11px;
+                padding: 6px 12px;
+            }
+            
+            .mail-item {
+                padding: 12px 16px;
+            }
+            
+            .mail-content-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c8c6c4;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a19f9d;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部通知栏 -->
+    <div class="notification-bar" id="notificationBar">
+        <div class="content">
+            <span>📢 <strong>重要通知：</strong>本网站已从 <code>login---example.pages.dev</code> 迁移至 <code>login-example.liuxiaozhen.dev</code> | 本网站仅用于 OAuth 登录演示，不会收集用户隐私</span>
+        </div>
+        <button class="close-btn" onclick="document.getElementById('notificationBar').style.display='none'">×</button>
+    </div>
+
+    <div class="app-container">
+        <!-- 邮件列表（无左侧导航栏） -->
+        <div class="mail-list">
+            <div class="mail-list-header">
+                <h3>收件箱</h3>
+                <span id="mailCount">22 封邮件</span>
+            </div>
+            <div class="mail-list-toolbar">
+                <button class="toolbar-btn" onclick="refreshMails()">🔄 刷新</button>
+                <button class="toolbar-btn" onclick="downloadAll()">📥 全部下载</button>
+                <button class="toolbar-btn" onclick="markAllRead()">✅ 全部标记已读</button>
+            </div>
+            <div class="mail-items" id="mailItems">
+                <!-- 邮件列表由 JS 生成 -->
+            </div>
+        </div>
+
+        <!-- 邮件内容 -->
+        <div class="mail-content" id="mailContent">
+            <div class="empty-state" id="emptyState">
+                <div class="icon">📧</div>
+                <div class="text">选择一封邮件查看内容</div>
+                <div class="subtitle">点击上方邮件列表中的任意邮件</div>
+            </div>
+            <div id="mailDetail" style="display: none;">
+                <div class="mail-content-header">
+                    <div class="mail-content-subject" id="detailSubject"></div>
+                    <div class="mail-content-meta">
+                        <div class="sender-info">
+                            <div class="sender-avatar" id="detailAvatar">C</div>
+                            <div class="sender-details">
+                                <div class="name" id="detailFrom"></div>
+                                <div class="email" id="detailTo"></div>
+                            </div>
+                        </div>
+                        <div id="detailDate" style="margin-left: auto;"></div>
+                    </div>
+                </div>
+                <div class="mail-content-toolbar">
+                    <button class="action-btn" onclick="closeMail()">✕ 关闭</button>
+                    <button class="action-btn" onclick="downloadCurrent()">📥 下载原文</button>
+                    <button class="action-btn" onclick="copyContent()">📋 复制内容</button>
+                    <a class="action-btn primary" id="downloadLink" download>📥 下载文件</a>
+                </div>
+                <div class="mail-body">
+                    <pre id="detailBody">加载中...</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const emails = [
+            {
+                id: 1,
+                from: "Cloudflare",
+                fromEmail: "noreply@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare]：您的 Cloudflare 帐户已被暂停",
+                date: "2025-11-13",
+                tag: "suspended",
+                tagText: "账户暂停",
+                file: "[Cloudflare]：您的 Cloudflare 帐户已被暂停 - \"Cloudflare\" <noreply@notify.cloudflare.com> - 2025-11-13 0440.eml",
+                unread: true
+            },
+            {
+                id: 2,
+                from: "Cloudflare Trust & Safety",
+                fromEmail: "abuse@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[a53d09e37daf2122]: Phishing report received regarding your site",
+                date: "2025-10-31",
+                tag: "phishing",
+                tagText: "钓鱼举报",
+                file: "[a53d09e37daf2122]: Phishing report received regarding your site - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-10-31 2307.eml",
+                unread: false
+            },
+            {
+                id: 3,
+                from: "Cloudflare Trust & Safety",
+                fromEmail: "abuse@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[a53d09e37daf2122]: Response to your Phishing report",
+                date: "2025-10-31",
+                tag: "response",
+                tagText: "申诉回复",
+                file: "[a53d09e37daf2122]: Response to your Phishing report - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-10-31 2307.eml",
+                unread: false
+            },
+            {
+                id: 4,
+                from: "Cloudflare Trust & Safety",
+                fromEmail: "abuse@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "a53d09e37daf2122: Abuse Report Confirmation",
+                date: "2025-10-31",
+                tag: "abuse",
+                tagText: "滥用举报",
+                file: "a53d09e37daf2122: Abuse Report Confirmation - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-10-31 2306.eml",
+                unread: false
+            },
+            {
+                id: 5,
+                from: "Cloudflare Trust & Safety",
+                fromEmail: "abuse@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[6b64db67b67deef9]: Phishing report received regarding your site",
+                date: "2025-10-24",
+                tag: "phishing",
+                tagText: "钓鱼举报",
+                file: "[6b64db67b67deef9]: Phishing report received regarding your site - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-10-24 1413.eml",
+                unread: false
+            },
+            {
+                id: 6,
+                from: "Cloudflare",
+                fromEmail: "abusereply@cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "Report received: (#20507978) Abuse of complaints",
+                date: "2025-10-23",
+                tag: "abuse",
+                tagText: "滥用投诉",
+                file: "Report received: (#20507978) Abuse of complaints - Cloudflare <abusereply@cloudflare.com> - 2025-10-23 2018.eml",
+                unread: false
+            },
+            {
+                id: 7,
+                from: "Cloudflare",
+                fromEmail: "registrar-abuse@cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "Report received: (#20572582) Request for Urgent Review – Incorrect Phishing Flag on Cloudflare Pages Project",
+                date: "2025-10-31",
+                tag: "review",
+                tagText: "紧急审核",
+                file: "Report received: (#20572582) Request for Urgent Review – Incorrect Phishing Flag on Cloudflare Pages Project - Cloudflare <registrar-abuse@cloudflare.com> - 2025-10-31 2259.eml",
+                unread: false
+            },
+            {
+                id: 8,
+                from: "Cloudflare",
+                fromEmail: "abuse@cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "Report received: (#20614506) Request for Urgent Review – Incorrect Phishing Flag on Cloudflare Pages Project",
+                date: "2025-11-05",
+                tag: "review",
+                tagText: "紧急审核",
+                file: "Report received: (#20614506) Request for Urgent Review – Incorrect Phishing Flag on Cloudflare Pages Project - Cloudflare <abuse@cloudflare.com> - 2025-11-05 2115.eml",
+                unread: false
+            },
+            {
+                id: 9,
+                from: "Cloudflare",
+                fromEmail: "abusereply@cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "Report received: (#20695861) My Cloudflare account was mistakenly suspended, and I cannot add a new domain.",
+                date: "2025-11-16",
+                tag: "suspended",
+                tagText: "账户问题",
+                file: "Report received: (#20695861) My Cloudflare account was mistakenly suspended, and I cannot add a new domain. - Cloudflare <abusereply@cloudflare.com> - 2025-11-16 0932.eml",
+                unread: false
+            },
+            {
+                id: 10,
+                from: "Cloudflare Trust & Safety",
+                fromEmail: "abuse@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[2cefad12a6111d60]: Response to your Complaint",
+                date: "2025-11-13",
+                tag: "response",
+                tagText: "官方回复",
+                file: "[2cefad12a6111d60]: Response to your Complaint - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-11-13 0444.eml",
+                unread: false
+            },
+            {
+                id: 11,
+                from: "Cloudflare Trust & Safety",
+                fromEmail: "abuse@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "2cefad12a6111d60: Abuse Report Confirmation",
+                date: "2025-10-31",
+                tag: "abuse",
+                tagText: "滥用确认",
+                file: "2cefad12a6111d60: Abuse Report Confirmation - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-10-31 2312.eml",
+                unread: false
+            },
+            {
+                id: 12,
+                from: "Cloudflare",
+                fromEmail: "abuse@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "c712e59852aad1de: Abuse Report Confirmation",
+                date: "2025-12-21",
+                tag: "abuse",
+                tagText: "滥用确认",
+                file: "c712e59852aad1de: Abuse Report Confirmation - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-12-21 1011.eml",
+                unread: false
+            },
+            {
+                id: 13,
+                from: "Cloudflare Trust & Safety",
+                fromEmail: "abuse@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[c712e59852aad1de]: Phishing report received regarding your site",
+                date: "2025-12-21",
+                tag: "phishing",
+                tagText: "钓鱼举报",
+                file: "[c712e59852aad1de]: Phishing report received regarding your site - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-12-21 1012.eml",
+                unread: false
+            },
+            {
+                id: 14,
+                from: "Cloudflare Trust & Safety",
+                fromEmail: "abuse@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[c712e59852aad1de]: Response to your Phishing report",
+                date: "2025-12-21",
+                tag: "response",
+                tagText: "官方回复",
+                file: "[c712e59852aad1de]: Response to your Phishing report - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-12-21 1012.eml",
+                unread: false
+            },
+            {
+                id: 15,
+                from: "Cloudflare Notifications",
+                fromEmail: "notifications@cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare - 01846397] ??pages?????????Cloudflare????????????",
+                date: "2025-11-27",
+                tag: "general",
+                tagText: "一般通知",
+                file: "[Cloudflare - 01846397] ??pages?????????Cloudflare???????????? - Cloudflare Notifications <notifications@cloudflare.com> - 2025-11-27 0903.eml",
+                unread: false
+            },
+            {
+                id: 16,
+                from: "Cloudflare Notifications",
+                fromEmail: "notifications@cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare - 01846397] 我的pages中的一个项目与我的Cloudflare账户无法注册及添加新域名",
+                date: "2025-11-20",
+                tag: "general",
+                tagText: "一般通知",
+                file: "[Cloudflare - 01846397] 我的pages中的一个项目与我的Cloudflare账户无法注册及添加新域名 - Cloudflare Notifications <notifications@cloudflare.com> - 2025-11-20 2106.eml",
+                unread: false
+            },
+            {
+                id: 17,
+                from: "Cloudflare",
+                fromEmail: "em@em1.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "Make your site more secure and reliable with Advanced Certificate Manager",
+                date: "2025-11-23",
+                tag: "general",
+                tagText: "一般通知",
+                file: "Make your site more secure and reliable with Advanced Certificate Manager - \"Cloudflare\" <em@em1.cloudflare.com> - 2025-11-23 0701.eml",
+                unread: false
+            },
+            {
+                id: 18,
+                from: "Cloudflare Community",
+                fromEmail: "notifications@cloudflare.discoursemail.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare Community] [General] Account restricted for ~60 days due to false positive phishing – no Trust & Safety",
+                date: "2025-12-23",
+                tag: "general",
+                tagText: "社区消息",
+                file: "[Cloudflare Community] [General] Account restricted for ~60 days due to false positive phishing – no Trust & Safety - CF_Team via Cloudflare Community <notifications@cloudflare.discoursemail.com> - 2025-12-23 0834.eml",
+                unread: false
+            },
+            {
+                id: 19,
+                from: "Cloudflare Community",
+                fromEmail: "notifications@cloudflare.discoursemail.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare Community] [PM] Someone has answered your topic",
+                date: "2025-12-23",
+                tag: "general",
+                tagText: "社区消息",
+                file: "[Cloudflare Community] [PM] Someone has answered your topic - PleaseRate via Cloudflare Community <notifications@cloudflare.discoursemail.com> - 2025-12-23 0824.eml",
+                unread: false
+            },
+            {
+                id: 20,
+                from: "Cloudflare Community",
+                fromEmail: "notifications@cloudflare.discoursemail.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare Community] [PM] Your post is no longer hidden",
+                date: "2025-12-22",
+                tag: "general",
+                tagText: "社区消息",
+                file: "[Cloudflare Community] [PM] Your post is no longer hidden - system via Cloudflare Community <notifications@cloudflare.discoursemail.com> - 2025-12-22 0637.eml",
+                unread: false
+            },
+            {
+                id: 21,
+                from: "Cloudflare Community",
+                fromEmail: "notifications@cloudflare.discoursemail.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare Community] [PM] Akismet has temporarily hidden your post",
+                date: "2025-12-21",
+                tag: "general",
+                tagText: "社区消息",
+                file: "[Cloudflare Community] [PM] Akismet has temporarily hidden your post - system via Cloudflare Community <notifications@cloudflare.discoursemail.com> - 2025-12-21 1052.eml",
+                unread: false
+            },
+            {
+                id: 22,
+                from: "Cloudflare Notifications",
+                fromEmail: "notices@trustandsafety.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "Report updated: (#20818458) This is a follow-up to case #01856810 and #01846397. Both were automatically closed before manual review.",
+                date: "2025-12-22",
+                tag: "general",
+                tagText: "状态更新",
+                file: "Report updated: (#20818458) This is a follow-up to case #01856810 and #01846397. Both were automatically closed before manual review. - Cloudflare <notices@trustandsafety.cloudflare.com> - 2025-12-22 1648.eml",
+                unread: false
+            }
+        ];
+
+        let currentEmail = null;
+
+        function renderMailList() {
+            const container = document.getElementById('mailItems');
+            const unreadCount = emails.filter(e => e.unread).length;
+            
+            document.getElementById('mailCount').textContent = `${emails.length} 封邮件${unreadCount > 0 ? ` (${unreadCount} 未读)` : ''}`;
+            
+            container.innerHTML = emails.map(email => `
+                <div class="mail-item ${email.unread ? 'unread' : ''} ${currentEmail?.id === email.id ? 'active' : ''}" 
+                     onclick="selectEmail(${email.id})">
+                    <div class="mail-item-header">
+                        <span class="mail-from">${email.from}</span>
+                        <span class="mail-date">${formatDate(email.date)}</span>
+                    </div>
+                    <div class="mail-subject">
+                        <span class="mail-tag tag-${email.tag}">${email.tagText}</span>
+                        ${email.subject}
+                    </div>
+                    <div class="mail-preview">${email.preview || '点击查看邮件内容...'}</div>
+                </div>
+            `).join('');
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const now = new Date();
+            const diff = now - date;
+            
+            if (diff < 86400000) {
+                return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+            } else if (diff < 604800000) {
+                const days = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+                return days[date.getDay()];
+            } else {
+                return date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+            }
+        }
+
+        async function selectEmail(id) {
+            const email = emails.find(e => e.id === id);
+            if (!email) return;
+            
+            currentEmail = email;
+            email.unread = false;
+            
+            // 更新列表高亮
+            renderMailList();
+            
+            // 显示邮件详情
+            document.getElementById('emptyState').style.display = 'none';
+            const detail = document.getElementById('mailDetail');
+            detail.style.display = 'block';
+            
+            document.getElementById('detailSubject').textContent = email.subject;
+            document.getElementById('detailFrom').textContent = email.from;
+            document.getElementById('detailTo').textContent = `收件人: ${email.to}`;
+            document.getElementById('detailDate').textContent = new Date(email.date).toLocaleString('zh-CN');
+            document.getElementById('detailAvatar').textContent = email.from.charAt(0).toUpperCase();
+            document.getElementById('downloadLink').href = `email/${email.file}`;
+            document.getElementById('downloadLink').download = email.file;
+            
+            // 加载邮件内容
+            const bodyEl = document.getElementById('detailBody');
+            bodyEl.textContent = '加载中...';
+            
+            try {
+                const response = await fetch(`email/${email.file}`);
+                if (response.ok) {
+                    const text = await response.text();
+                    bodyEl.textContent = text;
+                } else {
+                    bodyEl.textContent = `加载失败: HTTP ${response.status}`;
+                }
+            } catch (error) {
+                bodyEl.textContent = `加载失败: ${error.message}`;
+            }
+        }
+
+        function closeMail() {
+            document.getElementById('emptyState').style.display = 'block';
+            document.getElementById('mailDetail').style.display = 'none';
+            currentEmail = null;
+            renderMailList();
+        }
+
+        function refreshMails() {
+            renderMailList();
+        }
+
+        function downloadCurrent() {
+            if (currentEmail) {
+                const link = document.createElement('a');
+                link.href = `email/${currentEmail.file}`;
+                link.download = currentEmail.file;
+                link.click();
+            }
+        }
+
+        function downloadAll() {
+            alert('批量下载功能开发中...');
+        }
+
+        function copyContent() {
+            const content = document.getElementById('detailBody').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('已复制到剪贴板');
+            }).catch(err => {
+                alert('复制失败: ' + err);
+            });
+        }
+
+        function markAllRead() {
+            emails.forEach(email => email.unread = false);
+            renderMailList();
+        }
+
+        // 初始化
+        renderMailList();
+    </script>
+</body>
+</html>

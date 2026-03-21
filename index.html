@@ -61,6 +61,77 @@
             gap: 16px;
         }
         
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 30px 20px;
+                margin: 10px;
+                box-shadow: none;
+                border: 1px solid #e1e4e8;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .logo p {
+                font-size: 14px;
+            }
+            
+            .login-button {
+                padding: 10px 20px;
+                font-size: 14px;
+                margin-top: 15px;
+            }
+            
+            .login-button svg {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .privacy-warning {
+                margin: 8px 0;
+                font-size: 12px;
+            }
+            
+            .privacy-warning .icon {
+                font-size: 14px;
+            }
+            
+            .footer {
+                margin-top: 20px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px 15px;
+            }
+            
+            .logo h1 {
+                font-size: 18px;
+            }
+            
+            .logo p {
+                font-size: 13px;
+            }
+            
+            .login-button {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            
+            .login-button svg {
+                width: 14px;
+                height: 14px;
+            }
+            
+            #verifytext {
+                font-size: 12px;
+            }
+        }
+        
         .cookie-banner .content {
             flex: 1;
         }
@@ -221,39 +292,25 @@
 
         // Cloudflare Turnstile验证
         function onSubmit(token) {
-            // 将token发送到后端进行验证
-            fetch('/verify', {
-                method: 'POST',
-                body: new FormData(document.getElementById('cf-turnstile-form'))
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById("verifytext").innerHTML = "验证通过";
-                    document.getElementById("github-login").disabled = false;
-                    document.getElementById("microsoft-login").disabled = false;
-                    document.getElementById("google-login").disabled = false;
-                } else {
-                    document.getElementById("verifytext").innerHTML = "验证未通过，请重试";
-                    document.getElementById("github-login").disabled = true;
-                    document.getElementById("microsoft-login").disabled = true;
-                    document.getElementById("google-login").disabled = true;
-                }
-            })
-            .catch(error => {
-                console.error('验证错误:', error);
-                document.getElementById("verifytext").innerHTML = "验证过程中出现错误";
-                document.getElementById("github-login").disabled = true;
-                document.getElementById("microsoft-login").disabled = true;
-                document.getElementById("google-login").disabled = true;
-            });
+            console.log('Cloudflare验证成功，token:', token);
+            document.getElementById("verifytext").innerHTML = "验证通过 ✓";
+            document.getElementById("verifytext").style.color = "#28a745";
+            document.getElementById("github-login").disabled = false;
+            document.getElementById("microsoft-login").disabled = false;
+            document.getElementById("google-login").disabled = false;
+            
+            // 显示成功状态
+            document.getElementById("verifytext").style.fontWeight = "bold";
         }
 
         function onError(error) {
+            console.error('Cloudflare验证失败:', error);
             document.getElementById("verifytext").innerHTML = "验证未通过，请重试";
+            document.getElementById("verifytext").style.color = "#dc3545";
             // 验证失败时禁用登录按钮
             document.getElementById("github-login").disabled = true;
             document.getElementById("microsoft-login").disabled = true;
+            document.getElementById("google-login").disabled = true;
         }
     </script>
     

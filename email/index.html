@@ -291,7 +291,8 @@
         .mail-body {
             padding: 20px;
             overflow-y: auto;
-            max-height: calc(100vh - 200px);
+            flex: 1;
+            min-height: 0;
         }
         
         .mail-body pre {
@@ -305,8 +306,8 @@
             padding: 20px;
             border-radius: 8px;
             border: 1px solid #e1dfdd;
-            max-height: 100%;
-            overflow-y: auto;
+            margin: 0;
+            overflow-x: auto;
         }
 
         /* 空状态 */
@@ -431,6 +432,7 @@
             .privacy-warning {
                 margin: 8px 12px;
                 border-radius: 8px;
+                overflow: hidden;
             }
             
             .privacy-header {
@@ -438,6 +440,7 @@
                 align-items: flex-start;
                 gap: 8px;
                 padding: 10px 12px;
+                position: relative;
             }
             
             .privacy-icon {
@@ -445,19 +448,33 @@
                 margin-bottom: 2px;
             }
             
+            .privacy-content {
+                width: 100%;
+                min-width: 0;
+            }
+            
             .privacy-title {
                 font-size: 14px;
                 font-weight: 600;
                 margin-bottom: 6px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             
             .privacy-text {
                 font-size: 11px;
                 line-height: 1.4;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                white-space: normal;
             }
             
             .privacy-close {
-                align-self: flex-end;
+                position: absolute;
+                top: 10px;
+                right: 12px;
+                margin-left: 0;
                 margin-left: 0;
             }
             
@@ -512,6 +529,61 @@
                 padding: 2px 6px;
                 border-radius: 10px;
                 margin-right: 6px;
+            }
+            
+            /* 邮件内容区域手机优化 */
+            .mail-content {
+                top: 0;
+                width: 100%;
+                height: 100vh;
+            }
+            
+            .mail-content-header {
+                padding: 15px 16px;
+            }
+            
+            .mail-content-subject {
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+            
+            .mail-content-meta {
+                font-size: 12px;
+                gap: 12px;
+            }
+            
+            .sender-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .sender-details .name {
+                font-size: 13px;
+            }
+            
+            .sender-details .email {
+                font-size: 11px;
+            }
+            
+            .mail-content-toolbar {
+                padding: 10px 16px;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .action-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .mail-body {
+                padding: 15px;
+            }
+            
+            .mail-body pre {
+                font-size: 12px;
+                padding: 15px;
             }
         }
         

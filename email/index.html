@@ -335,6 +335,59 @@
             margin-top: 8px;
         }
 
+        /* 隐私警告框样式 */
+        .privacy-warning {
+            margin: 12px 20px;
+            padding: 0;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            color: #856404;
+            transition: all 0.3s ease;
+        }
+        
+        .privacy-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 12px;
+        }
+        
+        .privacy-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .privacy-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .privacy-title {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 4px;
+            white-space: nowrap;
+        }
+        
+        .privacy-text {
+            font-size: 12px;
+            line-height: 1.4;
+            white-space: normal;
+        }
+        
+        .privacy-close {
+            background: none;
+            border: none;
+            color: #856404;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+        
         /* 响应式 */
         @media (max-width: 768px) {
             .mail-list-toolbar {
@@ -355,6 +408,60 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 12px;
+            }
+            
+            /* 手机模式隐私警告框优化 */
+            .privacy-warning {
+                margin: 8px 12px;
+                border-radius: 8px;
+            }
+            
+            .privacy-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 10px 12px;
+            }
+            
+            .privacy-icon {
+                align-self: flex-start;
+            }
+            
+            .privacy-title {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+            
+            .privacy-text {
+                font-size: 11px;
+                line-height: 1.3;
+                margin-bottom: 8px;
+            }
+            
+            .privacy-close {
+                align-self: flex-end;
+                margin-left: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .privacy-warning {
+                margin: 6px 8px;
+            }
+            
+            .privacy-header {
+                padding: 8px 10px;
+                gap: 6px;
+            }
+            
+            .privacy-title {
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+            
+            .privacy-text {
+                font-size: 10px;
+                line-height: 1.2;
             }
         }
 
@@ -392,23 +499,23 @@
         <div class="mail-list">
             <div class="mail-list-header">
                 <h3>收件箱</h3>
-                <span id="mailCount">22 封邮件</span>
+                <span id="mailCount">46 封邮件</span>
             </div>
             <div class="mail-list-toolbar">
                 <button class="toolbar-btn" onclick="refreshMails()">🔄 刷新</button>
             </div>
             
             <!-- 隐私警告框 -->
-            <div class="privacy-warning" style="margin: 12px 20px; padding: 12px 16px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 6px; color: #856404;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="font-size: 16px;">⚠️</span>
-                    <div>
-                        <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">隐私声明</div>
-                        <div style="font-size: 12px; line-height: 1.4;">
+            <div class="privacy-warning" id="privacyWarning">
+                <div class="privacy-header">
+                    <span class="privacy-icon">⚠️</span>
+                    <div class="privacy-content">
+                        <div class="privacy-title">隐私声明</div>
+                        <div class="privacy-text">
                             本网站仅用于 OAuth 登录演示，不会收集用户隐私。所有邮件均经过脱敏处理，代码完全开源透明。
                         </div>
                     </div>
-                    <button onclick="this.parentElement.parentElement.style.display='none'" style="background: none; border: none; color: #856404; cursor: pointer; font-size: 16px; margin-left: auto;">×</button>
+                    <button class="privacy-close" onclick="document.getElementById('privacyWarning').style.display='none'">×</button>
                 </div>
             </div>
             <div class="mail-items" id="mailItems">
@@ -462,7 +569,7 @@
                 tag: "suspended",
                 tagText: "账户暂停",
                 file: "[Cloudflare]：您的 Cloudflare 帐户已被暂停 - \"Cloudflare\" <noreply@notify.cloudflare.com> - 2025-11-13 0440.eml",
-                preview: "您的 Cloudflare 帐户已被暂停",
+                preview: "您的 Cloudflare 帐户已被暂停 - 这是最重要的Cloudflare通知",
                 unread: true
             },
             {
@@ -919,6 +1026,136 @@
                 file: "New Ticket from Cloudflare: (#20818458) This is a follow-up to case #01856810 and #01846397. Both were automatically closed before manual review. - Cloudflare <notices@trustandsafety.cloudflare.com> - 2025-12-02 2223.eml",
                 preview: "最终案件更新通知",
                 unread: false
+            },
+            {
+                id: 37,
+                from: "Cloudflare",
+                fromEmail: "notices@trustandsafety.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "Report updated: (#20818458) Case follow-up",
+                date: "2025-12-22",
+                tag: "general",
+                tagText: "状态更新",
+                file: "Report updated: (#20818458) This is a follow-up to case #01856810 and #01846397. Both were automatically closed before manual review. - Cloudflare <notices@trustandsafety.cloudflare.com> - 2025-12-22 1648.eml",
+                preview: "案件处理状态最终更新",
+                unread: false
+            },
+            {
+                id: 38,
+                from: "Cloudflare Community",
+                fromEmail: "notifications@cloudflare.discoursemail.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare Community] [General] Account restricted for ~60 days",
+                date: "2025-12-23",
+                tag: "suspended",
+                tagText: "账户限制",
+                file: "[Cloudflare Community] [General] Account restricted for ~60 days due to false positive phishing – no Trust & Safety - CF_Team via Cloudflare Community <notifications@cloudflare.discoursemail.com> - 2025-12-23 0834.eml",
+                preview: "社区：账户因钓鱼误判被限制60天",
+                unread: false
+            },
+            {
+                id: 39,
+                from: "Cloudflare Community",
+                fromEmail: "notifications@cloudflare.discoursemail.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare Community] [PM] Someone has answered your topic",
+                date: "2025-12-23",
+                tag: "general",
+                tagText: "社区回复",
+                file: "[Cloudflare Community] [PM] Someone has answered your topic - PleaseRate via Cloudflare Community <notifications@cloudflare.discoursemail.com> - 2025-12-23 0824.eml",
+                preview: "社区：有人回复了你的话题",
+                unread: false
+            },
+            {
+                id: 40,
+                from: "Cloudflare Community",
+                fromEmail: "notifications@cloudflare.discoursemail.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare Community] [PM] Your post is no longer hidden",
+                date: "2025-12-22",
+                tag: "general",
+                tagText: "社区消息",
+                file: "[Cloudflare Community] [PM] Your post is no longer hidden - system via Cloudflare Community <notifications@cloudflare.discoursemail.com> - 2025-12-22 0637.eml",
+                preview: "社区：你的帖子已不再隐藏",
+                unread: false
+            },
+            {
+                id: 41,
+                from: "Cloudflare Community",
+                fromEmail: "notifications@cloudflare.discoursemail.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare Community] [PM] Akismet has temporarily hidden your post",
+                date: "2025-12-21",
+                tag: "general",
+                tagText: "社区提醒",
+                file: "[Cloudflare Community] [PM] Akismet has temporarily hidden your post - system via Cloudflare Community <notifications@cloudflare.discoursemail.com> - 2025-12-21 1052.eml",
+                preview: "社区：Akismet暂时隐藏了你的帖子",
+                unread: false
+            },
+            {
+                id: 42,
+                from: "Cloudflare",
+                fromEmail: "noreply@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[Cloudflare]：您的 Cloudflare 帐户已被暂停",
+                date: "2025-11-13",
+                tag: "suspended",
+                tagText: "账户暂停",
+                file: "[Cloudflare]：您的 Cloudflare 帐户已被暂停 - \"Cloudflare\" <noreply@notify.cloudflare.com> - 2025-11-13 0440.eml",
+                preview: "账户暂停通知 - 重复邮件",
+                unread: false
+            },
+            {
+                id: 43,
+                from: "Cloudflare Trust & Safety",
+                fromEmail: "abuse@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[a53d09e37daf2122]: Phishing report received regarding your site",
+                date: "2025-10-31",
+                tag: "phishing",
+                tagText: "钓鱼举报",
+                file: "[a53d09e37daf2122]: Phishing report received regarding your site - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-10-31 2307.eml",
+                preview: "重复的钓鱼检测报告",
+                unread: false
+            },
+            {
+                id: 44,
+                from: "Cloudflare Trust & Safety",
+                fromEmail: "abuse@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[a53d09e37daf2122]: Response to your Phishing report",
+                date: "2025-10-31",
+                tag: "response",
+                tagText: "申诉回复",
+                file: "[a53d09e37daf2122]: Response to your Phishing report - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-10-31 2307.eml",
+                preview: "重复的申诉回复",
+                unread: false
+            },
+            {
+                id: 45,
+                from: "Cloudflare Trust & Safety",
+                fromEmail: "noreply@notify.cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "[2cefad12a6111d60]: Response to your Complaint",
+                date: "2025-11-13",
+                tag: "response",
+                tagText: "官方回复",
+                file: "[2cefad12a6111d60]: Response to your Complaint - \"Cloudflare Trust & Safety\" <abuse@notify.cloudflare.com> - 2025-11-13 0444.eml",
+                preview: "重复的投诉回复",
+                unread: false
+            },
+            {
+                id: 46,
+                from: "Cloudflare",
+                fromEmail: "abusereply@cloudflare.com",
+                to: "admin@liuxiaozhen.dev",
+                subject: "Report received: (#20507978) Abuse of complaints",
+                date: "2025-10-23",
+                tag: "abuse",
+                tagText: "滥用投诉",
+                file: "Report received: (#20507978) Abuse of complaints - Cloudflare <abusereply@cloudflare.com> - 2025-10-23 2018.eml",
+                preview: "滥用投诉处理报告",
+                unread: false
             }
             {
                 id: 1,
@@ -1199,7 +1436,7 @@
             
             document.getElementById('mailCount').textContent = `${emails.length} 封邮件${unreadCount > 0 ? ` (${unreadCount} 未读)` : ''}`;
             
-            container.innerHTML = emails.map(email => `
+            container.innerHTML = emails.slice(0, 50).map(email => `
                 <div class="mail-item ${email.unread ? 'unread' : ''} ${currentEmail?.id === email.id ? 'active' : ''}" 
                      onclick="selectEmail(${email.id})">
                     <div class="mail-item-header">

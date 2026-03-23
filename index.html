@@ -185,7 +185,49 @@
         .cookie-banner .privacy-link:hover {
             text-decoration: underline;
         }
-    </style>
+        
+        /* 响应式设计 - Cookie 弹窗 */
+        @media (max-width: 768px) {
+            .cookie-banner {
+                padding: 12px 16px;
+                gap: 12px;
+            }
+            <
+            .cookie-banner .content p {
+                font-size: 13px;
+                line-height: 1.3;
+            }
+            
+            .cookie-banner .actions {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .cookie-banner .btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cookie-banner {
+                padding: 10px 12px;
+            }
+            
+            .cookie-banner .content p {
+                font-size: 12px;
+            }
+            
+            .cookie-banner .btn {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            
+            .cookie-banner .privacy-link {
+                font-size: 12px;
+            }
+        }
 </head>
 <body>
     <!-- 隐私警告框 -->

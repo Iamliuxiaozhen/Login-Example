@@ -389,6 +389,119 @@
             margin-left: auto;
         }
         
+        /* Cookie 弹窗样式 */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #2c3e50;
+            color: white;
+            padding: 16px 20px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .cookie-banner .content {
+            flex: 1;
+        }
+        
+        .cookie-banner .content p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .cookie-banner .content strong {
+            font-weight: 600;
+        }
+        
+        .cookie-banner .actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .cookie-banner .btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: transparent;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .cookie-banner .btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .cookie-banner .btn.accept {
+            background: #3498db;
+            border-color: #3498db;
+        }
+        
+        .cookie-banner .btn.accept:hover {
+            background: #2980b9;
+        }
+        
+        .cookie-banner .privacy-link {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .cookie-banner .privacy-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* 响应式设计 - Cookie 弹窗 */
+        @media (max-width: 768px) {
+            .cookie-banner {
+                padding: 12px 16px;
+                gap: 12px;
+            }
+            
+            .cookie-banner .content p {
+                font-size: 13px;
+                line-height: 1.3;
+            }
+            
+            .cookie-banner .actions {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .cookie-banner .btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cookie-banner {
+                padding: 10px 12px;
+            }
+            
+            .cookie-banner .content p {
+                font-size: 12px;
+            }
+            
+            .cookie-banner .btn {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            
+            .cookie-banner .privacy-link {
+                font-size: 12px;
+            }
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             /* 整体布局 */
@@ -1370,6 +1483,46 @@
 
         // 初始化
         renderMailList();
+    </script>
+    
+    <!-- Cookie 弹窗 -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="content">
+            <p><strong>Cookie 使用声明</strong> - 我们使用 Cookie 来改善您的体验，并为您提供更好的服务。继续使用本网站即表示您同意我们的 Cookie 政策。</p>
+        </div>
+        <div class="actions">
+            <a href="/agreement/PrivacyPolicy" class="privacy-link">了解更多</a>
+            <button class="btn" onclick="document.getElementById('cookieBanner').style.display='none'">拒绝</button>
+            <button class="btn accept" onclick="acceptCookies()">接受</button>
+        </div>
+    </div>
+    
+    <!-- Cookie 脚本 -->
+    <script>
+        // 检查用户是否已经接受 cookies
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('cookieConsent');
+            if (consent === 'accepted') {
+                document.getElementById('cookieBanner').style.display = 'none';
+            } else {
+                // 显示 cookie 弹窗
+                document.getElementById('cookieBanner').style.display = 'flex';
+            }
+        }
+        
+        // 接受 cookies
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieBanner').style.display = 'none';
+            
+            // 这里可以添加实际的 cookie 设置逻辑
+            console.log('Cookies accepted');
+        }
+        
+        // 页面加载时检查 consent
+        document.addEventListener('DOMContentLoaded', function() {
+            checkCookieConsent();
+        });
     </script>
 </body>
 </html>

@@ -1435,6 +1435,13 @@
             document.getElementById('downloadLink').href = `email/${email.file}`;
             document.getElementById('downloadLink').download = email.file;
             
+            // Cloudflare 特殊功能
+            if (isCloudflareEmail(email)) {
+                addCloudflareActions();
+            } else {
+                removeCloudflareActions();
+            }
+            
             // 加载邮件内容
             const bodyEl = document.getElementById('detailBody');
             bodyEl.textContent = '加载中...';
@@ -1442,7 +1449,13 @@
             try {
                 const response = await fetch(`email/${email.file}`);
                 if (response.ok) {
-                    const text = await response.text();
+                    let text = await response.text();
+                    
+                    // Cloudflare邮件特殊处理
+                    if (isCloudflareEmail(email)) {
+                        text = processCloudflareEmail(text, email);
+                    }
+                    
                     bodyEl.textContent = text;
                 } else {
                     bodyEl.textContent = `加载失败: HTTP ${response.status}`;
@@ -1450,6 +1463,234 @@
             } catch (error) {
                 bodyEl.textContent = `加载失败: ${error.message}`;
             }
+        }
+        
+        // 判断是否为Cloudflare邮件
+        function isCloudflareEmail(email) {
+            const cloudflareDomains = [
+                'cloudflare.com', 'cloudflare.net', 'cloudflare.org',
+                'noreply@notify.cloudflare.com', 'abuse@cloudflare.com',
+                'trust@cloudflare.com', 'support@cloudflare.com',
+                'notifications@cloudflare.com', 'notices@trustandsafety.cloudflare.com'
+            ];
+            
+            return cloudflareDomains.some(domain => 
+                email.fromEmail.includes(domain) || 
+                email.from.includes('Cloudflare') ||
+                email.from.includes('cloudflare')
+            );
+        }
+        
+        // 添加Cloudflare特有的操作按钮
+        function addCloudflareActions() {
+            const toolbar = document.querySelector('.mail-content-toolbar');
+            if (toolbar && !toolbar.querySelector('.cloudflare-actions')) {
+                const cloudflareDiv = document.createElement('div');
+                cloudflareDiv.className = 'cloudflare-actions';
+                cloudflareDiv.innerHTML = `
+                    <div style="display: flex; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #e1dfdd;">
+                        <button class="action-btn" onclick="cloudflareQuickReply()">📧 快速回复</button>
+                        <button class="action-btn" onclick="cloudflareCaseStatus()">📊 案件状态</button>
+                        <button class="action-btn" onclick="cloudflareSecurityTips()">🔒 安全提示</button>
+                    </div>
+                `;
+                toolbar.appendChild(cloudflareDiv);
+            }
+        }
+        
+        // 移除Cloudflare操作按钮
+        function removeCloudflareActions() {
+            const cloudflareActions = document.querySelector('.cloudflare-actions');
+            if (cloudflareActions) {
+                cloudflareActions.remove();
+            }
+        }
+        
+        // 处理Cloudflare邮件内容
+        function processCloudflareEmail(content, email) {
+            // 添加Cloudflare特有的格式化
+            const lines = content.split('\n');
+            let processedContent = '';
+            
+            lines.forEach((line, index) => {
+                if (line.includes('Case ID:') || line.includes('案件编号:')) {
+                    processedContent += '\n📋 **案件信息**\n' + line + '\n---\n';
+                } else if (line.includes('Ticket ID:') || line.includes('工单编号:')) {
+                    processedContent += '\n🎫 **工单信息**\n' + line + '\n---\n';
+                } else if (line.includes('Suspension:') || line.includes('暂停:')) {
+                    processedContent += '\n⚠️ **账户状态**\n' + line + '\n---\n';
+                } else if (line.includes('Phishing:') || line.includes('钓鱼:')) {
+                    processedContent += '\n🎯 **安全警报**\n' + line + '\n---\n';
+                } else {
+                    processedContent += line + '\n';
+                }
+            });
+            
+            // 添加Cloudflare提示
+            processedContent += '\n---\n💡 **Cloudflare 提示** - 此邮件来自 Cloudflare 安全团队，请谨慎处理相关内容。';
+            
+            return processedContent;
+        }
+        
+        // Cloudflare 快速回复
+        function cloudflareQuickReply() {
+            if (!currentEmail) return;
+            
+            const replyContent = `尊敬的 Cloudflare 支持团队：
+
+感谢您关于 "${currentEmail.subject}" 的通知。
+
+${getCloudflareReplyTemplate(currentEmail)}
+
+期待您的回复。
+
+此致
+敬礼
+
+小圳`;
+            
+            // 创建回复窗口
+            showReplyModal('Cloudflare 快速回复', replyContent);
+        }
+        
+        // Cloudflare 案件状态
+        function cloudflareCaseStatus() {
+            if (!currentEmail) return;
+            
+            const caseInfo = extractCaseInfo(currentEmail);
+            showStatusModal('案件状态查询', caseInfo);
+        }
+        
+        // Cloudflare 安全提示
+        function cloudflareSecurityTips() {
+            const tips = [
+                '🔒 定期更新您的账户密码',
+                '📧 谨慎处理可疑邮件',
+                '🛡️ 启用双重验证',
+                '📱 监控账户活动日志',
+                '🚨 及时响应安全警报'
+            ];
+            
+            showTipsModal('Cloudflare 安全提示', tips);
+        }
+        
+        // 获取Cloudflare回复模板
+        function getCloudflareReplyTemplate(email) {
+            if (email.subject.includes('suspended') || email.subject.includes('暂停')) {
+                return '我已经收到关于账户暂停的通知，请问具体是什么原因导致的？我需要什么信息来解决这个问题？';
+            } else if (email.subject.includes('phishing') || email.subject.includes('钓鱼')) {
+                return '我已收到钓鱼检测通知。请告知具体哪些内容被认为是可疑的，我将立即检查并处理。';
+            } else if (email.subject.includes('abuse') || email.subject.includes('滥用')) {
+                return '我已收到滥用投诉通知。请提供详细信息以便我了解情况并采取相应措施。';
+            } else {
+                return '请提供更多详细信息，以便我了解具体情况并作出适当回应。';
+            }
+        }
+        
+        // 提取案件信息
+        function extractCaseInfo(email) {
+            const content = email.subject + ' ' + (email.preview || '');
+            let caseInfo = '📋 **案件信息**\n\n';
+            
+            if (content.match(/Case\s+ID[:\s]*([A-Za-z0-9]+)/i)) {
+                caseInfo += `案件编号: ${content.match(/Case\s+ID[:\s]*([A-Za-z0-9]+)/i)[1]}\n`;
+            }
+            
+            if (content.match(/Ticket\s+ID[:\s]*([A-Za-z0-9]+)/i)) {
+                caseInfo += `工单编号: ${content.match(/Ticket\s+ID[:\s]*([A-Za-z0-9]+)/i)[1]}\n`;
+            }
+            
+            caseInfo += `\n📅 创建时间: ${email.date}\n`;
+            caseInfo += `👤 发件人: ${email.from}\n`;
+            caseInfo += `📬 主题: ${email.subject}\n\n`;
+            
+            caseInfo += '🔄 **当前状态**: 待处理\n';
+            caseInfo += '⏰ **预计处理时间**: 1-3个工作日\n';
+            
+            return caseInfo;
+        }
+        
+        // 显示回复模态框
+        function showReplyModal(title, content) {
+            const modal = createModal(title, `
+                <textarea style="width: 100%; height: 200px; padding: 12px; border: 1px solid #e1dfdd; border-radius: 4px; font-family: monospace; font-size: 13px;">${content}</textarea>
+                <div style="margin-top: 12px; display: flex; gap: 8px;">
+                    <button class="action-btn" onclick="copyToClipboard(this.previousElementSibling.previousElementSibling.value)">📋 复制</button>
+                    <button class="action-btn" onclick="closeModal()">✕ 关闭</button>
+                </div>
+            `);
+        }
+        
+        // 显示状态模态框
+        function showStatusModal(title, content) {
+            const modal = createModal(title, `
+                <div style="white-space: pre-line; font-family: monospace; font-size: 13px; line-height: 1.6;">${content}</div>
+                <div style="margin-top: 12px;">
+                    <button class="action-btn" onclick="closeModal()">✕ 关闭</button>
+                </div>
+            `);
+        }
+        
+        // 显示提示模态框
+        function showTipsModal(title, tips) {
+            const tipsList = tips.map(tip => `<div style="margin-bottom: 8px;">${tip}</div>`).join('');
+            const modal = createModal(title, `
+                <div style="line-height: 1.6;">${tipsList}</div>
+                <div style="margin-top: 12px;">
+                    <button class="action-btn" onclick="closeModal()">✕ 关闭</button>
+                </div>
+            `);
+        }
+        
+        // 创建模态框
+        function createModal(title, content) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: white; padding: 24px; border-radius: 8px; max-width: 500px; max-height: 80vh; overflow-y: auto; margin: 20px;">
+                    <h3 style="margin-bottom: 16px; font-size: 18px;">${title}</h3>
+                    ${content}
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            return modal;
+        }
+        
+        // 关闭模态框
+        function closeModal() {
+            const modal = document.querySelector('.modal-placeholder');
+            if (modal) {
+                modal.remove();
+            }
+            document.querySelectorAll('[style*="position: fixed"][style*="z-index: 10000"]').forEach(el => el.remove());
+        }
+        
+        // 复制到剪贴板
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('已复制到剪贴板');
+            }).catch(err => {
+                alert('复制失败: ' + err);
+            });
         }
 
         function closeMail() {

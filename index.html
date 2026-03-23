@@ -5,8 +5,253 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Example</title>
     <link href="css/style.css" rel="stylesheet" >
-</head>
+    <style>
+        /* 隐私警告框样式 */
+        .privacy-warning {
+            margin: 12px 0;
+            padding: 12px 16px;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            color: #856404;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .privacy-warning .icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .privacy-warning .content {
+            flex: 1;
+        }
+        
+        .privacy-warning .content strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+        
+        .privacy-warning .close-btn {
+            background: none;
+            border: none;
+            color: #856404;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            line-height: 1;
+        }
+        
+        /* Cookie 弹窗样式 */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #2c3e50;
+            color: white;
+            padding: 16px 20px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 30px 20px;
+                margin: 10px;
+                box-shadow: none;
+                border: 1px solid #e1e4e8;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .logo p {
+                font-size: 14px;
+            }
+            
+            .login-button {
+                padding: 10px 20px;
+                font-size: 14px;
+                margin-top: 15px;
+            }
+            
+            .login-button svg {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .privacy-warning {
+                margin: 8px 0;
+                font-size: 12px;
+            }
+            
+            .privacy-warning .icon {
+                font-size: 14px;
+            }
+            
+            .footer {
+                margin-top: 20px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px 15px;
+            }
+            
+            .logo h1 {
+                font-size: 18px;
+            }
+            
+            .logo p {
+                font-size: 13px;
+            }
+            
+            .login-button {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            
+            .login-button svg {
+                width: 14px;
+                height: 14px;
+            }
+            
+            #verifytext {
+                font-size: 12px;
+            }
+        }
+        
+        .cookie-banner .content {
+            flex: 1;
+        }
+        
+        .cookie-banner .content p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .cookie-banner .content strong {
+            font-weight: 600;
+        }
+        
+        .cookie-banner .actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .cookie-banner .btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: transparent;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .cookie-banner .btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .cookie-banner .btn.accept {
+            background: #3498db;
+            border-color: #3498db;
+        }
+        
+        .cookie-banner .btn.accept:hover {
+            background: #2980b9;
+        }
+        
+        .cookie-banner .privacy-link {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .cookie-banner .privacy-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* 响应式设计 - Cookie 弹窗 */
+        @media (max-width: 768px) {
+            .cookie-banner {
+                padding: 12px 16px;
+                gap: 12px;
+            }
+            
+            .cookie-banner .content p {
+                font-size: 13px;
+                line-height: 1.3;
+            }
+            
+            .cookie-banner .actions {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .cookie-banner .btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cookie-banner {
+                padding: 10px 12px;
+            }
+            
+            .cookie-banner .content p {
+                font-size: 12px;
+            }
+            
+            .cookie-banner .btn {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            
+            .cookie-banner .privacy-link {
+                font-size: 12px;
+            }
+        }
+    </style>
 <body>
+    <!-- 隐私警告框 -->
+    <div class="privacy-warning" id="privacyWarning">
+        <span class="icon">⚠️</span>
+        <div class="content">
+            <strong>隐私声明</strong>
+            <p>本网站仅用于 OAuth 登录演示，不会收集用户隐私。所有功能均为演示用途，代码完全开源透明。</p>
+        </div>
+        <button class="close-btn" onclick="document.getElementById('privacyWarning').style.display='none'">×</button>
+    </div>
+
+    <!-- Cookie 弹窗 -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="content">
+            <p><strong>Cookie 使用声明</strong> - 我们使用 Cookie 来改善您的体验，并为您提供更好的服务。继续使用本网站即表示您同意我们的 Cookie 政策。</p>
+        </div>
+        <div class="actions">
+            <a href="/agreement/PrivacyPolicy" class="privacy-link">了解更多</a>
+            <button class="btn" onclick="document.getElementById('cookieBanner').style.display='none'">拒绝</button>
+            <button class="btn accept" onclick="acceptCookies()">接受</button>
+        </div>
+    </div>
+
     <div class="login-container">
         <h1>Login - Example</h1>
         <br>
@@ -89,40 +334,54 @@
 
         // Cloudflare Turnstile验证
         function onSubmit(token) {
-            // 将token发送到后端进行验证
-            fetch('/verify', {
-                method: 'POST',
-                body: new FormData(document.getElementById('cf-turnstile-form'))
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById("verifytext").innerHTML = "验证通过";
-                    document.getElementById("github-login").disabled = false;
-                    document.getElementById("microsoft-login").disabled = false;
-                    document.getElementById("google-login").disabled = false;
-                } else {
-                    document.getElementById("verifytext").innerHTML = "验证未通过，请重试";
-                    document.getElementById("github-login").disabled = true;
-                    document.getElementById("microsoft-login").disabled = true;
-                    document.getElementById("google-login").disabled = true;
-                }
-            })
-            .catch(error => {
-                console.error('验证错误:', error);
-                document.getElementById("verifytext").innerHTML = "验证过程中出现错误";
-                document.getElementById("github-login").disabled = true;
-                document.getElementById("microsoft-login").disabled = true;
-                document.getElementById("google-login").disabled = true;
-            });
+            console.log('Cloudflare验证成功，token:', token);
+            document.getElementById("verifytext").innerHTML = "验证通过 ✓";
+            document.getElementById("verifytext").style.color = "#28a745";
+            document.getElementById("github-login").disabled = false;
+            document.getElementById("microsoft-login").disabled = false;
+            document.getElementById("google-login").disabled = false;
+            
+            // 显示成功状态
+            document.getElementById("verifytext").style.fontWeight = "bold";
         }
 
         function onError(error) {
+            console.error('Cloudflare验证失败:', error);
             document.getElementById("verifytext").innerHTML = "验证未通过，请重试";
+            document.getElementById("verifytext").style.color = "#dc3545";
             // 验证失败时禁用登录按钮
             document.getElementById("github-login").disabled = true;
             document.getElementById("microsoft-login").disabled = true;
+            document.getElementById("google-login").disabled = true;
         }
+    </script>
+    
+    <!-- Cookie 脚本 -->
+    <script>
+        // 检查用户是否已经接受 cookies
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('cookieConsent');
+            if (consent === 'accepted') {
+                document.getElementById('cookieBanner').style.display = 'none';
+            } else {
+                // 显示 cookie 弹窗
+                document.getElementById('cookieBanner').style.display = 'flex';
+            }
+        }
+        
+        // 接受 cookies
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieBanner').style.display = 'none';
+            
+            // 这里可以添加实际的 cookie 设置逻辑
+            console.log('Cookies accepted');
+        }
+        
+        // 页面加载时检查 consent
+        document.addEventListener('DOMContentLoaded', function() {
+            checkCookieConsent();
+        });
     </script>
 </body>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>

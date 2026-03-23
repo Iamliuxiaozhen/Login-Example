@@ -809,6 +809,139 @@
             }
         }
 
+        /* 邮件阅读功能样式 */
+        .loading-indicator {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .error-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #dc3545;
+            font-size: 14px;
+        }
+        
+        .email-content {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e1dfdd;
+            max-height: 60vh;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .email-search .search-input {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            transition: border-color 0.2s;
+        }
+        
+        .email-search .search-input:focus {
+            outline: none;
+            border-color: #0078d4;
+            box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.1);
+        }
+        
+        .email-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .email-toolbar .action-btn {
+            padding: 6px 12px;
+            border: 1px solid #e1dfdd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+        
+        .email-toolbar .action-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-1px);
+        }
+        
+        .search-highlight {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 2px 4px;
+            border-radius: 3px;
+            animation: highlight-pulse 1s ease-in-out;
+        }
+        
+        @keyframes highlight-pulse {
+            0% { background-color: #ffeb3b; }
+            50% { background-color: #fff59d; }
+            100% { background-color: #fff3cd; }
+        }
+        
+        .user-highlight {
+            background-color: #ffeb3b;
+            color: #000;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+        
+        /* 响应式邮件阅读优化 */
+        @media (max-width: 768px) {
+            .email-content {
+                font-size: 13px;
+                padding: 16px;
+                max-height: 50vh;
+            }
+            
+            .email-toolbar .action-btn {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+            
+            .email-search .search-input {
+                font-size: 13px;
+                padding: 6px 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .email-content {
+                font-size: 12px;
+                padding: 12px;
+                max-height: 45vh;
+            }
+            
+            .email-toolbar {
+                padding: 4px;
+            }
+            
+            .email-toolbar .action-btn {
+                padding: 3px 6px;
+                font-size: 11px;
+            }
+        }
+        
+        /* 模态框特殊样式 */
+        .cloudflare-modal .email-content {
+            background: white;
+            border: none;
+            box-shadow: none;
+        }
+        
+        .cloudflare-modal .email-toolbar {
+            background: #f8f9fa;
+            border-bottom: 1px solid #e1dfdd;
+            margin-bottom: 12px;
+        }
+
         /* 滚动条样式 */
         ::-webkit-scrollbar {
             width: 8px;
@@ -1435,6 +1568,9 @@
             document.getElementById('downloadLink').href = `email/${email.file}`;
             document.getElementById('downloadLink').download = email.file;
             
+            // 添加邮件阅读功能
+            setupEmailReadingFeatures();
+            
             // Cloudflare 特殊功能
             if (isCloudflareEmail(email)) {
                 addCloudflareActions();
@@ -1444,24 +1580,225 @@
             
             // 加载邮件内容
             const bodyEl = document.getElementById('detailBody');
-            bodyEl.textContent = '加载中...';
+            bodyEl.innerHTML = '<div class="loading-indicator">📧 加载邮件中...</div>';
             
             try {
                 const response = await fetch(`email/${email.file}`);
                 if (response.ok) {
                     let text = await response.text();
                     
+                    // 格式化邮件内容
+                    text = formatEmailContent(text, email);
+                    
                     // Cloudflare邮件特殊处理
                     if (isCloudflareEmail(email)) {
                         text = processCloudflareEmail(text, email);
                     }
                     
-                    bodyEl.textContent = text;
+                    bodyEl.innerHTML = `<pre class="email-content">${escapeHtml(text)}</pre>`;
+                    
+                    // 重新绑定阅读功能
+                    setupEmailReadingFeatures();
+                    
                 } else {
-                    bodyEl.textContent = `加载失败: HTTP ${response.status}`;
+                    bodyEl.innerHTML = `<div class="error-message">❌ 加载失败: HTTP ${response.status}</div>`;
                 }
             } catch (error) {
-                bodyEl.textContent = `加载失败: ${error.message}`;
+                bodyEl.innerHTML = `<div class="error-message">❌ 加载失败: ${error.message}</div>`;
+            }
+        }
+        
+        // 设置邮件阅读功能
+        function setupEmailReadingFeatures() {
+            const bodyEl = document.getElementById('detailBody');
+            if (!bodyEl) return;
+            
+            // 添加搜索功能
+            const searchBox = document.createElement('div');
+            searchBox.className = 'email-search';
+            searchBox.innerHTML = `
+                <input type="text" placeholder="在邮件中搜索..." class="search-input" 
+                       onkeyup="searchInEmail(this.value)" style="
+                           width: 100%; 
+                           padding: 8px 12px; 
+                           border: 1px solid #e1dfdd; 
+                           border-radius: 6px; 
+                           margin-bottom: 12px; 
+                           font-size: 14px;">
+            `;
+            bodyEl.insertBefore(searchBox, bodyEl.firstChild);
+            
+            // 添加工具栏
+            const toolbar = document.createElement('div');
+            toolbar.className = 'email-toolbar';
+            toolbar.innerHTML = `
+                <div style="
+                    display: flex; 
+                    gap: 8px; 
+                    margin-bottom: 12px; 
+                    padding: 8px; 
+                    background: #f8f9fa; 
+                    border-radius: 6px;
+                    flex-wrap: wrap;">
+                    <button class="action-btn" onclick="zoomInEmail()" title="放大">🔍+</button>
+                    <button class="action-btn" onclick="zoomOutEmail()" title="缩小">🔍-</button>
+                    <button class="action-btn" onclick="toggleWordWrap()" title="自动换行">📝</button>
+                    <button class="action-btn" onclick="copyEmailContent()" title="复制全文">📋 复制</button>
+                    <button class="action-btn" onclick="highlightText()" title="高亮选择">🖍️</button>
+                </div>
+            `;
+            bodyEl.insertBefore(toolbar, bodyEl.firstChild);
+        }
+        
+        // 格式化邮件内容
+        function formatEmailContent(text, email) {
+            // 提取邮件头信息
+            const headers = extractEmailHeaders(text);
+            let formatted = '';
+            
+            if (headers.from || headers.subject) {
+                formatted += '--- 📧 邮件信息 ---\n';
+                if (headers.from) formatted += `发件人: ${headers.from}\n`;
+                if (headers.subject) formatted += `主题: ${headers.subject}\n`;
+                if (headers.date) formatted += `日期: ${headers.date}\n`;
+                formatted += '\n';
+            }
+            
+            // 添加邮件正文，智能分割
+            const bodyMatch = text.match(/\n\n([\s\S]*)$/);
+            const body = bodyMatch ? bodyMatch[1] : text;
+            
+            // 清理和格式化正文
+            formatted += cleanEmailBody(body);
+            
+            return formatted;
+        }
+        
+        // 提取邮件头信息
+        function extractEmailHeaders(text) {
+            const headers = {};
+            
+            // From
+            const fromMatch = text.match(/^From:\s*(.+)/im);
+            if (fromMatch) headers.from = fromMatch[1].trim();
+            
+            // Subject
+            const subjectMatch = text.match(/^Subject:\s*(.+)/im);
+            if (subjectMatch) headers.subject = subjectMatch[1].trim();
+            
+            // Date
+            const dateMatch = text.match(/^Date:\s*(.+)/im);
+            if (dateMatch) headers.date = dateMatch[1].trim();
+            
+            return headers;
+        }
+        
+        // 清理邮件正文
+        function cleanEmailBody(body) {
+            return body
+                .replace(/\n{3,}/g, '\n\n') // 合并多余的空行
+                .replace(/^\s+|\s+$/gm, '') // 移除行首行尾空白
+                .replace(/\n\s*\n\s*\n/g, '\n\n') // 合并多个空行
+                .trim();
+        }
+        
+        // HTML转义
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+        
+        // 在邮件中搜索
+        function searchInEmail(query) {
+            const content = document.querySelector('.email-content');
+            if (!content || !query) {
+                clearHighlights();
+                return;
+            }
+            
+            const text = content.textContent;
+            const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+            const highlightedText = text.replace(regex, '<mark class="search-highlight">$1</mark>');
+            
+            content.innerHTML = highlightedText;
+            
+            // 滚动到第一个匹配项
+            const firstHighlight = content.querySelector('.search-highlight');
+            if (firstHighlight) {
+                firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        
+        // 清除高亮
+        function clearHighlights() {
+            const content = document.querySelector('.email-content');
+            if (content) {
+                content.innerHTML = content.textContent;
+            }
+        }
+        
+        // 转义正则表达式
+        function escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+        
+        // 放大邮件
+        function zoomInEmail() {
+            const content = document.querySelector('.email-content');
+            if (content) {
+                const currentSize = parseInt(content.style.fontSize) || 14;
+                content.style.fontSize = (currentSize + 1) + 'px';
+            }
+        }
+        
+        // 缩小邮件
+        function zoomOutEmail() {
+            const content = document.querySelector('.email-content');
+            if (content) {
+                const currentSize = parseInt(content.style.fontSize) || 14;
+                content.style.fontSize = Math.max(10, currentSize - 1) + 'px';
+            }
+        }
+        
+        // 切换自动换行
+        function toggleWordWrap() {
+            const content = document.querySelector('.email-content');
+            if (content) {
+                content.style.whiteSpace = content.style.whiteSpace === 'pre-wrap' ? 'pre' : 'pre-wrap';
+            }
+        }
+        
+        // 复制邮件内容
+        function copyEmailContent() {
+            const content = document.querySelector('.email-content');
+            if (content) {
+                navigator.clipboard.writeText(content.textContent).then(() => {
+                    alert('📋 邮件内容已复制到剪贴板');
+                }).catch(err => {
+                    alert('❌ 复制失败: ' + err);
+                });
+            }
+        }
+        
+        // 高亮文本（简单实现）
+        function highlightText() {
+            const selection = window.getSelection();
+            if (selection.toString()) {
+                const range = selection.getRangeAt(0);
+                const span = document.createElement('mark');
+                span.className = 'user-highlight';
+                span.style.backgroundColor = '#ffeb3b';
+                span.style.color = '#000';
+                range.surroundContents(span);
+                selection.removeAllRanges();
+            } else {
+                alert('🖍️ 请先选择要高亮的文本');
             }
         }
         
@@ -1644,31 +1981,69 @@ ${getCloudflareReplyTemplate(currentEmail)}
         
         // 创建模态框
         function createModal(title, content) {
+            // 移除已存在的模态框
+            closeModal();
+            
             const modal = document.createElement('div');
+            modal.className = 'cloudflare-modal';
             modal.style.cssText = `
                 position: fixed;
                 top: 0;
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: rgba(0,0,0,0.5);
+                background: rgba(0,0,0,0.6);
+                z-index: 10000;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                z-index: 10000;
+                padding: 20px;
             `;
             
-            modal.innerHTML = `
-                <div style="background: white; padding: 24px; border-radius: 8px; max-width: 500px; max-height: 80vh; overflow-y: auto; margin: 20px;">
-                    <h3 style="margin-bottom: 16px; font-size: 18px;">${title}</h3>
+            // 根据屏幕尺寸调整模态框大小
+            const isMobile = window.innerWidth <= 768;
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                border-radius: 12px;
+                max-width: ${isMobile ? '90vw' : '500px'};
+                max-height: ${isMobile ? '70vh' : '80vh'};
+                overflow-y: auto;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+                transform: scale(0.95);
+                transition: transform 0.2s ease;
+            `;
+            
+            modalContent.innerHTML = `
+                <div style="padding: ${isMobile ? '20px' : '24px'};">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: ${isMobile ? '16px' : '20px'};">
+                        <h3 style="margin: 0; font-size: ${isMobile ? '16px' : '18px'}; font-weight: 600;">${title}</h3>
+                        <button onclick="closeModal()" style="background: none; border: none; font-size: ${isMobile ? '20px' : '24px'}; cursor: pointer; color: #666; line-height: 1;">×</button>
+                    </div>
                     ${content}
                 </div>
             `;
             
+            modal.appendChild(modalContent);
             document.body.appendChild(modal);
+            
+            // 动画效果
+            setTimeout(() => {
+                modalContent.style.transform = 'scale(1)';
+            }, 10);
+            
+            // 点击背景关闭
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     closeModal();
+                }
+            });
+            
+            // ESC键关闭
+            document.addEventListener('keydown', function escHandler(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    document.removeEventListener('keydown', escHandler);
                 }
             });
             

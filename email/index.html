@@ -1793,6 +1793,15 @@
             // 更新列表高亮
             renderMailList();
             
+            // 更新邮件预览
+            document.getElementById('emptyPreview').style.display = 'none';
+            document.getElementById('previewDetail').style.display = 'block';
+            document.getElementById('previewSubject').textContent = email.subject;
+            document.getElementById('previewFrom').textContent = email.from;
+            document.getElementById('previewDate').textContent = new Date(email.date).toLocaleString('zh-CN');
+            document.getElementById('previewAvatar').textContent = email.from.charAt(0).toUpperCase();
+            document.getElementById('previewContent').innerHTML = `<div class="preview-text">${email.preview || '无预览内容'}</div>`;
+            
             // 显示邮件详情
             document.getElementById('emptyState').style.display = 'none';
             const detail = document.getElementById('mailDetail');
@@ -2636,6 +2645,8 @@ ${getCloudflareReplyTemplate(currentEmail)}
         function closeMail() {
             document.getElementById('emptyState').style.display = 'block';
             document.getElementById('mailDetail').style.display = 'none';
+            document.getElementById('emptyPreview').style.display = 'block';
+            document.getElementById('previewDetail').style.display = 'none';
             currentEmail = null;
             renderMailList();
         }

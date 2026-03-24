@@ -6,10 +6,11 @@
     <title>Login - Example</title>
     <link href="css/style.css" rel="stylesheet" >
     <style>
-        /* 隐私警告框样式 */
+        /* 隐私警告框样式 - 直接放在登录框上方 */
         .privacy-warning {
-            margin: 12px auto;
-            max-width: 500px;
+            margin: 0 auto 20px;
+            max-width: 100%;
+            width: 100%;
             padding: 0;
             background: #fff3cd;
             border: 1px solid #ffeaa7;
@@ -22,18 +23,17 @@
         .privacy-header {
             display: flex;
             align-items: flex-start;
-            padding: 16px 20px;
-            gap: 14px;
-            min-height: 60px;
+            padding: 14px 16px;
+            gap: 12px;
+            min-height: 56px;
         }
         
         .privacy-icon {
-            font-size: 20px;
+            font-size: 18px;
             flex-shrink: 0;
-            margin-top: 2px;
             background: rgba(255,255,255,0.3);
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -48,13 +48,13 @@
         .privacy-content strong {
             display: block;
             font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 8px;
+            font-size: 14px;
+            margin-bottom: 6px;
             line-height: 1.4;
         }
         
         .privacy-content p {
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.5;
             margin: 0;
             word-wrap: break-word;
@@ -66,11 +66,10 @@
             border: none;
             color: #856404;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             padding: 0;
             line-height: 1;
             flex-shrink: 0;
-            margin-left: auto;
             opacity: 0.7;
             transition: opacity 0.2s;
         }
@@ -297,58 +296,39 @@
                 font-size: 12px;
             }
             
-            /* 极小屏幕隐私警告框优化 */
+            /* 移动端隐私警告框优化 */
             .privacy-warning {
-                margin: 6px auto;
-                max-width: 98%;
-                border-radius: 8px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                margin: 0 auto 16px;
             }
             
             .privacy-header {
-                flex-direction: row;
-                align-items: center;
-                gap: 10px;
                 padding: 12px 14px;
-                min-height: 52px;
+                gap: 10px;
             }
             
             .privacy-icon {
-                margin-bottom: 0;
-                margin-right: 2px;
-                font-size: 18px;
-                width: 32px;
-                height: 32px;
+                font-size: 16px;
+                width: 28px;
+                height: 28px;
             }
             
             .privacy-content strong {
                 font-size: 13px;
                 margin-bottom: 4px;
-                line-height: 1.2;
             }
             
             .privacy-content p {
                 font-size: 11px;
-                line-height: 1.3;
+                line-height: 1.4;
             }
             
             .privacy-close {
-                font-size: 15px;
+                font-size: 14px;
             }
         }
     </style>
 <body>
-    <!-- 隐私警告框 -->
-    <div class="privacy-warning" id="privacyWarning">
-        <div class="privacy-header">
-            <span class="icon">⚠️</span>
-            <div class="privacy-content">
-                <strong>隐私声明</strong>
-                <p>本网站仅用于 OAuth 登录演示，不会收集用户隐私。所有功能均为演示用途，代码完全开源透明。</p>
-            </div>
-            <button class="close-btn" onclick="document.getElementById('privacyWarning').style.display='none'">×</button>
-        </div>
-    </div>
+
 
     <!-- Cookie 弹窗 -->
     <div class="cookie-banner" id="cookieBanner">
@@ -363,6 +343,18 @@
     </div>
 
     <div class="login-container">
+        <!-- 隐私警告框 - 直接放在登录框上方 -->
+        <div class="privacy-warning" id="privacyWarning">
+            <div class="privacy-header">
+                <span class="privacy-icon">⚠️</span>
+                <div class="privacy-content">
+                    <strong>隐私声明</strong>
+                    <p>本网站仅用于 OAuth 登录演示，不会收集用户隐私。所有功能均为演示用途，代码完全开源透明。</p>
+                </div>
+                <button class="privacy-close" onclick="document.getElementById('privacyWarning').style.display='none'">×</button>
+            </div>
+        </div>
+
         <h1>Login - Example</h1>
         <br>
         <div class="logo">

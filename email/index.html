@@ -50,7 +50,31 @@
         /* 主容器 */
         .app-container {
             display: flex;
-            height: calc(100vh - 42px);
+            height: calc(100vh - 52px);
+        }
+        
+        /* 三栏布局 */
+        .mail-list {
+            width: 320px;
+            background: #ffffff;
+            border-right: 1px solid #e1dfdd;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mail-preview {
+            width: 380px;
+            background: #fafafa;
+            border-right: 1px solid #e1dfdd;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mail-content {
+            flex: 1;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
         }
 
         /* 中间邮件列表 */
@@ -529,12 +553,24 @@
         @media (max-width: 768px) {
             /* 整体布局 */
             .app-container {
-                padding: 0;
+                flex-direction: column;
             }
             
             .mail-list {
                 width: 100%;
-                margin: 0;
+                border-right: none;
+                border-bottom: 1px solid #e1dfdd;
+            }
+            
+            .mail-preview {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e1dfdd;
+                display: none;
+            }
+            
+            .mail-content {
+                width: 100%;
             }
             
             .mail-list-header {
@@ -995,7 +1031,7 @@
     </div>
 
     <div class="app-container">
-        <!-- 邮件列表（无左侧导航栏） -->
+        <!-- 左侧邮件列表 -->
         <div class="mail-list">
             <div class="mail-list-header">
                 <h3>收件箱</h3>
@@ -1042,7 +1078,33 @@
             </div>
         </div>
 
-        <!-- 邮件内容 -->
+        <!-- 中间邮件预览 -->
+        <div class="mail-preview" id="mailPreview">
+            <div class="empty-state" id="emptyPreview">
+                <div class="icon">📋</div>
+                <div class="text">选择邮件预览</div>
+                <div class="subtitle">点击左侧邮件列表</div>
+            </div>
+            <div id="previewDetail" style="display: none;">
+                <div class="preview-header">
+                    <div class="preview-subject" id="previewSubject"></div>
+                    <div class="preview-meta">
+                        <div class="preview-sender">
+                            <div class="preview-avatar" id="previewAvatar">C</div>
+                            <div class="preview-sender-info">
+                                <div class="preview-from" id="previewFrom"></div>
+                                <div class="preview-date" id="previewDate"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="preview-content" id="previewContent">
+                    <div class="loading-text">预览加载中...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧邮件内容阅读 -->
         <div class="mail-content" id="mailContent">
             <div class="empty-state" id="emptyState">
                 <div class="icon">📧</div>

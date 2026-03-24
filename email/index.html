@@ -86,19 +86,42 @@
         }
         
         .toolbar-btn {
-            padding: 8px 16px;
+            padding: 6px 12px;
             border: 1px solid #8a8886;
             background: white;
-            border-radius: 2px;
+            border-radius: 4px;
             font-size: 12px;
             cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
+            transition: all 0.2s;
+            white-space: nowrap;
         }
         
         .toolbar-btn:hover {
             background: #f3f2f1;
+            transform: translateY(-1px);
+        }
+        
+        .toolbar-select {
+            padding: 6px 10px;
+            border: 1px solid #8a8886;
+            background: white;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+        
+        .toolbar-select:hover {
+            border-color: #0078d4;
+        }
+        
+        .toolbar-select:focus {
+            border-color: #0078d4;
+            box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1);
         }
 
         .mail-items {
@@ -980,6 +1003,25 @@
             </div>
             <div class="mail-list-toolbar">
                 <button class="toolbar-btn" onclick="refreshMails()">🔄 刷新</button>
+                <select class="toolbar-select" onchange="filterByTag(this.value)">
+                    <option value="all">全部邮件</option>
+                    <option value="phishing">钓鱼举报</option>
+                    <option value="abuse">滥用投诉</option>
+                    <option value="response">官方回复</option>
+                    <option value="suspended">账户暂停</option>
+                    <option value="review">紧急审核</option>
+                    <option value="general">一般通知</option>
+                </select>
+                <select class="toolbar-select" onchange="sortEmails(this.value)">
+                    <option value="date-desc">最新优先</option>
+                    <option value="date-asc">最早优先</option>
+                    <option value="subject">按主题</option>
+                    <option value="sender">按发件人</option>
+                    <option value="unread">未读优先</option>
+                </select>
+                <button class="toolbar-btn" onclick="advancedSearch()">🔍 搜索</button>
+                <button class="toolbar-btn" onclick="showEmailStats()">📊 统计</button>
+                <button class="toolbar-btn" onclick="exportEmails()">📥 导出</button>
             </div>
             
             <!-- 隐私警告框 -->
@@ -1786,7 +1828,7 @@
             }
         }
         
-        // 高亮文本（简单实现）
+        // 高亮文本
         function highlightText() {
             const selection = window.getSelection();
             if (selection.toString()) {
@@ -1795,10 +1837,200 @@
                 span.className = 'user-highlight';
                 span.style.backgroundColor = '#ffeb3b';
                 span.style.color = '#000';
+                span.style.padding = '1px 2px';
+                span.style.borderRadius = '2px';
                 range.surroundContents(span);
                 selection.removeAllRanges();
             } else {
                 alert('🖍️ 请先选择要高亮的文本');
+            }
+        }
+        
+        // 添加更多邮件交互功能
+        function addAdvancedEmailFeatures() {
+            // 添加快捷键支持
+            document.addEventListener('keydown', function(e) {
+                if (currentEmail) {
+                    switch(e.key) {
+                        case 'f':
+                        case 'F':
+                            if (e.ctrlKey || e.metaKey) {
+                                e.preventDefault();
+                                document.querySelector('.search-input').focus();
+                            }
+                            break;
+                        case '+':
+                        case '=':
+                            if (e.ctrlKey || e.metaKey) {
+                                e.preventDefault();
+                                zoomInEmail();
+                            }
+                            break;
+                        case '-':
+                        case '_':
+                            if (e.ctrlKey || e.metaKey) {
+                                e.preventDefault();
+                                zoomOutEmail();
+                            }
+                            break;
+                        case 'w':
+                        case 'W':
+                            if (e.ctrlKey || e.metaKey) {
+                                e.preventDefault();
+                                toggleWordWrap();
+                            }
+                            break;
+                        case 'c':
+                        case 'C':
+                            if (e.ctrlKey || e.metaKey && e.shiftKey) {
+                                e.preventDefault();
+                                copyEmailContent();
+                            }
+                            break;
+                    }
+                }
+            });
+        }
+        
+        // 邮件分类筛选
+        function filterByTag(tag) {
+            const emailsContainer = document.getElementById('mailItems');
+            const emails = document.querySelectorAll('.mail-item');
+            
+            if (tag === 'all') {
+                emails.forEach(email => email.style.display = 'block');
+            } else {
+                emails.forEach(email => {
+                    const emailTag = email.querySelector('.mail-tag').classList.contains(`tag-${tag}`);
+                    email.style.display = emailTag ? 'block' : 'none';
+                });
+            }
+            
+            // 更新计数
+            const visibleCount = Array.from(emails).filter(email => email.style.display !== 'none').length;
+            document.getElementById('mailCount').textContent = `${visibleCount} 封邮件`;
+        }
+        
+        // 邮件排序
+        function sortEmails(by) {
+            const emailsArray = Array.from(emails);
+            
+            switch(by) {
+                case 'date-desc':
+                    emailsArray.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    break;
+                case 'date-asc':
+                    emailsArray.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    break;
+                case 'subject':
+                    emailsArray.sort((a, b) => a.subject.localeCompare(b.subject));
+                    break;
+                case 'sender':
+                    emailsArray.sort((a, b) => a.from.localeCompare(b.from));
+                    break;
+                case 'unread':
+                    emailsArray.sort((a, b) => b.unread - a.unread);
+                    break;
+                default:
+                    break;
+            }
+            
+            // 更新emails数组
+            emails.length = 0;
+            emails.push(...emailsArray);
+            
+            // 重新渲染
+            renderMailList();
+        }
+        
+        // 邮件标记功能
+        function toggleEmailRead(id) {
+            const email = emails.find(e => e.id === id);
+            if (email) {
+                email.unread = !email.unread;
+                renderMailList();
+            }
+        }
+        
+        // 邮件导出功能
+        function exportEmails() {
+            const selectedEmails = emails.filter(e => !e.unread);
+            const exportData = selectedEmails.map(email => ({
+                subject: email.subject,
+                from: email.from,
+                date: email.date,
+                preview: email.preview
+            }));
+            
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `cloudflare-emails-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // 邮件统计
+        function showEmailStats() {
+            const totalEmails = emails.length;
+            const unreadEmails = emails.filter(e => e.unread).length;
+            const cloudflareEmails = emails.filter(e => isCloudflareEmail(e)).length;
+            const phishingEmails = emails.filter(e => e.tag === 'phishing').length;
+            const abuseEmails = emails.filter(e => e.tag === 'abuse').length;
+            
+            const stats = `
+📊 **邮件统计** 📊
+
+📧 总邮件数: ${totalEmails}
+📖 未读邮件: ${unreadEmails}
+☁️ Cloudflare邮件: ${cloudflareEmails}
+🎯 钓鱼邮件: ${phishingEmails}
+⚠️ 滥用邮件: ${abuseEmails}
+✅ 已读邮件: ${totalEmails - unreadEmails}
+
+📱 阅读率: ${Math.round((totalEmails - unreadEmails) / totalEmails * 100)}%
+☁️ Cloudflare占比: ${Math.round(cloudflareEmails / totalEmails * 100)}%
+            `;
+            
+            showStatusModal('邮件统计', stats);
+        }
+        
+        // 邮件搜索增强
+        function advancedSearch() {
+            const searchTerm = prompt('请输入搜索关键词（支持发件人、主题、内容）:');
+            if (!searchTerm) return;
+            
+            const results = emails.filter(email => {
+                const subject = email.subject.toLowerCase();
+                const from = email.from.toLowerCase();
+                const preview = email.preview ? email.preview.toLowerCase() : '';
+                const search = searchTerm.toLowerCase();
+                
+                return subject.includes(search) || from.includes(search) || preview.includes(search);
+            });
+            
+            if (results.length > 0) {
+                // 显示搜索结果
+                const container = document.getElementById('mailItems');
+                container.innerHTML = results.map(email => `
+                    <div class="mail-item ${email.unread ? 'unread' : ''} ${currentEmail?.id === email.id ? 'active' : ''}" 
+                         onclick="selectEmail(${email.id})">
+                        <div class="mail-item-header">
+                            <span class="mail-from">${email.from}</span>
+                            <span class="mail-date">${formatDate(email.date)}</span>
+                        </div>
+                        <div class="mail-subject">
+                            <span class="mail-tag tag-${email.tag}">${email.tagText}</span>
+                            ${email.subject}
+                        </div>
+                        <div class="mail-preview">${email.preview || '点击查看邮件内容...'}</div>
+                    </div>
+                `).join('');
+                
+                alert(`找到 ${results.length} 封相关邮件`);
+            } else {
+                alert('没有找到匹配的邮件');
             }
         }
         
@@ -2099,6 +2331,7 @@ ${getCloudflareReplyTemplate(currentEmail)}
 
         // 初始化
         renderMailList();
+        addAdvancedEmailFeatures();
     </script>
     
     <!-- Cookie 弹窗 -->

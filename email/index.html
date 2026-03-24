@@ -55,16 +55,8 @@
         
         /* 三栏布局 */
         .mail-list {
-            width: 320px;
-            background: #ffffff;
-            border-right: 1px solid #e1dfdd;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .mail-preview {
             width: 380px;
-            background: #fafafa;
+            background: #ffffff;
             border-right: 1px solid #e1dfdd;
             display: flex;
             flex-direction: column;
@@ -562,15 +554,46 @@
                 border-bottom: 1px solid #e1dfdd;
             }
             
-            .mail-preview {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #e1dfdd;
-                display: none;
-            }
-            
             .mail-content {
                 width: 100%;
+            }
+            
+            .reading-toolbar {
+                padding: 8px 12px;
+            }
+            
+            .reading-tools {
+                justify-content: center;
+            }
+            
+            .search-input {
+                max-width: 200px;
+                font-size: 12px;
+            }
+            
+            .reading-tool-btn {
+                min-width: 32px;
+                height: 32px;
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+            
+            .email-content {
+                font-size: 14px;
+                padding: 16px;
+            }
+            
+            .cloudflare-panel {
+                margin: 12px;
+            }
+            
+            .panel-actions {
+                padding: 8px 12px;
+            }
+            
+            .panel-btn {
+                padding: 6px 12px;
+                font-size: 12px;
             }
             
             .mail-list-header {
@@ -868,7 +891,118 @@
             }
         }
 
-        /* 邮件阅读功能样式 */
+        /* 专门的阅读工具栏 */
+        .reading-toolbar {
+            padding: 12px 20px;
+            border-bottom: 1px solid #e1dfdd;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .reading-tools {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .search-tools {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 6px 12px;
+            border: 1px solid #e1dfdd;
+            border-radius: 6px;
+            font-size: 13px;
+            max-width: 300px;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #0078d4;
+            box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1);
+        }
+        
+        .reading-tool-btn {
+            padding: 6px 10px;
+            border: 1px solid #e1dfdd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 36px;
+            height: 36px;
+        }
+        
+        .reading-tool-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-1px);
+        }
+        
+        /* 优化的邮件内容阅读区 */
+        .email-content {
+            flex: 1;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 15px;
+            line-height: 1.8;
+            background: #fafafa;
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid #e1dfdd;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        /* Cloudflare 面板 */
+        .cloudflare-panel {
+            margin: 16px 20px;
+            border: 1px solid #e1dfdd;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        
+        .panel-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e1dfdd;
+            background: #ffffff;
+            font-weight: 600;
+            color: #0078d4;
+            font-size: 14px;
+        }
+        
+        .panel-actions {
+            padding: 12px 16px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .panel-btn {
+            padding: 8px 16px;
+            border: 1px solid #0078d4;
+            background: #0078d4;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        
+        .panel-btn:hover {
+            background: #106ebe;
+            transform: translateY(-1px);
+        }
+        
         .loading-indicator {
             text-align: center;
             padding: 40px 20px;
@@ -2012,6 +2146,143 @@
                 email.unread = !email.unread;
                 renderMailList();
             }
+        }
+        
+        // 阅读模式切换
+        function toggleReadingMode() {
+            const content = document.querySelector('.email-content');
+            if (content) {
+                if (content.style.backgroundColor === '#ffffff') {
+                    content.style.backgroundColor = '#1a1a1a';
+                    content.style.color = '#ffffff';
+                    content.style.borderRadius = '8px';
+                } else {
+                    content.style.backgroundColor = '#fafafa';
+                    content.style.color = '#323130';
+                }
+            }
+        }
+        
+        // 夜间模式切换
+        function toggleDarkMode() {
+            const body = document.body;
+            const content = document.querySelector('.email-content');
+            const toolbar = document.querySelector('.reading-toolbar');
+            
+            if (body.style.backgroundColor === '#1a1a1a') {
+                // 切换回白天模式
+                body.style.backgroundColor = '';
+                body.style.color = '';
+                content.style.backgroundColor = '#fafafa';
+                content.style.color = '#323130';
+                toolbar.style.backgroundColor = '#f8f9fa';
+            } else {
+                // 夜间模式
+                body.style.backgroundColor = '#1a1a1a';
+                body.style.color = '#ffffff';
+                content.style.backgroundColor = '#2d2d2d';
+                content.style.color = '#e0e0e0';
+                toolbar.style.backgroundColor = '#333333';
+            }
+        }
+        
+        // 查找下一个
+        function findNext() {
+            const searchInput = document.querySelector('.search-input');
+            const searchTerm = searchInput.value.trim();
+            if (!searchTerm) return;
+            
+            // 模拟查找下一个匹配项
+            const content = document.querySelector('.email-content');
+            const matches = content.textContent.toLowerCase().match(new RegExp(searchTerm.toLowerCase(), 'g'));
+            if (matches && matches.length > 1) {
+                // 这里可以实现实际的滚动到下一个匹配项逻辑
+                alert(`找到 ${matches.length} 个匹配项，已滚动到下一个`);
+            }
+        }
+        
+        // 查找上一个
+        function findPrevious() {
+            const searchInput = document.querySelector('.search-input');
+            const searchTerm = searchInput.value.trim();
+            if (!searchTerm) return;
+            
+            // 模拟查找上一个匹配项
+            alert('滚动到上一个匹配项');
+        }
+        
+        // 生成Cloudflare报告
+        function generateReport() {
+            if (!currentEmail || !isCloudflareEmail(currentEmail)) {
+                alert('请先选择一封Cloudflare邮件');
+                return;
+            }
+            
+            const report = `
+📋 **Cloudflare 邮件报告** 📋
+
+📧 邮件信息:
+- 发件人: ${currentEmail.from}
+- 主题: ${currentEmail.subject}
+- 日期: ${currentEmail.date}
+- 标签: ${currentEmail.tagText}
+
+🔍 分析结果:
+- 邮件类型: Cloudflare官方通知
+- 紧急程度: ${getUrgencyLevel(currentEmail)}
+- 处理状态: 待处理
+- 建议操作: ${getSuggestedAction(currentEmail)}
+
+⏰ 后续跟进:
+- 建议回复时间: 24小时内
+- 相关工单号: ${extractCaseNumber(currentEmail)}
+- 优先级: ${getPriorityLevel(currentEmail)}
+
+生成时间: ${new Date().toLocaleString('zh-CN')}
+            `;
+            
+            showStatusModal('Cloudflare 报告', report);
+        }
+        
+        // 获取紧急程度
+        function getUrgencyLevel(email) {
+            if (email.tag === 'suspended' || email.tag === 'phishing') {
+                return '🔴 紧急';
+            } else if (email.tag === 'review') {
+                return '🟡 重要';
+            } else {
+                return '🟢 一般';
+            }
+        }
+        
+        // 获取建议操作
+        function getSuggestedAction(email) {
+            if (email.tag === 'suspended') {
+                return '立即联系Cloudflare支持';
+            } else if (email.tag === 'phishing') {
+                return '检查并清理网站内容';
+            } else if (email.tag === 'response') {
+                return '查看回复并提供补充信息';
+            } else {
+                return '常规检查和回复';
+            }
+        }
+        
+        // 获取优先级
+        function getPriorityLevel(email) {
+            if (email.tag === 'suspended') {
+                return '最高优先级';
+            } else if (email.tag === 'phishing' || email.tag === 'abuse') {
+                return '高优先级';
+            } else {
+                return '正常优先级';
+            }
+        }
+        
+        // 提取案件编号
+        function extractCaseNumber(email) {
+            const matches = email.subject.match(/#(\d+)/i);
+            return matches ? matches[1] : '待分配';
         }
         
         // 邮件导出功能

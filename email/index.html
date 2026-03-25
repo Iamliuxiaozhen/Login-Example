@@ -1242,8 +1242,8 @@
         <div class="mail-content" id="mailContent">
             <div class="empty-state" id="emptyState">
                 <div class="icon">📧</div>
-                <div class="text">选择一封邮件查看内容</div>
-                <div class="subtitle">点击上方邮件列表中的任意邮件</div>
+                <div class="text">选择一封邮件查看</div>
+                <div class="subtitle">点击邮件在新页面中打开预览</div>
             </div>
             <div id="mailDetail" style="display: none;">
                 <div class="mail-content-header">
@@ -1787,25 +1787,12 @@
             const email = emails.find(e => e.id === id);
             if (!email) return;
             
-            currentEmail = email;
+            // 标记为已读
             email.unread = false;
-            
-            // 更新列表高亮
             renderMailList();
             
-            // 更新邮件预览
-            document.getElementById('emptyPreview').style.display = 'none';
-            document.getElementById('previewDetail').style.display = 'block';
-            document.getElementById('previewSubject').textContent = email.subject;
-            document.getElementById('previewFrom').textContent = email.from;
-            document.getElementById('previewDate').textContent = new Date(email.date).toLocaleString('zh-CN');
-            document.getElementById('previewAvatar').textContent = email.from.charAt(0).toUpperCase();
-            document.getElementById('previewContent').innerHTML = `<div class="preview-text">${email.preview || '无预览内容'}</div>`;
-            
-            // 显示邮件详情
-            document.getElementById('emptyState').style.display = 'none';
-            const detail = document.getElementById('mailDetail');
-            detail.style.display = 'block';
+            // 跳转到预览页面
+            window.open(`preview.html?id=${id}`, '_blank');
             
             document.getElementById('detailSubject').textContent = email.subject;
             document.getElementById('detailFrom').textContent = email.from;

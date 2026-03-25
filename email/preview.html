@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邮件预览 - Login Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 顶部导航 */
+        .top-nav {
+            background: white;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e1dfdd;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #0078d4;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+        
+        .back-btn:hover {
+            background: #106ebe;
+            transform: translateY(-1px);
+        }
+        
+        .page-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #323130;
+            flex: 1;
+        }
+        
+        /* 邮件预览容器 */
+        .preview-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        /* 邮件卡片 */
+        .email-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .email-header {
+            padding: 24px;
+            border-bottom: 1px solid #f0f0f0;
+            background: #fafafa;
+        }
+        
+        .email-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .email-avatar {
+            width: 48px;
+            height: 48px;
+            background: #0078d4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .email-sender-info {
+            flex: 1;
+        }
+        
+        .email-sender {
+            font-size: 16px;
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 4px;
+        }
+        
+        .email-date {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .email-subject {
+            font-size: 20px;
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 8px;
+        }
+        
+        .email-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .tag-phishing {
+            background: #fee;
+            color: #c53030;
+        }
+        
+        .tag-abuse {
+            background: #fef5e7;
+            color: #d69e2e;
+        }
+        
+        .tag-response {
+            background: #ebf8ff;
+            color: #3182ce;
+        }
+        
+        .tag-suspended {
+            background: #fed7d7;
+            color: #e53e3e;
+        }
+        
+        .tag-review {
+            background: #faf089;
+            color: #d69e2e;
+        }
+        
+        .tag-general {
+            background: #f0fff4;
+            color: #38a169;
+        }
+        
+        /* 邮件内容 */
+        .email-content {
+            padding: 24px;
+        }
+        
+        .email-body {
+            background: #fafafa;
+            border: 1px solid #e1dfdd;
+            border-radius: 8px;
+            padding: 24px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+        
+        /* 操作工具栏 */
+        .action-toolbar {
+            padding: 16px 24px;
+            background: #fafafa;
+            border-top: 1px solid #e1dfdd;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 10px 20px;
+            border: 1px solid #e1dfdd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .action-btn:hover {
+            background: #f5f5f5;
+            transform: translateY(-1px);
+        }
+        
+        .action-btn.primary {
+            background: #0078d4;
+            color: white;
+            border-color: #0078d4;
+        }
+        
+        .action-btn.primary:hover {
+            background: #106ebe;
+        }
+        
+        /* Cloudflare 专用操作 */
+        .cloudflare-actions {
+            margin-top: 16px;
+            padding: 16px;
+            background: #f0f8ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+        }
+        
+        .cloudflare-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0078d4;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .cloudflare-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .top-nav {
+                padding: 10px 16px;
+            }
+            
+            .preview-container {
+                padding: 0 16px;
+            }
+            
+            .email-header {
+                padding: 16px;
+            }
+            
+            .email-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .email-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .email-subject {
+                font-size: 18px;
+            }
+            
+            .email-content {
+                padding: 16px;
+            }
+            
+            .email-body {
+                font-size: 13px;
+                padding: 16px;
+                max-height: 50vh;
+            }
+            
+            .action-toolbar {
+                padding: 12px 16px;
+            }
+            
+            .action-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .top-nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .page-title {
+                text-align: center;
+            }
+        }
+        
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .loading .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 60px 20px;
+            color: #dc3545;
+        }
+        
+        .error .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <a href="index.html" class="back-btn">
+            ← 返回邮件列表
+        </a>
+        <div class="page-title">邮件预览</div>
+    </nav>
+    
+    <!-- 邮件预览容器 -->
+    <div class="preview-container">
+        <div id="emailPreview">
+            <div class="loading">
+                <div class="icon">📧</div>
+                <div>加载邮件中...</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 邮件数据 - 从主页面传递
+        const emails = [
+            {
+                id: '1',
+                from: 'Cloudflare Security Team',
+                email: 'security@cloudflare.com',
+                subject: 'Important: Security Alert - Suspicious Activity Detected',
+                date: '2024-01-15T10:30:00Z',
+                tag: 'security',
+                tagText: '安全警告',
+                content: `发件人: Cloudflare Security Team <security@cloudflare.com>
+收件人: Your Email
+日期: Tue, 15 Jan 2024 10:30:00 +0000
+主题: Important: Security Alert - Suspicious Activity Detected
+
+尊敬的用户：
+
+我们的监控系统检测到您的域名 example.com 出现异常活动。以下是详细信息：
+
+🚨 检测到的活动：
+- 大量异常请求来自未知IP地址
+- 可能的DDoS攻击尝试
+- 恶意软件检测
+
+📍 影响范围：
+- 域名: example.com
+- 时间: 2024-01-15 10:30 UTC
+- 严重程度: 高
+
+⚡ 建议操作：
+1. 立即检查网站日志
+2. 启用Cloudflare的DDoS保护
+3. 更新安全设置
+4. 联系我们的支持团队
+
+如需更多帮助，请访问：
+https://support.cloudflare.com
+
+此致，
+Cloudflare安全团队`
+            },
+            {
+                id: '2',
+                from: 'Cloudflare Abuse Team',
+                email: 'abuse@cloudflare.com',
+                subject: 'Abuse Report - Copyright Infringement',
+                date: '2024-01-14T14:20:00Z',
+                tag: 'abuse',
+                tagText: '滥用投诉',
+                content: `发件人: Cloudflare Abuse Team <abuse@cloudflare.com>
+收件人: Your Email
+日期: Mon, 14 Jan 2024 14:20:00 +0000
+主题: Abuse Report - Copyright Infringement
+
+尊敬的用户：
+
+我们收到关于您的网站 example.com 的版权投诉。以下是详情：
+
+📋 投诉信息：
+- 投诉方: 版权所有者
+- 投诉类型: 版权侵犯
+- 涉及内容: [具体内容描述]
+- 提交时间: 2024-01-14 14:20 UTC
+
+⏰ 处理时限：
+请在48小时内回应此投诉。
+
+📄 相关文件：
+- 投诉书: attached_complaint.pdf
+- 证据材料: evidence_collection.zip
+
+🔧 解决方案：
+1. 移除侵权内容
+2. 提供书面回应
+3. 防止再次发生
+
+了解更多信息：
+https://www.cloudflare.com/abuse/
+
+技术支持：
+support@cloudflare.com`
+            },
+            {
+                id: '3',
+                from: 'Cloudflare Support',
+                email: 'support@cloudflare.com',
+                subject: 'Your Cloudflare Support Ticket #12345',
+                date: '2024-01-13T09:15:00Z',
+                tag: 'response',
+                tagText: '官方回复',
+                content: `发件人: Cloudflare Support <support@cloudflare.com>
+收件人: Your Email
+日期: Sun, 13 Jan 2024 09:15:00 +0000
+主题: Your Cloudflare Support Ticket #12345
+
+尊敬的客户：
+
+感谢您联系Cloudflare支持。您的工单#12345的处理结果如下：
+
+🎯 问题解决状态：✅ 已解决
+📝 问题描述：SSL证书配置问题
+🔧 解决方案：已更新SSL/TLS设置
+⏳ 解决时间：2024-01-13 09:15 UTC
+
+💡 技术详情：
+- 问题类型：SSL证书配置
+- 影响服务：HTTPS连接
+- 解决方法：切换到"Full (strict)"模式
+- 测试结果：连接正常
+
+📊 性能优化建议：
+- 启用HTTP/2
+- 配置Brotli压缩
+- 设置适当的缓存规则
+
+🔗 相关资源：
+- SSL指南: https://support.cloudflare.com/hc/en-us/articles/200170706
+- 性能优化: https://developers.cloudflare.com/speed/
+
+如有其他问题，请随时回复此邮件。
+
+此致，
+Cloudflare支持团队`
+            }
+        ];
+        
+        // 获取URL参数中的邮件ID
+        function getEmailIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id') || '';
+        }
+        
+        // 获取邮件信息
+        function getEmailById(id) {
+            return emails.find(email => email.id === id);
+        }
+        
+        // 渲染邮件预览
+        function renderEmailPreview() {
+            const emailId = getEmailIdFromUrl();
+            const email = getEmailById(emailId);
+            
+            const previewContainer = document.getElementById('emailPreview');
+            
+            if (!email) {
+                previewContainer.innerHTML = `
+                    <div class="error">
+                        <div class="icon">❌</div>
+                        <div>邮件未找到</div>
+                        <div class="subtitle">请检查邮件ID或返回列表</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            const tagClass = `tag-${email.tag}`;
+            const avatar = email.from.charAt(0).toUpperCase();
+            
+            previewContainer.innerHTML = `
+                <div class="email-card">
+                    <div class="email-header">
+                        <div class="email-meta">
+                            <div class="email-avatar">${avatar}</div>
+                            <div class="email-sender-info">
+                                <div class="email-sender">${email.from}</div>
+                                <div class="email-date">${new Date(email.date).toLocaleString('zh-CN')}</div>
+                            </div>
+                        </div>
+                        <div class="email-subject">${email.subject}</div>
+                        <div class="email-tags">
+                            <span class="tag ${tagClass}">${email.tagText}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="email-content">
+                        <div class="email-body">${email.content}</div>
+                    </div>
+                    
+                    <div class="action-toolbar">
+                        <button class="action-btn" onclick="window.close()">
+                            ✕ 关闭
+                        </button>
+                        <button class="action-btn" onclick="downloadEmail()">
+                            📥 下载邮件
+                        </button>
+                        <button class="action-btn" onclick="copyEmail()">
+                            📋 复制内容
+                        </button>
+                        <button class="action-btn primary" onclick="replyEmail()">
+                            📧 回复邮件
+                        </button>
+                    </div>
+                    
+                    ${isCloudflareEmail(email) ? `
+                        <div class="cloudflare-actions">
+                            <div class="cloudflare-title">
+                                ☁️ Cloudflare 专用操作
+                            </div>
+                            <div class="cloudflare-buttons">
+                                <button class="action-btn" onclick="quickReply()">
+                                    📝 快速回复模板
+                                </button>
+                                <button class="action-btn" onclick="checkCaseStatus()">
+                                    📊 查询案件状态
+                                </button>
+                                <button class="action-btn" onclick="generateReport()">
+                                    📋 生成处理报告
+                                </button>
+                                <button class="action-btn" onclick="showSecurityTips()">
+                                    🔒 安全建议
+                                </button>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+        
+        // 下载邮件
+        function downloadEmail() {
+            const emailId = getEmailIdFromUrl();
+            const email = getEmailById(emailId);
+            if (!email) return;
+            
+            const blob = new Blob([email.content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `email_${email.id}_${email.subject}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // 复制邮件内容
+        function copyEmail() {
+            const emailId = getEmailIdFromUrl();
+            const email = getEmailById(emailId);
+            if (!email) return;
+            
+            navigator.clipboard.writeText(email.content).then(() => {
+                alert('邮件内容已复制到剪贴板');
+            }).catch(() => {
+                alert('复制失败，请手动选择复制');
+            });
+        }
+        
+        // 回复邮件
+        function replyEmail() {
+            const emailId = getEmailIdFromUrl();
+            const email = getEmailById(emailId);
+            if (!email) return;
+            
+            const subject = `Re: ${email.subject}`;
+            const body = `\n\n---\n原始邮件:\n发件人: ${email.from}\n主题: ${email.subject}\n\n`;
+            
+            window.open(`mailto:${email.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+        }
+        
+        // 检查是否为Cloudflare邮件
+        function isCloudflareEmail(email) {
+            return email.from.toLowerCase().includes('cloudflare') || 
+                   email.email.toLowerCase().includes('cloudflare.com');
+        }
+        
+        // 快速回复模板
+        function quickReply() {
+            const templates = [
+                '感谢您的通知，我们会尽快处理。',
+                '收到，我们正在调查这个问题。',
+                '感谢您的反馈，我们将在24小时内回复。',
+                '已记录，我们会优先处理此问题。'
+            ];
+            const template = templates[Math.floor(Math.random() * templates.length)];
+            alert(`快速回复模板：\n\n${template}`);
+        }
+        
+        // 查询案件状态
+        function checkCaseStatus() {
+            alert('正在查询案件状态...\n\n案件号: CF-' + Math.floor(Math.random() * 100000) + '\n状态: 处理中\n预计完成: 24小时内');
+        }
+        
+        // 生成处理报告
+        function generateReport() {
+            const report = `
+Cloudflare 邮件处理报告
+=========================
+
+邮件信息：
+- 发件人: ${document.querySelector('.email-sender').textContent}
+- 主题: ${document.querySelector('.email-subject').textContent}
+- 日期: ${document.querySelector('.email-date').textContent}
+
+处理状态：
+- 已接收: ✅
+- 已阅读: ✅  
+- 待处理: 🔄
+- 预计完成: 24小时内
+
+建议操作：
+- 回复确认收到通知
+- 按照邮件要求执行相应操作
+- 保留邮件记录以备后续参考
+
+生成时间: ${new Date().toLocaleString('zh-CN')}
+            `;
+            alert(report);
+        }
+        
+        // 显示安全建议
+        function showSecurityTips() {
+            const tips = [
+                '定期更新您的密码和安全管理设置',
+                '启用两因素认证增强账户安全性',
+                '定期检查网站的访问日志和安全设置',
+                '保持联系信息更新以确保重要通知不会遗漏'
+            ];
+            const tipsList = tips.map((tip, index) => `${index + 1}. ${tip}`).join('\n');
+            alert(`安全建议：\n\n${tipsList}`);
+        }
+        
+        // 页面加载时渲染邮件预览
+        document.addEventListener('DOMContentLoaded', renderEmailPreview);
+    </script>
+</body>
+</html>

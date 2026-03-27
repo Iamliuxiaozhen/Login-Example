@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-hans" class="dark fui-FluentProviderr0 fui-FluentProviderrk4" translate="no" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Cloudflare Community] [PM] Akismet has temporarily hidden your post - Outlook</title>
+    <style>
+        body {
+            font-family: "Microsoft Yahei UI", Verdana, Simsun, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .email-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .email-header {
+            background: #7c4dff;
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .email-header h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .email-subject {
+            margin-top: 8px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .email-body {
+            padding: 24px;
+        }
+        
+        .section {
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #7c4dff;
+        }
+        
+        .section-warning {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+        
+        .section-warning .section-title {
+            color: #856404;
+        }
+        
+        .section-info {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+        }
+        
+        .section-info .section-title {
+            color: #0c5460;
+        }
+        
+        .section-community {
+            background: #e1f5fe;
+            border-left-color: #03a9f4;
+        }
+        
+        .section-community .section-title {
+            color: #0277bd;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+        
+        .post-preview {
+            background: #f8f9fa;
+            border: 1px solid #e1dfdd;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .post-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .post-meta {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 12px;
+        }
+        
+        .post-content {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .reason-card {
+            background: #ffffff;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .reason-icon {
+            font-size: 24px;
+            color: #ffc107;
+            margin-bottom: 8px;
+        }
+        
+        .reason-title {
+            font-weight: 600;
+            color: #856404;
+            margin-bottom: 8px;
+        }
+        
+        .reason-text {
+            color: #6c757d;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .action-steps {
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            padding: 16px;
+            background: #ffffff;
+            border: 1px solid #e1dfdd;
+            border-radius: 6px;
+            position: relative;
+        }
+        
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #7c4dff;
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 12px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .step-description {
+            color: #6c757d;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #7c4dff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #651fff;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .btn-info:hover {
+            background: #138496;
+        }
+        
+        .info-text {
+            color: #6c757d;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 16px 24px;
+            border-top: 1px solid #e1dfdd;
+            font-size: 12px;
+            color: #6c757d;
+            text-align: center;
+        }
+        
+        .timestamp {
+            font-size: 11px;
+            color: #adb5bd;
+        }
+        
+        .community-logo {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        
+        .community-logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #7c4dff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .email-container {
+                border-radius: 0;
+            }
+            
+            .email-body {
+                padding: 16px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>📢 社区通知</h1>
+            <div class="email-subject">您的帖子已被Akismet暂时隐藏</div>
+            <div class="timestamp" style="position: absolute; right: 20px; top: 20px;">
+                2025-12-21
+            </div>
+        </div>
+        
+        <div class="email-body">
+            <div class="community-logo">
+                <div>🌐</div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">📝 帖子信息</div>
+                <div class="post-preview">
+                    <div class="post-title">标题：[原发帖标题]</div>
+                    <div class="post-meta">
+                        发布时间：2025-12-21 10:52 | 版本：1.0
+                    </div>
+                    <div class="post-content">
+                        您的帖子内容预览...这里显示您的原始帖子内容。
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section section-warning">
+                <div class="section-title">⚠️ 隐藏原因</div>
+                <div class="reason-card">
+                    <div class="reason-icon">🤖</div>
+                    <div class="reason-title">Akismet误判</div>
+                    <div class="reason-text">
+                        Akismet垃圾邮件检测系统自动将您的帖子标记为潜在垃圾内容，现已暂时隐藏。这种情况可能是因为：
+                        • 包含被误判的关键词
+                        • 发送频率较高
+                        • 链接结构类似垃圾邮件
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section section-info">
+                <div class="section-title">💡 解决方案</div>
+                <div class="action-steps">
+                    <div class="step">
+                        <div class="step-content">
+                            <div class="step-title">1. 等待审核</div>
+                            <div class="step-description">
+                                系统将在24-48小时内重新审核您的帖子，大多数情况下会自动恢复。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-content">
+                            <div class="step-title">2. 检查内容</div>
+                            <div class="step-description">
+                                检查是否包含可疑链接、过多外链或关键词。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-content">
+                            <div class="step-title">3. 联系管理员</div>
+                            <div class="step-description">
+                                如果问题持续，可以联系社区管理员手动审核。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section section-community">
+                <div class="section-title">🌍 社区规则提醒</div>
+                <div class="info-text">
+                    为了维护社区环境，请确保：
+                    • 发布与Cloudflare相关的内容
+                    • 避免过度营销和垃圾信息
+                    • 遵守社区行为准则
+                    • 尊重其他社区成员
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="#" class="action-btn btn-primary">🔗 查看帖子</a>
+                <a href="#" class="action-btn btn-secondary">📖 社区指南</a>
+                <a href="#" class="action-btn btn-info">💬 联系管理员</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>此邮件由Cloudflare Community系统自动发送</div>
+            <div>© 2025 Cloudflare Community. 保留所有权利</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-hans" class="dark fui-FluentProviderr0 fui-FluentProviderrk4" translate="no" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>误报钓鱼检测 & 账户暂停 - 申请审查 (案例 01846397) - Outlook</title>
+    <style>
+        body {
+            font-family: "Microsoft Yahei UI", Verdana, Simsun, "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .email-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .email-header {
+            background: #dc3545;
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .email-header h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .email-subject {
+            margin-top: 8px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .email-body {
+            padding: 24px;
+        }
+        
+        .section {
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .section-warning {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        
+        .section-warning .section-title {
+            color: #721c24;
+        }
+        
+        .section-info {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+        }
+        
+        .section-info .section-title {
+            color: #0c5460;
+        }
+        
+        .section-success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        
+        .section-success .section-title {
+            color: #155724;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+        
+        .case-info {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .case-item {
+            flex: 1;
+            padding: 12px;
+            background: #ffffff;
+            border: 1px solid #e1dfdd;
+            border-radius: 6px;
+        }
+        
+        .case-label {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        
+        .case-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .steps {
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            padding: 16px;
+            background: #ffffff;
+            border: 1px solid #e1dfdd;
+            border-radius: 6px;
+            position: relative;
+        }
+        
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #0078d4;
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 12px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .step-description {
+            color: #6c757d;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #0078d4;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #005a9e;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        
+        .info-text {
+            color: #6c757d;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 16px 24px;
+            border-top: 1px solid #e1dfdd;
+            font-size: 12px;
+            color: #6c757d;
+            text-align: center;
+        }
+        
+        .timestamp {
+            font-size: 11px;
+            color: #adb5bd;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .email-container {
+                border-radius: 0;
+            }
+            
+            .email-body {
+                padding: 16px;
+            }
+            
+            .case-info {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>🚨 重要：误报钓鱼检测 & 账户暂停</h1>
+            <div class="email-subject">申请审查 (案例 01846397) - Cloudflare Trust & Safety</div>
+            <div class="timestamp" style="position: absolute; right: 20px; top: 20px;">
+                2025-11-27
+            </div>
+        </div>
+        
+        <div class="email-body">
+            <div class="section section-warning">
+                <div class="section-title">⚠️ 账户状态通知</div>
+                <div class="info-text">
+                    您的账户由于被系统误判为钓鱼网站而暂时暂停。此为系统自动检测，现已标记为人工审查案例。
+                </div>
+            </div>
+            
+            <div class="section section-info">
+                <div class="section-title">📋 案例信息</div>
+                <div class="case-info">
+                    <div class="case-item">
+                        <div class="case-label">案例编号</div>
+                        <div class="case-value">#01846397</div>
+                    </div>
+                    <div class="case-item">
+                        <div class="case-label">状态</div>
+                        <div class="case-value">人工审查中</div>
+                    </div>
+                    <div class="case-item">
+                        <div class="case-label">预计处理时间</div>
+                        <div class="case-value">24-48小时</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">🔍 审查步骤</div>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-content">
+                            <div class="step-title">1. 确认误报情况</div>
+                            <div class="step-description">
+                                我们的调查团队将重新审核您的网站内容，确认是否为误报。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-content">
+                            <div class="step-title">2. 恢复账户访问</div>
+                            <div class="step-description">
+                                如果确认是误报，您的账户将被立即恢复访问权限。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-content">
+                            <div class="step-title">3. 加强安全措施</div>
+                            <div class="step-description">
+                                建议您增强网站安全措施，避免再次被误判。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section section-success">
+                <div class="section-title">✅ 您的操作建议</div>
+                <div class="info-text">
+                    • 等待Cloudflare团队完成人工审查<br>
+                    • 确保网站内容符合Cloudflare服务条款<br>
+                    • 如有紧急需求，可以通过下面联系方式联系我们
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="#" class="action-btn btn-primary">📧 联系支持团队</a>
+                <a href="#" class="action-btn btn-secondary">📋 查看帮助文档</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>此邮件由Cloudflare Trust & Safety团队自动发送</div>
+            <div>© 2025 Cloudflare, Inc. 保留所有权利</div>
+        </div>
+    </div>
+</body>
+</html>

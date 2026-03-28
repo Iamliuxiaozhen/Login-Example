@@ -1,0 +1,417 @@
+Received: from PH0PR12MB7078.namprd12.prod.outlook.com (2603:10b6:510:21d::6)
+ by SA1PR12MB5657.namprd12.prod.outlook.com with HTTPS; Fri, 5 Dec 2025
+ 14:23:54 +0000
+Received: from MN0P223CA0015.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::9)
+ by PH0PR12MB7078.namprd12.prod.outlook.com (2603:10b6:510:21d::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.10; Fri, 5 Dec
+ 2025 14:23:50 +0000
+Received: from BL6PEPF00022573.namprd02.prod.outlook.com
+ (2603:10b6:208:52b:cafe::af) by MN0P223CA0015.outlook.office365.com
+ (2603:10b6:208:52b::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.12 via Frontend Transport; Fri,
+ 5 Dec 2025 14:23:48 +0000
+Authentication-Results: spf=pass (sender IP is 52.41.32.238)
+ smtp.mailfrom=a9x0xicdn9u7enpp.6ah0t8rlu3ou8x6e.cy019.o-yxikeac.usa234.bnc.salesforce.com;
+ dkim=pass (signature was verified) header.d=cloudflare.com;dmarc=pass
+ action=none header.from=cloudflare.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of
+ a9x0xicdn9u7enpp.6ah0t8rlu3ou8x6e.cy019.o-yxikeac.usa234.bnc.salesforce.com
+ designates 52.41.32.238 as permitted sender) receiver=protection.outlook.com;
+ client-ip=52.41.32.238;
+ helo=smtp-09d4540c8080bb8cf.core1.sfdc-lywfpd.mta.salesforce.com; pr=E
+Received: from smtp-09d4540c8080bb8cf.core1.sfdc-lywfpd.mta.salesforce.com
+ (52.41.32.238) by BL6PEPF00022573.mail.protection.outlook.com (10.167.249.41)
+ with Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id
+ 15.20.9412.4 via Frontend Transport; Fri, 5 Dec 2025 14:23:50 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:E71E3F174EA767910D457CD984C225E8A03E90F2DC70224C073C3B79A524F06A;UpperCasedChecksum:17C4E30BC312919C6A7F4B31F9F8B301CE65D6FC58244BFE330F6BAC1E4F6252;SizeAsReceived:2440;Count:25
+Return-Path: notifications=cloudflare.com__3ry5u4jmr0qta0g3@a9x0xicdn9u7enpp.6ah0t8rlu3ou8x6e.cy019.o-yxikeac.usa234.bnc.salesforce.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=cloudflare.com;
+	s=salesforce.com; t=1764944629;
+	bh=iFU7r6XRhQHh4H5T3JyBVDXNwycvUDtSDAcWgVK/WM4=;
+	h=Date:From:To:Subject:MIME-Version:Content-Type;
+	b=lSZLRCyYc6CXJD1o0wn0adxrz9GtxR6IHvhPYNDrw+ZxMYqjBlA7xJDd7Nb8CBHbL
+	 RlIpVjYd0zEBvEojYc/I5UwFK3VQRiTJR7OBu/VuFN3UAjk+yBGHA8JPpfuutSUM+I
+	 0klSyXY7laZMj9uvgxfAj54oDY7HYPxVjVVu3WGp+x6KUuqltoiP+vBXIb755Pwk47
+	 KdS6p8YoVwWabIr6F9cyiZ82O1wsi3k2drsYMf63FqdbEFbrqdTgmgGsPrRm1AIPAC
+	 d6sQxYF3uNAXA0rPMkVN1s2Yx9jEPDPTooJ6JdNzqdFC6txJaEld4MDT8GHNa9UhT1
+	 N8p0Kf5REqQ9g==
+Received: from [127.0.0.1] ([127.0.0.1:48702] helo=eaas-10.eaas.emailinfra.svc.cluster.local)
+	by mx1.core1.sfdc-lywfpd.mta.salesforce.com (envelope-from <notifications=cloudflare.com__3ry5u4jmr0qta0g3@a9x0xicdn9u7enpp.6ah0t8rlu3ou8x6e.cy019.o-yxikeac.usa234.bnc.salesforce.com>)
+	(ecelerity 4.7.0.20111 r(msys-ecelerity:tags/4.7.0-ga^0)) with ESMTP
+	id DE/DB-00855-5FAE2396; Fri, 05 Dec 2025 14:23:49 +0000
+Received: from 127.0.0.1 (localhost. [127.0.0.1]) by eaas-10 (EaaS) id
+  <2DIiP000000000000000000000000000000000000000000000T6SVZP00p_g7TifOQPOW2YSxELaxmw@sfdc.net>
+  for <"oliverxiaozhen@outlook.com" <oliverxiaozhen@outlook.com>> Fri, 5 Dec
+  2025 14:23:49 GMT (GMT)
+Date: Fri, 5 Dec 2025 14:23:49 +0000 (GMT)
+From: Cloudflare Notifications <notifications@cloudflare.com>
+Reply-To: notifications@cloudflare.com
+To: "oliverxiaozhen@outlook.com" <oliverxiaozhen@outlook.com>
+Message-ID: <2DIiP000000000000000000000000000000000000000000000T6SVZP00p_g7TifOQPOW2YSxELaxmw@sfdc.net>
+References: <IEGI_W83SLK2omqxUQfFUQ.qh8tTbShfkSz27ojA7p__wI@sfdc.net>
+Subject: [Cloudflare - 01863473] This is a follow-up to case #01856810 and
+ #01846397. Both were automatically closed before manual review.
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_4020_736457048.1764944629521"
+X-SFDC-LK: 00Do0000000Yxik
+X-SFDC-User: 005Nv000006B6oD
+X-Sender: postmaster@salesforce.com
+X-mail_abuse_inquiries: http://www.salesforce.com/company/abuse.jsp
+X-SFDC-TLS-NoRelay: 1
+X-SFDC-CORRELATION-ID: 0001pa05lorg3drq
+X-SFDC-Binding: 1WrIRBV94myi25uB
+X-SFDC-App: coreapp
+X-SFDC-EmailCategory: apiSingleMailViaApex
+X-SFDC-EntityId: 500Nv00000WY0kk
+X-SFDC-Interface: internal
+X-IncomingHeaderCount: 25
+X-MS-Exchange-Organization-ExpirationStartTime: 05 Dec 2025 14:23:50.5063
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: 67d98263-0b80-439f-6430-08de3409e934
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022573:EE_|PH0PR12MB7078:EE_|SA1PR12MB5657:EE_
+X-MS-Exchange-Organization-AuthSource: BL6PEPF00022573.namprd02.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 12/5/2025 2:21:09 PM
+X-MS-Office365-Filtering-Correlation-Id: 67d98263-0b80-439f-6430-08de3409e934
+X-MS-Exchange-EOPDirect: true
+X-Sender-IP: 52.41.32.238
+X-SID-PRA: NOTIFICATIONS@CLOUDFLARE.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:4;ARA:1444111002|58200799018|47200799021|28070799003|9800799015|10300799035|32080799003|461199028|9000799056|68400799013|440099028|3412199025|4302099013|1122599019|30041999003|26104999006|1360799030|1380799030|1370799030|1602099012|56899033;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2025 14:23:50.2275
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67d98263-0b80-439f-6430-08de3409e934
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022573.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7078
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:04.5256715
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.9388.003
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;ex:0;auth:1;dest:I;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90011020)(91015020)(91040095)(9050020)(9065024)(9081003)(9100341)(944500132)(4810010)(4910033)(9930004)(9545005)(10172021)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0tMQ==
+X-Microsoft-Antispam-Message-Info:
+	=?gb2312?B?R0Y5dWwxUi9uTGkxYjN4c3NzVVBrT2hpeTJEZGh0OXlCYzZybEpLa0kxU2kr?=
+ =?gb2312?B?dGQwdk5Gd1hmQ05FU1lHdEVMN0kwbTF6bUZOL2FvdlRJZ245ZWxOendLc21l?=
+ =?gb2312?B?SERkQTlGMVQyOU9TZ3JtLzBxU09LZFpRWS93RTdzMGViU1IwdUhNR3dUMFVM?=
+ =?gb2312?B?c1lTcVdSNFZRR1BrcDhFeUMwcHd5MEpsQVl6bmhIU3ZUMlllcFNSTHdWNk1h?=
+ =?gb2312?B?M1dramJ5UmNMVW1GQ0RhUVNvTlJLUk5tWkdnTGQzVCt6Z2pkS0pJbVJpNHBS?=
+ =?gb2312?B?dWM0RzJrbXNuM3hJY3EzWEFtSHhvWG16M0pxNHdHdndHQ0ZZTTltSVY2Wjhy?=
+ =?gb2312?B?SXc4VnQ5KzVlRVh5Rlo1M1d3TzBUUlhwL3VLNDFWSWtmWFZLVElJWldDYUdv?=
+ =?gb2312?B?WTkxTGszZmpkMUZ1bXNkekUvaTBYTC8yTlh5VUI0clB6WDhHN1o4WTVOQy9W?=
+ =?gb2312?B?cEpnTTZFb2NYdk1WVVl5Q05WVEZXdWNFZ3pxamNaS21SZ2NpOGFZUGFpKzBO?=
+ =?gb2312?B?b0FOUVdLUDBUSy90bFJQU2VRWDhUNjJDb3ZiOWdaMzdPdHhJVWE1TTZibmtN?=
+ =?gb2312?B?RWpXWWNSVVlyeEo3akZhcEFpS3F1R0g5SG9ENlVNNGd5RGk4eURQYkQwOGg0?=
+ =?gb2312?B?UUM4QjhNNksxWHNRa3hBNW0vNVFtZVY4V2gvWnhFZm00RGNPTk1GT0xqNjBa?=
+ =?gb2312?B?QWJSSGNGbnZCVUt3azBPVEhLSW5IbTBWU3RTR0lJK0J4ZEdWV1IxdDFMSDJs?=
+ =?gb2312?B?OXZiWTQ0cFYzVjE4MzRKb0w3SlhmR2MxaWk2bVZEdkhjR2VRQVNBOUtlL1o4?=
+ =?gb2312?B?Tkw2MHFTTDV1dlV1cGdhM1g1TXdvcHo0Z2ZSY1NqTTI0VitSaGo5bnhnNzBr?=
+ =?gb2312?B?aDhnaVJPUXZsSzloUUt3NFhJdW1wTW9xYlRJV2FmZm8zRDZ5QTZ2UzYzR2tP?=
+ =?gb2312?B?bUlZZFQzS2E3S1dtV1JRYzVkUUM2cm9LZ1hXd2t3N1dTUE5ONmlrMHFMQ21m?=
+ =?gb2312?B?SVFZMDlCQ25LVXY3czNFUXgwRFlqMzRpdmxYM2EvQlFNREVBclRjNWRnajNS?=
+ =?gb2312?B?dnRHdEd3OHVGMThDbGlSRGJZUk5OTTcwcXUyZjV0SG5VWDBWaEJ2SS9UQmQ5?=
+ =?gb2312?B?SWgxRDl3MWpJamdyOFQxSHBnWE92blpFK1BBRnFXVjhzNElYeTBtWUMwbWZ1?=
+ =?gb2312?B?SGVsRXpFc0lJQVNPdWFMVkI4QXBNVGNTY08wU2VHVVNWYURjcGx0RGEyRlBU?=
+ =?gb2312?B?blVzdTZtQXEvTm1xY010eFlWcEN4ZG9CczJaaDcrQ2VyRCtyRkRoMEVGRWpV?=
+ =?gb2312?B?cWtLMzM0VWlTNDZHV1ZuempNQWRsNkoyNWZtL2kwSlRZaDlpdHRwWDZwRHBK?=
+ =?gb2312?B?MW1SaytuQkpSNnM4VnZYbktoMzFJSHBrOVhsendQNGdvMWwvV3dpOVF2WnJk?=
+ =?gb2312?B?RVJHWGpHMm1oRWlwL1NiWWYwbmtIOVppVk9nR0F4WWZLRER1YWx0MFJqZkNH?=
+ =?gb2312?B?aXRNV3Ntek1Sa0Z4UTByZjl4UlphaFlkQVlnTS8zSXVTNnlYWjM4V2UwRHVn?=
+ =?gb2312?B?M3MwZEZIdVFzd1llTlBJK1FTajRTNE9BL3V0WUx0MjlLd0oxU1Qrbm1KZnpq?=
+ =?gb2312?B?RXdlbW05dGNGc20wbUpYaHNpSFdsSXA4ZnpyVmpoSGFpVlhMd1RTcEtoNVc0?=
+ =?gb2312?B?MHF3V0xicGhzQnB1cFlSd212V1RuN3NSUm1EcjlKME1hcGwrd1Z4VFhicHNG?=
+ =?gb2312?B?RWlVd2s5VjVSTU5uQmxlN2VuV01kV1I1K1ZhL041MTE5RURXZUhKb1hGOGZT?=
+ =?gb2312?B?K0wvUVE1L0lSUHFPQXdzYkxQcFRHQmx1OThBeWVHdmo5d1piZEl2TDgzR0J1?=
+ =?gb2312?B?TExZQ2E1K05jZ3g0UUtBQ04wQlh6anN5RXpqMHJQaEpWaWVuZmI1bFEwSHhn?=
+ =?gb2312?B?SHI3R3VzeXV6YVdvbkxydWRkaTF2eVJ4Q3p0MVlHQmlaMW5wV29EREg3NC82?=
+ =?gb2312?B?a2JnVFBIdVZyNzZlTDhqQ0pRV04vZ29BcE1WbVA5eXdmT1g5YkFWb2hFa2I1?=
+ =?gb2312?B?NmRKZU0xTWIyMzlWc3h2cmVTblBYQnF5T3Jkb0kveTdNNDQ3OFo3cDBEYmtE?=
+ =?gb2312?B?bVRyNW1zWnZrc3REVS9lMURXaFJlVWJ3WFFzRERLclJNanJvLzE2eUVmN29Z?=
+ =?gb2312?B?NU1YS2xTUlFLSXpmOUllUG8vbytZUXltWlg3MHpYYzlsUEVybGlPRW5Rb25K?=
+ =?gb2312?B?eml6S2RVYXNTRGNtRkZaSnpxTVFrUHYyY1dKeGRMRVRkY1NEMXg3YmFNcWFC?=
+ =?gb2312?B?eG9vM01seGFXclJPSGJDV1plQk9YQlFOMGdqcThrdUhnd0I3WVBxclBaQmtl?=
+ =?gb2312?B?VkZSZHRmUWNPTTZJeStjWnBEL3AvY1hmWW93b2psdTcrZ0VUM3lIcGlKVXJi?=
+ =?gb2312?B?eVlqazc1Q1U1aWdNdHpvaW4rOVM3UGFnSjhsRVoxMUR4cVpHc2dOUHZCS0Ft?=
+ =?gb2312?B?WXZiNEhXaVZ5UGJpTnFxMUR1L3FuTVUyQzllbWw0MGxkVjNra1J4UzRYb09J?=
+ =?gb2312?B?WFRJNjh1TkZLRi9LZ3ZpNE4wWmNNWENsNWFMeDNDWUJxOXRsWldpeGlaZXF2?=
+ =?gb2312?B?Z3VXbmIyY2FFRmk2dEdGZU02TmRLRjR6RWZYYVFFNHRwMkdrYVVxdTdUZG1I?=
+ =?gb2312?B?ZmJ0NENCdzNVbUZvZnZ2R1FrVFBtZ0dYaGZCSWxuL3N1a3AvL0dmS2ZBRCtV?=
+ =?gb2312?B?RjNmWnMvcllxYnR4U2Q3Wkh2RjY3emhuVXVyc1BRZlZuT2MyWE1GNWVTYTU4?=
+ =?gb2312?B?TFoxbjNuS2JaeThYVTlsTStUN3NBUks5dWVWb1ZRYllGZlh3MUZVeFlrUlpk?=
+ =?gb2312?B?d01BdVhBem81alhkTmU2UnN2VXBOMW51czNWL2Qvd28xclRmbHJZeUdyMHc0?=
+ =?gb2312?B?ZHZqcTZZdStaZ1VUOWMxbk5zN2dEZmdnb09tQWovUXhhb1dVelpJMytRV2Ni?=
+ =?gb2312?B?UmQ1ZVF2TENWSjhENzhENk1JQXhTbWtDWFlJTmJMNUFaWGRWay9PM1FmT0RI?=
+ =?gb2312?B?aHBKZVVodFNNZlltMGc2eTVmRnRwU2ZxSnRkRnVaM2wySDBXRWk5S0lrc0hz?=
+ =?gb2312?B?VTBhQWxVOE5wTnY0WGZUZnpFOEFvSDh1QjhxMnlFVGN6cldQMXhQTlE3RHl6?=
+ =?gb2312?Q?gM+zZ7k=3D?=
+MIME-Version: 1.0
+
+------=_Part_4020_736457048.1764944629521
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_4019_223632948.1764944629521"
+
+------=_Part_4019_223632948.1764944629521
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+Hello ,
+
+Thank you for contacting Cloudflare!
+
+The case number 01863473 is now Closed.
+
+However, you can still ask questions about this issue if you need additiona=
+l assistance:
+
+=09If you would like to ask a question related to this issue, please submit=
+ a new case so we can assist you.
+=09Tell us your old case number when submitting the new request.
+=09Referencing the old case number will help us look back to this=A0closed =
+case's information.
+
+Below is additional information about this case:
+
+=09Case number:=A001863473
+=09Subject: This is a follow-up to case #01856810 and #01846397. Both were =
+automatically closed before manual review.
+=09Description: Subject: Follow-up =96 False Positive Phishing Detection & =
+Account Restriction (Previous Case #01856810 / #01846397)
+
+Message:
+
+Hello Cloudflare Trust & Safety team,
+
+This is a follow-up request regarding my previous cases #01856810 and #0184=
+6397, which were automatically closed before a manual review could be compl=
+eted. My Cloudflare Pages project and Cloudflare account are still restrict=
+ed, and I kindly request a manual review from the Trust & Safety team.
+
+1. Project nature =96 OAuth2.0 login experience & developer tutorial platfo=
+rm
+
+The project hosted at:
+
+login---example.pages.dev (original URL, now blocked)
+
+https://login---example.pages.liuxiaozhen.zitzhen.cn
+ (backup accessible domain)
+
+is a third-party OAuth2.0 login experience platform and developer tutorial =
+site.
+
+It provides users and developers with a unified interface to test and under=
+stand OAuth login flows.
+Before the block, users could log in using GitHub, Microsoft, and Google OA=
+uth for educational purposes.
+
+This project does not collect or store any credentials, and it does not mim=
+ic or impersonate any brand or service.
+
+2. Clear Terms of Service and Privacy Policy (public and accessible)
+
+My platform includes publicly accessible ToS and Privacy Policy pages:
+
+Terms of Service:
+https://login---example.pages.liuxiaozhen.zitzhen.cn/agreement/terms-servic=
+e/
+
+Privacy Policy:
+https://login---example.pages.liuxiaozhen.zitzhen.cn/agreement/PrivacyPolic=
+y/
+
+Both documents clearly state:
+
+No credentials or personal information are stored on the server
+
+OAuth tokens remain only on the client-side
+
+The platform does not collect, store, or transmit user data
+
+The site is exclusively for education, testing, and developer learning purp=
+oses
+
+These backup domain URLs remain accessible even after the block.
+
+3. The phishing detection appears to be a false positive
+
+Because the interface resembles a login UI and includes the word =93login=
+=94 in the URL, I believe the Cloudflare automated classifier mistakenly fl=
+agged the project as phishing.
+
+However, this project:
+
+does not request passwords
+
+does not imitate any brand
+
+only redirects the user to official OAuth providers
+
+is transparent about its purpose and policies
+
+provides documentation for developers
+
+contains no malicious scripts, credential harvesting code, or backend data =
+collection
+
+4. Account restriction
+
+Following the automatic phishing flag, my Cloudflare account (email: oliver=
+xiaozhen@outlook.com
+) was restricted:
+
+Cannot add domains
+
+Cannot purchase domains
+
+Some dashboard features disabled
+
+Pages project blocked
+
+My account is used strictly for normal development and documentation purpos=
+es, and I respectfully request that Trust & Safety restore full access afte=
+r review.
+
+5. Request
+
+I kindly request:
+
+A manual review of the Pages project
+
+Removal of the false phishing flag
+
+Restoration of full access to my Cloudflare account
+
+Confirmation that the project complies with Cloudflare=92s AUP
+
+Thank you very much for your time and assistance.
+I sincerely appreciate your help in resolving this false positive.
+
+Best regards,
+oliverxiaozhen@outlook.com
+
+Cloudflare Community:https://developers.cloudflare.com/
+Cloudflare Developer Documentation:=A0https://community.cloudflare.com/
+Cloudflare Help Center:=A0https://support.cloudflare.com/hc/en-us
+------=_Part_4019_223632948.1764944629521
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1"><title></title>
+</head>
+<body style=3D"height: auto; min-height: auto;">
+<p><span style=3D"font-size:12px;"><span style=3D"font-family:Arial,Helveti=
+ca,sans-serif;">Hello ,<br>
+<br>
+Thank you for contacting Cloudflare!<br>
+<br>
+The case number 01863473 is now Closed.</span></span></p>
+
+<p><span style=3D"font-size:12px;"><span style=3D"font-family:Arial,Helveti=
+ca,sans-serif;">However, you can still ask questions about this issue if yo=
+u need additional assistance:</span></span></p>
+
+<ul>
+	<li><span style=3D"font-size:12px;"><span style=3D"font-family:Arial,Helve=
+tica,sans-serif;">If you would like to ask a question related to this issue=
+, please submit a <strong>new</strong> case so we can assist you.</span></s=
+pan></li>
+	<li><span style=3D"font-size:12px;"><span style=3D"font-family:Arial,Helve=
+tica,sans-serif;">Tell us your old case number when submitting the new requ=
+est.</span></span></li>
+	<li><span style=3D"font-size:12px;"><span style=3D"font-family:Arial,Helve=
+tica,sans-serif;">Referencing the old case number will help us look back to=
+ this&nbsp;closed case's information.</span></span></li>
+</ul>
+
+<p><br>
+<span style=3D"font-size:12px;"><span style=3D"font-family:Arial,Helvetica,=
+sans-serif;">Below is additional information about this case:</span></span>=
+</p>
+
+<ul>
+	<li><span style=3D"font-size:12px;"><span style=3D"font-family:Arial,Helve=
+tica,sans-serif;">Case number:&nbsp;01863473</span></span></li>
+	<li><span style=3D"font-size:12px;"><span style=3D"font-family:Arial,Helve=
+tica,sans-serif;">Subject: This is a follow-up to case #01856810 and #01846=
+397. Both were automatically closed before manual review.</span></span></li=
+>
+	<li><span style=3D"font-size:12px;"><span style=3D"font-family:Arial,Helve=
+tica,sans-serif;">Description: Subject: Follow-up &#8211; False Positive Ph=
+ishing Detection &amp; Account Restriction (Previous Case #01856810 / #0184=
+6397)<br><br>Message:<br><br>Hello Cloudflare Trust &amp; Safety team,<br><=
+br>This is a follow-up request regarding my previous cases #01856810 and #0=
+1846397, which were automatically closed before a manual review could be co=
+mpleted. My Cloudflare Pages project and Cloudflare account are still restr=
+icted, and I kindly request a manual review from the Trust &amp; Safety tea=
+m.<br><br>1. Project nature &#8211; OAuth2.0 login experience &amp; develop=
+er tutorial platform<br><br>The project hosted at:<br><br>login---example.p=
+ages.dev (original URL, now blocked)<br><br>https://login---example.pages.l=
+iuxiaozhen.zitzhen.cn<br> (backup accessible domain)<br><br>is a third-part=
+y OAuth2.0 login experience platform and developer tutorial site.<br><br>It=
+ provides users and developers with a unified interface to test and underst=
+and OAuth login flows.<br>Before the block, users could log in using GitHub=
+, Microsoft, and Google OAuth for educational purposes.<br><br>This project=
+ does not collect or store any credentials, and it does not mimic or impers=
+onate any brand or service.<br><br>2. Clear Terms of Service and Privacy Po=
+licy (public and accessible)<br><br>My platform includes publicly accessibl=
+e ToS and Privacy Policy pages:<br><br>Terms of Service:<br>https://login--=
+-example.pages.liuxiaozhen.zitzhen.cn/agreement/terms-service/<br><br>Priva=
+cy Policy:<br>https://login---example.pages.liuxiaozhen.zitzhen.cn/agreemen=
+t/PrivacyPolicy/<br><br>Both documents clearly state:<br><br>No credentials=
+ or personal information are stored on the server<br><br>OAuth tokens remai=
+n only on the client-side<br><br>The platform does not collect, store, or t=
+ransmit user data<br><br>The site is exclusively for education, testing, an=
+d developer learning purposes<br><br>These backup domain URLs remain access=
+ible even after the block.<br><br>3. The phishing detection appears to be a=
+ false positive<br><br>Because the interface resembles a login UI and inclu=
+des the word &#8220;login&#8221; in the URL, I believe the Cloudflare autom=
+ated classifier mistakenly flagged the project as phishing.<br><br>However,=
+ this project:<br><br>does not request passwords<br><br>does not imitate an=
+y brand<br><br>only redirects the user to official OAuth providers<br><br>i=
+s transparent about its purpose and policies<br><br>provides documentation =
+for developers<br><br>contains no malicious scripts, credential harvesting =
+code, or backend data collection<br><br>4. Account restriction<br><br>Follo=
+wing the automatic phishing flag, my Cloudflare account (email: oliverxiaoz=
+hen@outlook.com<br>) was restricted:<br><br>Cannot add domains<br><br>Canno=
+t purchase domains<br><br>Some dashboard features disabled<br><br>Pages pro=
+ject blocked<br><br>My account is used strictly for normal development and =
+documentation purposes, and I respectfully request that Trust &amp; Safety =
+restore full access after review.<br><br>5. Request<br><br>I kindly request=
+:<br><br>A manual review of the Pages project<br><br>Removal of the false p=
+hishing flag<br><br>Restoration of full access to my Cloudflare account<br>=
+<br>Confirmation that the project complies with Cloudflare&#8217;s AUP<br><=
+br>Thank you very much for your time and assistance.<br>I sincerely appreci=
+ate your help in resolving this false positive.<br><br>Best regards,<br>oli=
+verxiaozhen@outlook.com</span></span></li>
+</ul>
+
+<p><span style=3D"font-size:12px;"><span style=3D"font-family:Arial,Helveti=
+ca,sans-serif;">Cloudflare Community:https://developers.cloudflare.com/<br>
+Cloudflare Developer Documentation:&nbsp;https://community.cloudflare.com/<=
+br>
+Cloudflare Help Center:&nbsp;https://support.cloudflare.com/hc/en-us</span>=
+</span><br>
+<br>
+<br>
+<img alt=3D"footer image v2" src=3D"https://cloudflare.file.force.com/file-=
+asset-public/footer_image_v2?oid=3D00Do0000000Yxik" style=3D"max-width: 697=
+.128px; width: 105px; height: 34.9826px;" title=3D"footer image v2"></p>
+</body>
+</html>=
+
+------=_Part_4019_223632948.1764944629521--
+
+------=_Part_4020_736457048.1764944629521--

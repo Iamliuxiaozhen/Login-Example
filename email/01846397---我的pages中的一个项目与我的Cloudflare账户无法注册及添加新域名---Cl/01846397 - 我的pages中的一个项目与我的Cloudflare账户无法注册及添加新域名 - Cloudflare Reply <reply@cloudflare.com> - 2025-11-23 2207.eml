@@ -1,0 +1,257 @@
+Received: from BL4PR12MB9479.namprd12.prod.outlook.com (2603:10b6:208:58e::8)
+ by SA1PR12MB5657.namprd12.prod.outlook.com with HTTPS; Sun, 23 Nov 2025
+ 14:07:48 +0000
+Received: from SJ0PR05CA0075.namprd05.prod.outlook.com (2603:10b6:a03:332::20)
+ by BL4PR12MB9479.namprd12.prod.outlook.com (2603:10b6:208:58e::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.15; Sun, 23 Nov
+ 2025 14:07:47 +0000
+Received: from SJ5PEPF000001F4.namprd05.prod.outlook.com
+ (2603:10b6:a03:332:cafe::9e) by SJ0PR05CA0075.outlook.office365.com
+ (2603:10b6:a03:332::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.7 via Frontend Transport; Sun,
+ 23 Nov 2025 14:07:41 +0000
+Authentication-Results: spf=pass (sender IP is 52.36.109.75)
+ smtp.mailfrom=rt56hce49b8y0mpl.g6jgant.o-yxikeac.usa234.bnc.salesforce.com;
+ dkim=pass (signature was verified) header.d=cloudflare.com;dmarc=pass
+ action=none header.from=cloudflare.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of
+ rt56hce49b8y0mpl.g6jgant.o-yxikeac.usa234.bnc.salesforce.com designates
+ 52.36.109.75 as permitted sender) receiver=protection.outlook.com;
+ client-ip=52.36.109.75;
+ helo=smtp-04e32c8eef8d03185.core1.sfdc-lywfpd.mta.salesforce.com; pr=E
+Received: from smtp-04e32c8eef8d03185.core1.sfdc-lywfpd.mta.salesforce.com
+ (52.36.109.75) by SJ5PEPF000001F4.mail.protection.outlook.com (10.167.242.72)
+ with Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id
+ 15.20.9343.9 via Frontend Transport; Sun, 23 Nov 2025 14:07:46 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:1049E59B1712001E12DC0204734FB2A562A8E20CB3796F285EB6921FF7358CC4;UpperCasedChecksum:DCBBC450F510DE8ED13E577F140EB47E6DD5088DD3DC22DE37976EA171C45F9F;SizeAsReceived:2490;Count:23
+Return-Path: reply=cloudflare.com__0-2pqfczqzz5p2zc.p2njnm55u3xgusxc@rt56hce49b8y0mpl.g6jgant.o-yxikeac.usa234.bnc.salesforce.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=cloudflare.com;
+	s=salesforce.com; t=1763906866;
+	bh=8zfN2Umz+UDlCwiUpQJ9ChCagIEPKcAeLhsMf0f0E44=;
+	h=Date:From:To:Subject:MIME-Version:Content-Type;
+	b=LiTh7URieQgsaJKG+P+gt8RXwotMa7UGt07LNvfEE+k8CR8yz8fEneRNuswIMglIo
+	 PHUehroELmq+ChbWcYNquSXr3F4KZx0hdrhpDXIOUvoKT3C8nZ5P78+2NK92jt8Qas
+	 u5p+BEIkTwI0HMd63O9CjX1O0T26NkaMKQ3k7TR1t7RA/w+C7kogpz6PDyUdRqJZ2Y
+	 k8WB/wnxwgjsgmSikKjUppEWzrMXqZ6JtTasQOgkgfc6Sj21g7hGjUbXqYC509J3fF
+	 yfNDAqXrorceX9dxGif41J6B6haT4bu0z4dNABW08jx0nH/9PSXpgm6zBfnMs1fgQz
+	 kxmKtI095RA/A==
+Received: from [127.0.0.1] ([127.0.0.1:44432] helo=eaas-41.eaas.emailinfra.svc.cluster.local)
+	by mx1.core1.sfdc-lywfpd.mta.salesforce.com (envelope-from <reply=cloudflare.com__0-2pqfczqzz5p2zc.p2njnm55u3xgusxc@rt56hce49b8y0mpl.g6jgant.o-yxikeac.usa234.bnc.salesforce.com>)
+	(ecelerity 4.7.0.20111 r(msys-ecelerity:tags/4.7.0-ga^0)) with ESMTP
+	id CB/12-00709-23513296; Sun, 23 Nov 2025 14:07:46 +0000
+Received: from 127.0.0.1 (localhost. [127.0.0.1]) by eaas-41 (EaaS) id
+  <9brgP000000000000000000000000000000000000000000000T66N8V00OXW6R2VvSimUyxME_6XJ5Q@sfdc.net>
+  for <"oliverxiaozhen@outlook.com" <oliverxiaozhen@outlook.com>> Sun, 23
+ Nov  2025 14:07:46 GMT (GMT)
+Date: Sun, 23 Nov 2025 14:07:46 +0000 (GMT)
+From: Cloudflare Reply <reply@cloudflare.com>
+To: "oliverxiaozhen@outlook.com" <oliverxiaozhen@outlook.com>
+Message-ID: <9brgP000000000000000000000000000000000000000000000T66N8V00OXW6R2VvSimUyxME_6XJ5Q@sfdc.net>
+Subject: =?UTF-8?Q?01846397_-_=E6=88=91?= =?UTF-8?Q?=E7=9A=84pages?=
+ =?UTF-8?Q?=E4=B8=AD=E7=9A=84=E4=B8=80=E4=B8=AA=E9=A1=B9=E7=9B=AE?=
+ =?UTF-8?Q?=E4=B8=8E=E6=88=91=E7=9A=84Cloudflar?=
+ =?UTF-8?Q?e=E8=B4=A6=E6=88=B7=E6=97=A0=E6=B3=95=E6=B3=A8?=
+ =?UTF-8?Q?=E5=86=8C=E5=8F=8A=E6=B7=BB=E5=8A=A0=E6=96=B0=E5=9F=9F=E5=90=8D?=
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_5058_756901495.1763906866352"
+X-SFDC-LK: 00Do0000000Yxik
+X-SFDC-User: 0055c000008tipR
+X-Sender: postmaster@salesforce.com
+X-mail_abuse_inquiries: http://www.salesforce.com/company/abuse.jsp
+X-SFDC-TLS-NoRelay: 1
+X-SFDC-CORRELATION-ID: 00025pczfxlw8ad3
+X-SFDC-Binding: 1WrIRBV94myi25uB
+X-SFDC-App: coreapp
+X-SFDC-EmailCategory: apiSingleMailViaApex
+X-SFDC-EntityId: 500Nv00000W1dbQ
+X-SFDC-Interface: internal
+X-IncomingHeaderCount: 23
+X-MS-Exchange-Organization-ExpirationStartTime: 23 Nov 2025 14:07:46.7282
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: 84f6c3bd-2062-4c68-84b4-08de2a99adca
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F4:EE_|BL4PR12MB9479:EE_|SA1PR12MB5657:EE_
+X-MS-Exchange-Organization-AuthSource: SJ5PEPF000001F4.namprd05.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 11/23/2025 2:07:44 PM
+X-MS-Office365-Filtering-Correlation-Id: 84f6c3bd-2062-4c68-84b4-08de2a99adca
+X-MS-Exchange-EOPDirect: true
+X-Sender-IP: 52.36.109.75
+X-SID-PRA: REPLY@CLOUDFLARE.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:4;ARA:1444111002|68400799013|970799057|461199028|9800799015|12001999021|47200799021|58200799018|9400799040|28070799003|5301999021|1380799030|1360799030|1370799030|3412199025|440099028|1122599019|26104999006|30041999003;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2025 14:07:46.6149
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84f6c3bd-2062-4c68-84b4-08de2a99adca
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9479
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.7315828
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.9343.011
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;ex:0;auth:1;dest:I;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90005022)(91005020)(91035115)(9050020)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SWpSRjVmbzR3azdSdGE0MDROWXoyMnlnZXkrNkdCZlovR3luS2xZenQ3UW9D?=
+ =?utf-8?B?WUswa1NIMTR0bzllM1JCVFhDU3h0U1h3M3crZzlJS3JvSmxlY2FTb0IxNVBS?=
+ =?utf-8?B?NDdOUnpSRFV4TGpMTDJoYk1GVWN1dE1WQjRrQ1ZUTFEwRmx6VHBQWkJ0VFhJ?=
+ =?utf-8?B?bGpXU0Z5RTFjcUo2dEhyZE9ZNEdmMXpBMGVURjVDUkgzblh1Vit5aTR0VVAr?=
+ =?utf-8?B?UFZsT0t3OEdhQkZULzBEeCtaZXBWanlSYzdxY2NmRDd3Z0JpMVpwOUVkZEMv?=
+ =?utf-8?B?Mm1tU202YXBXcUpodzk4NmVtS1QwRnJNZy9FaGR3QUlmQWY2cnJnQWtydFp5?=
+ =?utf-8?B?RkpHTlczZXJSVkdZcWVZSzRhSUFrNjdmOWtmWnNFR0crT1B3aXhvdFl4QTIy?=
+ =?utf-8?B?VWM0WEJBZmpDR3o4b0NBdjZGaC9KeVJmdUloREo0cnBqcG10eVhkRGJCazZu?=
+ =?utf-8?B?eC9CQWFSOXl4VDZBRjlOTHVZZ3Z0cStLSmdXTWxVdXRJQzhyb3IwMkljNDBL?=
+ =?utf-8?B?WUdvRjdkZUlWT3VtdVdCLzQxeWRXK2laWHpKaG53TldPY1p6SUY2ZjNDeUlz?=
+ =?utf-8?B?Ukw1WnNsQjhtZGoyaE5rcm1tUCt3SEtSMTRiam5RanFXSHVHeWZYMlVyTUpJ?=
+ =?utf-8?B?VG9oMmJzRmkwNVFqZ2FmUUQ4TGJnaEMxSzY1bE5RY0syV3ZsTWFTdEpjTS8v?=
+ =?utf-8?B?ZXBUMW9vQjRBYWlwMk9SUkZpTEFZUUtVK1Z1emxRRVRJTjI2ZTIvTDVsM2Rz?=
+ =?utf-8?B?YnhoM09UajFIN0tIaDRVdkxZeG0rbmsrWG9SdjAvREVneE5vVkNaTys2Q21B?=
+ =?utf-8?B?QWs0REFmeTlFWnpNTjZsSGhrWFdpTGQ3QjNsQ1ljSnJiOURxdVVtUU9KSFpS?=
+ =?utf-8?B?Z3QrMllEZ0taczg1RkIrRVdGcVJZNFVOY2lIeXU2UWd1Rm9jZnVpQ0ZOeHg4?=
+ =?utf-8?B?eGpQUlR4cmRjdXBBZUg3R2hzS2dpK0RmeVZtZnp6cUhZNUhoQWllUy9uS1Jw?=
+ =?utf-8?B?TWNndVBoclVXQ1ZNNnJUelpUL0QySHVUSzJ0MHZnenRLMFFHYlJHNTdEcjdQ?=
+ =?utf-8?B?VnZ2empadFQxRm1pTnYxU0h4VkIzOENhN2RxV2VQckdxUzdZVE5OY1I0d0VP?=
+ =?utf-8?B?UFdaSTVZbUtJSG95Ynd3WnZ5ZUVCbEozbzJaMC9ISXA1VmdxUVEvUEQ3MzB4?=
+ =?utf-8?B?bGdROGNhSzNXRFoyR2FzcS9hQ1BvZHFNbHc2RDFwL1ZBUFdkUjBrRkZady9s?=
+ =?utf-8?B?cURaM2VXRUtNV01MTkxOZUJlc3A4NWFhdVg2eEt3N1RGeG0wZWZZQmtpTWc1?=
+ =?utf-8?B?ZzNDVW9ObDZMV3pmalRLaWgreThTTnpRMytOT2UxS1hlWGluQUhjdlZWNkpZ?=
+ =?utf-8?B?SFpyWm1ueHYyUjZETFNtcTdiRVE3aUtWTVhlbWhMT2EyK1FRdERzNWhpcjB2?=
+ =?utf-8?B?d1BhSXBtSXpLRFVia3ZXRCs4OWlpaGg2U1JNSzRUenFCcko4VW9CaUV6TThp?=
+ =?utf-8?B?QjFJU2dvSE5tUUpHTzRnYStoZVdrTEtBOWtrTXJYZTgydVBqMWRmeGxzM0dp?=
+ =?utf-8?B?Y282S0VXQTYrNDRndUE2NWFCRVlBd2F6UENjOVh6RU1lejVTWmtmRDUzTVBW?=
+ =?utf-8?B?WDlkK0lDRWpiV1F6NStTYXNlaXBuczZGMlZNeDFHWkk2T09GbVhLMzEwTTdi?=
+ =?utf-8?B?RUZPc1IxbmtVUE92L1ZUS2FDZ2NSMXVVNzB3K0w1MENteGM2SEQ3SGpFRTRX?=
+ =?utf-8?B?b1BQMlRVOW04RE9BT1VkQjFYYVNoVlV6VUh0alJLT1lDQjQ5d2FnMXNSM0F1?=
+ =?utf-8?B?R3RId1B2SjVucC91SThMcGVydlRMcUlJKytWb3dmbHVqbEdYeC80elNOckZB?=
+ =?utf-8?B?RHYzR3Fhdmx0M0NDckI1TjhiVWEzUXpQdlFScVl0dTQyUVA0MWs4QXNSaGNI?=
+ =?utf-8?B?bXhndFNmV0xWU2pLbkJFa1JGYm1OQWFpUFpDYy9mcGgwSEZiS2dSUjF5L1Vk?=
+ =?utf-8?B?YUFTbmFIeEszQkZpZUlNVUdmd2tMREFhUEIxZkNVSk5Vb3R6ZU5tQ3RXZW92?=
+ =?utf-8?B?aFZCWHpGZ0pSb1MrR2tCRHo0VlpZb3dnZVJrb3FGaWVkRGpvdEREUHQvTDFJ?=
+ =?utf-8?B?THdxRmhPMGNXbE5uQ1NWbG4xeGVZK1NnQkczUGdLbFlwSDlYcXlsUHFWR1BR?=
+ =?utf-8?B?Ymg1L2cxK2QvUWpLdExqREFKeDRKR1BmU0pxeGZCWDFCS0F1Zkk2R1hiL2do?=
+ =?utf-8?B?SGREYjZHWWhUN2F2T0VkOHp1MHVxZU44SGVEZE1ZM3crZW42cGJQTnhZaEpE?=
+ =?utf-8?B?dmZRaFJEYzhlZW1SamhVSEl4UERYS0hYeDllM1NHbWxDMGd1dFNibmg4djRG?=
+ =?utf-8?B?dkk0MEhoNHBvZmxsZHU4bkZ4bkJpNFRWTEsrTWdtT3FWMWkzWkFscGhPN25Z?=
+ =?utf-8?B?UFdES2FBNnByNnpBcWpsOTFtN2JTRW1ZeXpTV0l0a0pqYmNvMEptb3pLSjlU?=
+ =?utf-8?B?K3BZRTFQVzBsTTRiSlZIdEdud1E4c280ck1BeTJEZlpaU3FPL2tVTE5VbXN6?=
+ =?utf-8?B?NThzeFQ1V0UrdzJQK0F6SWlSVGVRZ3IxL2s4dVBWeWVXTWRJRmpqcnhXQWp0?=
+ =?utf-8?B?RDBWTFdwbkhTSEdicDA3ODZmUnhleDFFVSttMlFnR0t1bWQ3b3ZzRUQrZ2No?=
+ =?utf-8?Q?gkwy?=
+MIME-Version: 1.0
+
+------=_Part_5058_756901495.1763906866352
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_5057_756901059.1763906866352"
+
+------=_Part_5057_756901059.1763906866352
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+I've escalated this request onto our Trust and Safety Team for review.=20
+It is currently being reviewed, and Trust and Safety will reach out to you =
+as soon as possible to address this.
+Note: Our technical support team will not be able to assist you with this c=
+ase, nor can they expedite it. We appreciate your patience while waiting on=
+ the response from our Trust and Safety Team.
+If you need any technical assistance while you wait on help for this issue,=
+ please open a new case by following the instructions on our support portal=
+, and we would be happy to help you with your technical support questions.
+Thank you for being part of Cloudflare!
+You can find answers to many common questions:-By joining the conversation =
+in our Community forums: https://community.cloudflare.com/-By checking out =
+our Developer Documentation: https://developers.cloudflare.com/-By visiting=
+ the Cloudflare Help Center. There you will find our most frequently asked =
+questions, steps to issue resolution, and more! Check us out at: https://su=
+pport.cloudflare.com/hc/en-us
+
+=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8BPlease don't=
+ hesitate to come back if you still have questions.
+
+Best Regards
+
+Louise
+Manager, Technical Support
+
+#HelpBuildingaBetterInternet
+
+Visit our Community at https://community.cloudflare.com/
+------=_Part_5057_756901059.1763906866352
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"></=
+head>
+<p><span style=3D"font-family: sans-serif; font-size: 12px;">Hello,</span><=
+/p><p><br></p><p><span style=3D"font-family: sans-serif; font-size: 12px;">=
+I've escalated this request onto our Trust and Safety Team for review. </sp=
+an></p><p><br></p><p><span style=3D"font-family: sans-serif; font-size: 12p=
+x;">It is currently being reviewed, and Trust and Safety will reach out to =
+you as soon as possible to address this.</span></p><p><br></p><p><em style=
+=3D"font-family: sans-serif; font-size: 12px;">Note: Our technical support =
+team will not be able to assist you with this case, nor can they expedite i=
+t. </em><span style=3D"font-family: sans-serif; font-size: 12px;">We apprec=
+iate your patience while waiting on the response from our Trust and Safety =
+Team.</span></p><p><br></p><p><span style=3D"font-family: sans-serif; font-=
+size: 12px;">If you need any technical assistance while you wait on help fo=
+r this issue, please open a new case by following the instructions on our <=
+/span><a style=3D"font-family: sans-serif; font-size: 12px;" target=3D"_bla=
+nk" href=3D"">support portal</a><span style=3D"font-family: sans-serif; fon=
+t-size: 12px;">, and we would be happy to help you with your technical supp=
+ort questions.</span></p><p><br></p><p><span style=3D"font-family: sans-ser=
+if; font-size: 12px;">Thank you for being part of Cloudflare!</span></p><p>=
+<br></p><p><em style=3D"background-color: transparent; color: rgb(68, 68, 6=
+8); font-family: sans-serif; font-size: 12px;">You can find answers to many=
+ common questions:</em></p><p><span style=3D"background-color: transparent;=
+ color: rgb(68, 68, 68); font-family: sans-serif; font-size: 12px;">-By joi=
+ning the conversation in our Community forums:</span><a style=3D"background=
+-color: transparent; color: rgb(68, 68, 68); font-family: sans-serif; font-=
+size: 12px;" target=3D"_blank" href=3D"https://community.cloudflare.com/"> =
+</a><a style=3D"background-color: transparent; color: rgb(17, 85, 204); fon=
+t-family: sans-serif; font-size: 12px;" target=3D"_blank" href=3D"https://c=
+ommunity.cloudflare.com/"><u>https://community.cloudflare.com/</u></a></p><=
+p><span style=3D"background-color: transparent; color: rgb(68, 68, 68); fon=
+t-family: sans-serif; font-size: 12px;">-By checking out our Developer Docu=
+mentation:</span><a style=3D"background-color: transparent; color: rgb(68, =
+68, 68); font-family: sans-serif; font-size: 12px;" target=3D"_blank" href=
+=3D"https://developers.cloudflare.com/"><u> </u></a><a style=3D"background-=
+color: transparent; color: rgb(17, 85, 204); font-family: sans-serif; font-=
+size: 12px;" target=3D"_blank" href=3D"https://developers.cloudflare.com/">=
+<u>https://developers.cloudflare.com/</u></a></p><p><span style=3D"backgrou=
+nd-color: transparent; color: rgb(68, 68, 68); font-family: sans-serif; fon=
+t-size: 12px;">-By visiting the Cloudflare Help Center. There you will find=
+ our most frequently asked questions, steps to issue resolution, and more! =
+Check us out at:</span><a style=3D"background-color: transparent; color: rg=
+b(68, 68, 68); font-family: sans-serif; font-size: 12px;" target=3D"_blank"=
+ href=3D"https://support.cloudflare.com/hc/en-us"><u> </u></a><a style=3D"b=
+ackground-color: transparent; color: rgb(17, 85, 204); font-family: sans-se=
+rif; font-size: 12px;" target=3D"_blank" href=3D"https://support.cloudflare=
+.com/hc/en-us"><u>https://support.cloudflare.com/hc/en-us</u></a></p><br><b=
+r>=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8BPlease don=
+'t hesitate to come back if you still have questions.
+<br>
+<br>Best Regards
+<br>
+<br>Louise
+<br>Manager, Technical Support
+<br>
+<br>#HelpBuildingaBetterInternet
+<br>
+<br>Visit our Community at https://community.cloudflare.com/<br></html>=
+
+------=_Part_5057_756901059.1763906866352--
+
+------=_Part_5058_756901495.1763906866352--

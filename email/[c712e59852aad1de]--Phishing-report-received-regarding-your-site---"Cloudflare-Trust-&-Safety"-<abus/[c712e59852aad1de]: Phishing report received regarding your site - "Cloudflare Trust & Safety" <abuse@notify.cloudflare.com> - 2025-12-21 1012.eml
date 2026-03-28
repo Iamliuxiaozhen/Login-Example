@@ -1,0 +1,201 @@
+Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
+ by SA1PR12MB5657.namprd12.prod.outlook.com with HTTPS; Sun, 21 Dec 2025
+ 02:12:31 +0000
+Received: from CWLP265CA0270.GBRP265.PROD.OUTLOOK.COM (2603:10a6:401:5c::18)
+ by CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.10; Sun, 21 Dec
+ 2025 02:12:30 +0000
+Received: from AMS0EPF00000196.eurprd05.prod.outlook.com
+ (2603:10a6:401:5c:cafe::34) by CWLP265CA0270.outlook.office365.com
+ (2603:10a6:401:5c::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.10 via Frontend Transport; Sun,
+ 21 Dec 2025 02:12:29 +0000
+Authentication-Results: spf=pass (sender IP is 192.174.87.158)
+ smtp.mailfrom=notify.cloudflare.com; dkim=pass (signature was verified)
+ header.d=notify.cloudflare.com;dmarc=pass action=none
+ header.from=notify.cloudflare.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of notify.cloudflare.com
+ designates 192.174.87.158 as permitted sender)
+ receiver=protection.outlook.com; client-ip=192.174.87.158;
+ helo=mta-87-158.sparkpostmail.com; pr=E
+Received: from mta-87-158.sparkpostmail.com (192.174.87.158) by
+ AMS0EPF00000196.mail.protection.outlook.com (10.167.16.217) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9456.9 via Frontend Transport; Sun, 21 Dec 2025 02:12:28 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:0FC09B61C4C15CCDE5B782F3B20D886D3CC204B4E135BE123B01BD04ED82FF0A;UpperCasedChecksum:0A20740CA06C84B7998AEF931713EADDFBFA7F5E0F3CEAEB483CA92935872D6F;SizeAsReceived:1426;Count:13
+Return-Path: msprvs1=20450NeDovd-8=bounces-265094@notify.cloudflare.com
+X-MSFBL: I1IEHUSy7YU7sofa4is7DQRGYXlvhN8RmSFxclvzC7s=|eyJzdWJhY2NvdW50X2l
+	kIjoiMCIsImN1c3RvbWVyX2lkIjoiMjY1MDk0IiwidGVuYW50X2lkIjoic3BjIiw
+	iciI6Im9saXZlcnhpYW96aGVuQG91dGxvb2suY29tIiwibWVzc2FnZV9pZCI6IjY
+	5NDU4YjU3NDc2OWJjMTIxM2Q4In0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=notify.cloudflare.com; s=scph0619; t=1766283147;
+	i=@notify.cloudflare.com;
+	bh=2mAcD2RX5ZYulDuzTpK+wDDTEFw52PoTK3Lc5wgckYk=;
+	h=Content-Type:Subject:Message-ID:To:Date:From:From:To:Cc:Subject;
+	b=ZvliEXslFh8AhrE/oRRWxY3IMqSdIOXcAjpduEDcMyEJkWQ23FCUUWQYWofV0kF0g
+	 zydXmSUJpeIFysOQ9oj8e5pzJbGbxSQrZpwZWO8AsEuyBA2YjxfnqSkEcfDE4NQuAM
+	 2UY9qAniqKojf7WkPcXagts8D29M1nzMKhWoYDrk=
+Received: from [10.90.11.115] ([10.90.11.115])
+	by i-05e7c9ad713d38771.mta1vrest.sd.prd.sparkpost (ecelerity 5.1.0.74732 r(msys-ecelerity:tags/5.1.0.24)) with REST
+	id 8D/31-30110-B8757496; Sun, 21 Dec 2025 02:12:27 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Subject: [c712e59852aad1de]: Phishing report received regarding your site
+Message-ID: <8D.31.30110.B8757496@i-05e7c9ad713d38771.mta1vrest.sd.prd.sparkpost>
+To: oliverxiaozhen@outlook.com
+Date: Sun, 21 Dec 2025 02:12:27 +0000
+Reply-To: noreply@notify.cloudflare.com
+From: "Cloudflare Trust & Safety" <abuse@notify.cloudflare.com>
+X-IncomingHeaderCount: 13
+X-MS-Exchange-Organization-ExpirationStartTime: 21 Dec 2025 02:12:28.9756
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: 3b272d8c-46e3-403b-2f41-08de40366462
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF00000196:EE_|CH2PR12MB4198:EE_|SA1PR12MB5657:EE_
+X-MS-Exchange-Organization-AuthSource: AMS0EPF00000196.eurprd05.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 12/21/2025 2:11:21 AM
+X-MS-Office365-Filtering-Correlation-Id: 3b272d8c-46e3-403b-2f41-08de40366462
+X-MS-Exchange-EOPDirect: true
+X-Sender-IP: 192.174.87.158
+X-SID-PRA: ABUSE@NOTIFY.CLOUDFLARE.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:3;ARA:1444111002|12800799019|461199028|28070799003|58200799021|47200799024|3412199025|440099028|26104999006|1370799030|1360799030|1380799030|56899033;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2025 02:12:28.5295
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b272d8c-46e3-403b-2f41-08de40366462
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF00000196.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4198
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:02.5667173
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.9434.000
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;ex:0;auth:1;dest:I;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?cmZkV1ArMmdrb2sybUpZS1crS0xsLzNIbTlIUnJ3bnd5RnJLMkhVRHBydmNM?=
+ =?utf-8?B?U2pMajlWWG5HSkUzam51SDVUUjZBZy8ybXFYbXBPTDBNelE1a05PV1F0cU5v?=
+ =?utf-8?B?Y0ZQaWVWTzBZMDlVazhTKzRHQm5VUWJFN2t5c2ZMam5DZmtCV1lHTTkwVEFM?=
+ =?utf-8?B?OUI0dlRqZzBXT29Na3FQVjB0NHJsVDhEL0RZTjVESTNVNDFXSmpKMW1pa0la?=
+ =?utf-8?B?bXVxaE00eGY4QlZOQkg5NVFjeFkzcGRnMW40dzRobUNzYWprbHJxTnRLd3FK?=
+ =?utf-8?B?UlNrNE9iRE1tWWRVTXVVTEQ4bU1laC9qNWJiMDJ2UVo0cXliT08vZkkvWlZy?=
+ =?utf-8?B?a1U0K1o2MVVMU0ZadVpCb3RsZ0lVOUJUK3NSeExOWjhWV2lqVmxKOW9pTGlP?=
+ =?utf-8?B?cERXa0pOS0RSSDcrdGNKbGxteEFZd2tudmFhQVFzM3o2d21ZTEVkUm83MlZu?=
+ =?utf-8?B?UzRzRXh5aUdUK0svQWo5Yk81bytIR3NRdjQ2ZHNNVGF4N1BML2U3alg0Nnhk?=
+ =?utf-8?B?R0lxeUxtWWJvL0RHRkxPUlZKK3lTSEZjUnYzaHFsaTJmWi9lZEsyY0hCNVJr?=
+ =?utf-8?B?cU5rY0xhOWdaa0pZaGRCZDdrR0MwSDduMEpOQUJYajhxSFJvcDZBaHBwVFJ6?=
+ =?utf-8?B?NUFYZDNTelEwcnFQa3N0ZVZIMmV1TzdvZExEVHd0VFpGMVZ5anh4MDVzTWh5?=
+ =?utf-8?B?UnhadGpEcVI2S2xnVktWQ0MzS0NYL1d6NS9NNzFrMVkwSjJmQUY0a1J3NTRF?=
+ =?utf-8?B?dW5YTHYxTXlFbVZHSjFsS3BXbERGYjVvK3licmFnSnF6cEl2dUNpQ0NnMnRk?=
+ =?utf-8?B?THF2cTJ6dUdNckZ0TmtWNllma2g4eWNCY0srZlV0UXZlSWI5UmltdS9WekpN?=
+ =?utf-8?B?cVVkRENSUEU3aC91WHIzSDFOUTR4NGlzQitrUDgyYkQrcmcwWjRVbVRnT3BO?=
+ =?utf-8?B?Q0k2NTRTNWtzRStONEx1VzB5d3ArcFJ3S3phYzFyU3lpZTEzRUxjaWtmSU5V?=
+ =?utf-8?B?dkRoRzRUcCtVQnNCWWx4SlFsTDduSGFxVkZ6anA5OEhEQXRqZWRFVlU2YlNa?=
+ =?utf-8?B?Z3NHRDVFZnRxQ2pvelJSQ2Q3bC9YeDloQlNBYmQ0ZkdpcndrLytMUzhBTjJZ?=
+ =?utf-8?B?Um16UGdKdjVtMEcvUHAwN2VqaG1mM21wbURiV1A0REhBNlZOdlViL2lEUlVL?=
+ =?utf-8?B?d1RuMWFCV2dvK1RzMGVLdXJNSUdYcEo0eElJeFgxb3JnY3lxSTFFYk84MmJl?=
+ =?utf-8?B?bkNHNlc3dklFbWY3WnI4alE0alZsbUI0MFpjb1BtaHN6dXNtQ0IwTmtacmZ2?=
+ =?utf-8?B?N1laYW0xaForZjYvYUdtOEg4NWJ4ZTR4TFJ5WFF5SFJFUjg4cmhMQ2pvQnEy?=
+ =?utf-8?B?dk9adVNHNE9NZXQ2T0poRGhvRFNrZ2w3S1F1c0Uya2N3SnRQRTR6bGJDUTMr?=
+ =?utf-8?B?cmcwS2FsaFZlZTRWWEwwQ093K0VYZGFwNnhURitldDRzYjFpVDB2ekFTNmlu?=
+ =?utf-8?B?eHp1cTljZDZhN3NJMjNKL2J6R3dMVG5tWk1sUjd6N3luOWZsaGgvT21yVTJB?=
+ =?utf-8?B?UTJFVDgzWXdNV0R4WnFta2FQTm5YU0RzVnppNEQwWHBOSnpndzMvakhvVWdQ?=
+ =?utf-8?B?Q3V1VjljTUNNdC9EdExPOU5mUUw1WGlnOGFuY2xhYTNhbzc4dXh5KzhnRzRD?=
+ =?utf-8?B?bWFScTdUQUE3cHM5ZHE2QjJRZ1B6RXNNRHJsUjBmRmJGaHNjRG1XeGtyRlZU?=
+ =?utf-8?B?UmhSV2FzQkRSSWJQYnVmK25PcUlMNmovQVA1Ujlzbk9PRDRHa3cxRW5HT3Nv?=
+ =?utf-8?B?QksvN0NxaG9FVzVuL3hSeVFQTDQvNmIvUUcrRzRkdXhhK3M0V1lNSFNQWVN0?=
+ =?utf-8?B?N0d0UVljSUZwczdBVXFjQ0h5UEVmRWtBVVVTL3VBc05CQTRrV29ML1VoYXhx?=
+ =?utf-8?B?MVBpRmdvbjUxekEwSlkySUc3aXY5V0hFVWpwL1l4ZkJGNVRLNGdFaWNqWU53?=
+ =?utf-8?B?bHJEMEo0T3JtUHVFd0VyZEU3VXVJT0tyK1ZESWdTb1NzOWtWV3JpdkNHbGJV?=
+ =?utf-8?B?RUR2VHlUenhKSnZSWGNCeGlvVk5HT3A5VkRpYytRZk5wMHlaSTAyQUY1OXRG?=
+ =?utf-8?B?RCtHSVVIZWFSN2xTSnJzbVUzNm84aGF0UjlIMzhBckpXSWR0ZkdIZC94SStp?=
+ =?utf-8?B?RG5mTENlclpxcWxWRWNhSzJBWHdiZWlsalJOMU8wTnBRbEt1d2ZxSmtmZGxm?=
+ =?utf-8?B?Q2dldyt0d0RSY3JnanhqSGQ1RFMrWkt6dFQ0enNLUkZsTk1lNnNRS2xlOTF5?=
+ =?utf-8?B?ang0eDV6STBMbWNJYlZvMnVvMmxNZUNyU0RiY09xNHNicVl2YUt1bnExSGRQ?=
+ =?utf-8?B?bXZkTTBKaS9jNjRrN3Y2WXB4RmR2SitBOXp5MlhYbUNQeDNVWUt0K2cwK1RR?=
+ =?utf-8?B?NU9GaG9qRWRMQmJmMDRja05RUldXbm5Gbk56QnIvTzBEZmFYSWUwMTh1L2pN?=
+ =?utf-8?B?alVyTStwOE1EL0liZjcxc2ZoejkrY0hrL1FLbkdCdEFHeElPTEZlRitYVE9F?=
+ =?utf-8?Q?TbJaUHbKJNPN/5NbZp0nr7ezY/dalc?=
+MIME-Version: 1.0
+
+Hello,=0A=
+=0A=
+Cloudflare received an Phishing report regarding: login---example[.]pages[.=
+]dev.=0A=
+=0A=
+If you have questions about this abuse report, please send an email to abus=
+ereply@cloudflare.com with the following details:=0A=
+- The report identification number included in the subject line=0A=
+- Any additional details, context or evidence you can provide regarding the=
+ content that was reported.=0A=
+=0A=
+Below is the report we received:=0A=
+=0A=
+Report ID: c712e59852aad1de=0A=
+Logs or other evidence of abuse:  Hello Cloudflare Trust &amp; Safety Team,=
+=0A=
+=0A=
+This is NOT a new appeal.=0A=
+=0A=
+This is a follow-up regarding a false positive phishing classification and =
+account restriction that has remained unresolved for over 60 days.=0A=
+=0A=
+Timeline:=0A=
+- First restriction notice received: October 22, 2025 (20:17)=0A=
+- Today=E2=80=99s date: December 21, 2025=0A=
+- Duration without Trust &amp; Safety contact: ~60 days=0A=
+=0A=
+My Cloudflare account and Pages project were automatically restricted due t=
+o a suspected phishing classification.=0A=
+However:=0A=
+- This project is an OAuth 2.0 login demo and developer tutorial site=0A=
+- It does NOT collect passwords or credentials=0A=
+- It does NOT impersonate any brand=0A=
+- It only redirects users to official OAuth providers (GitHub, Microsoft, G=
+oogle)=0A=
+- Clear Terms of Service and Privacy Policy are publicly available=0A=
+=0A=
+Multiple support cases (#01846397, #01856810, #01863473) were automatically=
+ closed before any manual Trust &amp; Safety review occurred.=0A=
+I have never been contacted directly by the Trust &amp; Safety team.=0A=
+=0A=
+This is now a prolonged unresolved false positive that has restricted my ac=
+count for approximately two months.=0A=
+=0A=
+I respectfully request:=0A=
+1. A manual Trust &amp; Safety review of the project=0A=
+2. Removal of the false phishing classification=0A=
+3. Restoration of my Cloudflare account access=0A=
+4. Confirmation that the project complies with Cloudflare AUP=0A=
+=0A=
+Thank you for your time and assistance.=0A=
+I appreciate a direct response from Trust &amp; Safety.=0A=
+=0A=
+Best regards,=0A=
+oliverxiaozhen@outlook.com=0A=
+=0A=
+Reported URLs:=0A=
+hxxps://login---example[.]pages[.]dev/=0A=
+=0A=
+Original Work Description:=0A=
+I am the site owner and Cloudflare account holder.=0A=
+This report is a follow-up appeal for a false positive restriction. =0A=
+=0A=
+This report was handled automatically and this email is an automated reply.=
+=0A=
+=0A=
+Cloudflare Trust & Safety=0A=
+
+

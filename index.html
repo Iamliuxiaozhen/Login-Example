@@ -7,24 +7,56 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+    <header class="site-header">
+        <a class="site-brand" href="/" aria-label="Login Example home">
+            <span class="brand-dot" aria-hidden="true"></span>
+            <span>Login Example</span>
+        </a>
+        <nav class="site-nav" aria-label="Project links">
+            <a href="https://github.com/Iamliuxiaozhen/Login---Example">GitHub</a>
+            <a href="/agreement/terms-service">Terms</a>
+            <a href="/agreement/PrivacyPolicy">Privacy</a>
+        </nav>
+    </header>
+
     <main class="page-shell" aria-labelledby="page-title">
-        <section class="login-card" aria-label="OAuth 登录">
+        <section class="intro-panel" aria-labelledby="page-title">
+            <div class="badges" aria-label="Project status">
+                <span class="badge">Demo</span>
+                <span class="badge badge--muted">v1.0.0</span>
+                <span class="badge badge--live">Turnstile enabled</span>
+            </div>
+
+            <h1 id="page-title">Login Example</h1>
+            <p class="intro-text">A minimal OAuth login demo for GitHub, Microsoft, and Google.</p>
+
+            <ul class="feature-list">
+                <li>OAuth provider login</li>
+                <li>Cloudflare Turnstile verification</li>
+                <li>Lightweight frontend</li>
+                <li>No UI framework required</li>
+            </ul>
+
+            <a class="repo-link" href="https://github.com/Iamliuxiaozhen/Login---Example" aria-label="View Login Example repository on GitHub">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path>
+                </svg>
+                <span>Iamliuxiaozhen/Login---Example</span>
+            </a>
+        </section>
+
+        <section class="login-panel" aria-label="Sign in">
             <header class="login-header">
-                <div class="brand-mark" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" role="img">
-                        <path d="M12 3.25 19.58 7.5v9L12 20.75 4.42 16.5v-9L12 3.25Zm0 2.29L6.42 8.67v6.66L12 18.46l5.58-3.13V8.67L12 5.54Z"/>
-                    </svg>
-                </div>
-                <h1 id="page-title">Login Example</h1>
-                <p class="subtitle">Sign in with your account to continue</p>
+                <h2>Sign in</h2>
+                <p>Choose a provider to continue.</p>
             </header>
 
-            <div class="login-actions" aria-label="登录方式">
+            <div class="login-actions" aria-label="Login providers">
                 <button class="login-button login-button--github" id="github-login" type="button" aria-label="使用 GitHub 登录" disabled>
                     <svg viewBox="0 0 16 16" aria-hidden="true">
                         <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path>
                     </svg>
-                    <span>使用 GitHub 登录</span>
+                    <span>Continue with GitHub</span>
                 </button>
 
                 <button class="login-button login-button--microsoft" id="microsoft-login" type="button" aria-label="使用 Microsoft 登录" disabled>
@@ -34,7 +66,7 @@
                         <path fill="#00a4ef" d="M1 8.5h6.5V15H1V8.5z"/>
                         <path fill="#ffb900" d="M8.5 8.5H15V15H8.5V8.5z"/>
                     </svg>
-                    <span>使用 Microsoft 登录</span>
+                    <span>Continue with Microsoft</span>
                 </button>
 
                 <button class="login-button login-button--google" id="google-login" type="button" aria-label="使用 Google 登录" disabled>
@@ -44,29 +76,25 @@
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                     </svg>
-                    <span>使用 Google 登录</span>
+                    <span>Continue with Google</span>
                 </button>
             </div>
 
             <section class="verify-panel" aria-labelledby="verify-title">
-                <div class="verify-copy">
-                    <div>
-                        <h2 id="verify-title">Security check</h2>
-                        <p>Complete the check before signing in.</p>
-                    </div>
-                    <p id="verifytext" class="verify-status" aria-live="polite">
-                        <span class="status-icon" aria-hidden="true"></span>
-                        <span>Waiting for verification</span>
-                    </p>
-                </div>
+                <h3 id="verify-title">Security check</h3>
+                <p>Complete the check before signing in.</p>
                 <form id="cf-turnstile-form" class="turnstile-form">
                     <div class="cf-turnstile" data-sitekey="0x4AAAAAAB7b6u8SPKylOvzp" data-callback="onSubmit" data-error-callback="onError"></div>
                 </form>
+                <p id="verifytext" class="verify-status" aria-live="polite">
+                    <span class="status-icon" aria-hidden="true"></span>
+                    <span>Waiting for verification</span>
+                </p>
             </section>
 
-            <footer class="footer">
+            <footer class="login-footer">
+                <p>Protected by Cloudflare Turnstile</p>
                 <p>By continuing, you agree to the <a href="#" id="Terms_Service">Terms</a> and <a href="#" id="Privacy_Policy">Privacy Policy</a>.</p>
-                <p class="powered">Powered by OAuth 2.0</p>
             </footer>
         </section>
     </main>

@@ -12,12 +12,11 @@
             <header class="login-header">
                 <div class="brand-mark" aria-hidden="true">
                     <svg viewBox="0 0 24 24" role="img">
-                        <path d="M12 2.25 19.79 6.75v9L12 20.25l-7.79-4.5v-9L12 2.25Zm0 2.31L6.21 7.91v6.68L12 17.94l5.79-3.35V7.91L12 4.56Zm0 3.19a4.25 4.25 0 1 1 0 8.5 4.25 4.25 0 0 1 0-8.5Zm0 2a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z"/>
+                        <path d="M12 3.25 19.58 7.5v9L12 20.75 4.42 16.5v-9L12 3.25Zm0 2.29L6.42 8.67v6.66L12 18.46l5.58-3.13V8.67L12 5.54Z"/>
                     </svg>
                 </div>
-                <p class="eyebrow">Secure OAuth Sign in</p>
                 <h1 id="page-title">Login Example</h1>
-                <p class="subtitle">使用您信任的账户安全登录</p>
+                <p class="subtitle">Sign in with your account to continue</p>
             </header>
 
             <div class="login-actions" aria-label="登录方式">
@@ -52,12 +51,12 @@
             <section class="verify-panel" aria-labelledby="verify-title">
                 <div class="verify-copy">
                     <div>
-                        <h2 id="verify-title">安全验证</h2>
-                        <p>完成验证后即可继续登录</p>
+                        <h2 id="verify-title">Security check</h2>
+                        <p>Complete the check before signing in.</p>
                     </div>
                     <p id="verifytext" class="verify-status" aria-live="polite">
                         <span class="status-icon" aria-hidden="true"></span>
-                        <span>等待验证</span>
+                        <span>Waiting for verification</span>
                     </p>
                 </div>
                 <form id="cf-turnstile-form" class="turnstile-form">
@@ -66,7 +65,7 @@
             </section>
 
             <footer class="footer">
-                <p>登录即表示您同意我们的<a href="#" id="Terms_Service">服务条款</a>和<a href="#" id="Privacy_Policy">隐私政策</a></p>
+                <p>By continuing, you agree to the <a href="#" id="Terms_Service">Terms</a> and <a href="#" id="Privacy_Policy">Privacy Policy</a>.</p>
                 <p class="powered">Powered by OAuth 2.0</p>
             </footer>
         </section>
@@ -97,7 +96,7 @@
 
         function startLogin(button) {
             if (button.disabled) {
-                alert("请先完成人机验证");
+                alert("Please complete the security check before signing in.");
                 return false;
             }
 
@@ -148,22 +147,22 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    setVerifyStatus('success', '验证通过');
+                    setVerifyStatus('success', 'Verification complete.');
                     setLoginDisabled(false);
                 } else {
-                    setVerifyStatus('error', '验证未通过，请重试');
+                    setVerifyStatus('error', 'Verification failed. Please try again.');
                     setLoginDisabled(true);
                 }
             })
             .catch(error => {
                 console.error('验证错误:', error);
-                setVerifyStatus('error', '验证过程中出现错误');
+                setVerifyStatus('error', 'Verification failed. Please try again.');
                 setLoginDisabled(true);
             });
         }
 
         function onError(error) {
-            setVerifyStatus('error', '验证未通过，请重试');
+            setVerifyStatus('error', 'Verification failed. Please try again.');
             setLoginDisabled(true);
         }
     </script>

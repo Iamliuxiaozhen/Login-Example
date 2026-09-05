@@ -47,7 +47,7 @@ export const onRequestGet: PagesFunction = async ({ request, env }) => {
       `Expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}`,
     ].join("; ");
 
-    const headers = new Headers({ Location: `/${normalizeLocale(stateData.locale)}/me/google` });
+    const headers = new Headers({ Location: `/${normalizeLocale(stateData.locale)}/me/google/` });
     headers.append("Set-Cookie", cookie);
     headers.append("Set-Cookie", clearCookie("oauth_state"));
     headers.append("Set-Cookie", clearCookie("turnstile_session"));

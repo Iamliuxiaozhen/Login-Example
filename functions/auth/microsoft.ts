@@ -47,7 +47,7 @@ export const onRequestGet: PagesFunction = async ({ request, env }) => {
     ].join("; ");
 
     // 3. 重定向到你的页面
-    const headers = new Headers({ Location: `/${normalizeLocale(stateData.locale)}/me/microsoft` });
+    const headers = new Headers({ Location: `/${normalizeLocale(stateData.locale)}/me/microsoft/` });
     headers.append("Set-Cookie", cookie);
     headers.append("Set-Cookie", clearCookie("oauth_state"));
     headers.append("Set-Cookie", clearCookie("turnstile_session"));

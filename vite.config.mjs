@@ -29,6 +29,22 @@ function copyStaticDirectories() {
   };
 }
 
+function useStableProfileStylesheet() {
+  return {
+    name: 'use-stable-profile-stylesheet',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, context) {
+        if (!context.path.includes('/me/')) return html;
+        return html.replace(
+          /<link rel="stylesheet" crossorigin href="\/assets\/style-[^"]+\.css">/g,
+          '<link href="/css/me/style.css" rel="stylesheet">'
+        );
+      }
+    }
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = { ...loadEnv(mode, root, ''), ...process.env };
   if (mode === 'production' && !env.VITE_TURNSTILE_SITE_KEY) {
@@ -48,6 +64,6 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       rollupOptions: { input: htmlInputs }
     },
-    plugins: [copyStaticDirectories()]
+    plugins: [useStableProfileStylesheet(), copyStaticDirectories()]
   };
 });

@@ -179,3 +179,28 @@ body {
     margin-top: 8px;
     font-size: 13px;
 }
+
+.locale-switcher a {
+    color: #8c959f;
+    border: 1px solid #30363d;
+    border-radius: 999px;
+    padding: 4px 9px;
+    text-decoration: none;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.locale-switcher a:hover,
+.locale-switcher a:focus-visible {
+    color: #f0f6fc;
+    border-color: #58a6ff;
+    background-color: #161b22;
+    outline: none;
+}
+
+html[data-locale="zh-cn"] .locale-switcher [data-locale-link="zh-cn"],
+html[data-locale="zh-hant"] .locale-switcher [data-locale-link="zh-hant"],
+html[data-locale="en-us"] .locale-switcher [data-locale-link="en-us"] {
+    color: #ffffff;
+    border-color: #238636;
+    background-color: #238636;
+}

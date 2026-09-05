@@ -1,1 +1,43 @@
-<!doctype html><html lang="en-US" data-locale="en-us" data-page="/me/google/index.html"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="/locale/loader.js" defer></script></head><body></body></html>
+<!DOCTYPE html>
+<html lang="en-US" data-locale="en-us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google account | Login Example</title>
+    <link href="/css/me/style.css" rel="stylesheet">
+    <script src="/js/i18n.js" defer></script>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1 data-i18n="home">Login Example</h1>
+            <nav class="locale-switcher"><a data-locale-link="zh-cn" href="/zh-cn/">简中</a><a data-locale-link="zh-hant" href="/zh-hant/">繁中</a><a data-locale-link="en-us" href="/en-us/">EN</a></nav>
+        </div>
+    </div>
+
+    <div class="profile-container">
+        <div class="avatar">
+                <img src="" alt="Loading…" id="avatar">
+        </div>
+
+        <div class="user-info">
+            <h1 class="username" id="username">Loading…</h1>
+            <p class="login" id="email">Loading…</p>
+        </div>
+
+        <button class="logout-btn" id="logout_btn" data-i18n="logout">
+            Sign out
+        </button>
+        <button class="logout-btn" id="Log_out_bin" data-i18n="revoke" style="display: none;">
+            Revoke authorization
+        </button>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Login - Example </p>
+    </div>
+
+
+</body>
+<script src="/me/google/script/script.js" defer></script>
+</html>

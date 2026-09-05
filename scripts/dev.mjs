@@ -7,7 +7,7 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env'), override: false });
 const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 const env = { ...process.env, NODE_ENV: 'development' };
 const viteArgs = ['exec', 'vite', '--', '--host', '127.0.0.1', '--port', '5173', '--strictPort'];
-const pagesArgs = ['exec', 'wrangler', '--', 'pages', 'dev', 'dist', '--proxy', '5173', '--port', '8788', '--local-protocol', 'https', '--env-file', '.env'];
+const pagesArgs = ['exec', 'wrangler', '--', 'pages', 'dev', 'dist', '--proxy', '5173', '--port', '8788', '--local-protocol', 'https', '--compatibility-date', '2026-09-05', '--compatibility-flag', 'nodejs_compat', '--env-file', '.env'];
 
 const check = spawnSync(npm, ['run', 'check:env'], { env, stdio: 'inherit' });
 if (check.status !== 0) process.exit(check.status || 1);

@@ -24,7 +24,7 @@ for (const locale of ['zh-cn', 'zh-hant', 'en-us']) {
   }
 }
 
-for (const file of ['vite.config.mjs', 'wrangler.jsonc', '.env.example']) {
+for (const file of ['vite.config.mjs', '.env.example']) {
   await readFile(file);
 }
 

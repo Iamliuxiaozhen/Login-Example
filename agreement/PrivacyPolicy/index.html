@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en-US" data-locale="en-us">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>隐私条款|Login - Example</title>
-    <link href="css/style.css" rel="stylesheet" >
+    <title>Privacy Policy | Login Example</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/i18n.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<div id="pages"></div>
+<body>
+<nav class="locale-switcher"><a data-locale-link="zh-cn" href="/zh-cn/agreement/PrivacyPolicy/">简中</a><a data-locale-link="zh-hant" href="/zh-hant/agreement/PrivacyPolicy/">繁中</a><a data-locale-link="en-us" href="/en-us/agreement/PrivacyPolicy/">EN</a></nav>
+<main id="pages"></main>
 <script>
-    fetch("text.md")
+    const locale = window.AppI18n.locale;
+    const file = `/i18n/legal/${locale}/privacy.md`;
+    fetch(file)
     .then(response => response.text())
     .then(markdown => {
         const html = marked.parse(markdown);
         document.getElementById("pages").innerHTML =html;
     })
-    .catch(console.error( error=>{
-        console.error(error);
-    }))
+    .catch(error => { console.error(error); document.getElementById("pages").textContent = window.AppI18n.t.serverError; });
 </script>
+</body>
+</html>

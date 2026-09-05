@@ -1,62 +1,33 @@
-const  username = document.getElementById("username");
-const login = document.getElementById("login");
-const bio = document.getElementById("bio");
-const avatar = document.getElementById("avatar");
-const Repositories = document.getElementById("Repositories");
-const Followers = document.getElementById("Followers");
-const Following = document.getElementById("Following");
-const logout_btn = document.getElementById("logout_btn");
-const Log_out_bin = document.getElementById("Log_out_bin");
+const copy = window.AppI18n.t;
+const localeHome = `/${window.AppI18n.locale}/`;
+const fields = {
+  username: document.getElementById('username'), login: document.getElementById('login'), bio: document.getElementById('bio'),
+  avatar: document.getElementById('avatar'), repositories: document.getElementById('Repositories'),
+  followers: document.getElementById('Followers'), following: document.getElementById('Following')
+};
 
-logout_btn.addEventListener('click',function(){
-    fetch('/api/github/exit')
-    .then(response => response.json())
-    .then(data => {
-        if(data.status !== 'ok'){
-            alert("好像有点问题，我们好像未能给您退出登录。");
-        }
-        else{
-            window.location.href = '/';
-        }
-    })
-    .catch(error =>{
-        console.error(error);
-        alert("出现错误，我们好像未能给您退出登录。")
-    })
-})
-
-Log_out_bin.addEventListener('click',function(){
-    fetch('/api/github/log_out')
-    .then(response => response.json())
-    .then(data => {
-        if(data.status !== 'ok'){
-            alert("好像有点问题，我们好像未能给您退出登录。");
-        }
-        else{
-            window.location.href = '/';
-        }
-    })
-    .catch(error =>{
-        console.error(error);
-        alert("出现错误，我们好像未能给您退出登录。")
-    })
-})
-
-fetch("/api/github/me")
-  .then(response => response.json())
-  .then(data => {
-    if(!data.authenticated){
-        window.location.href = '/';
-    }else{
-        username.innerHTML = data.user.name;
-        login.innerHTML = data.user.login;
-        bio.innerHTML = data.user.bio;
-        avatar.src = data.user.avatar_url;
-        Repositories.innerHTML = data.user.public_repos;
-        Followers.innerHTML = data.user.Followers;
-        Following.innerHTML = data.user.Following;
-    };
-  })
-  .catch(error => {
+async function accountAction(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (!response.ok || data.status !== 'ok') throw new Error('account_action_failed');
+    location.href = localeHome;
+  } catch (error) {
     console.error(error);
-  })
+    alert(copy.logoutError);
+  }
+}
+
+document.getElementById('logout_btn').addEventListener('click', () => accountAction('/api/github/exit'));
+document.getElementById('Log_out_bin').addEventListener('click', () => accountAction('/api/github/log_out'));
+
+fetch('/api/github/me').then(response => response.json()).then(data => {
+  if (!data.authenticated) return location.href = localeHome;
+  fields.username.textContent = data.user.name || data.user.login;
+  fields.login.textContent = data.user.login || '';
+  fields.bio.textContent = data.user.bio || '';
+  fields.avatar.src = data.user.avatar_url || '';
+  fields.repositories.textContent = data.user.public_repos ?? '0';
+  fields.followers.textContent = data.user.Followers ?? '0';
+  fields.following.textContent = data.user.Following ?? '0';
+}).catch(error => { console.error(error); alert(copy.loadError); });

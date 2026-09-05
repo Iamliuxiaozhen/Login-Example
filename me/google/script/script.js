@@ -1,36 +1,21 @@
-const avatar = document.getElementById("avatar");
-const username = document.getElementById("username");
-const email = document.getElementById("email");
-const logout_btn = document.getElementById("logout_btn");
+const copy = window.AppI18n.t;
+const localeHome = `/${window.AppI18n.locale}/`;
 
-logout_btn.addEventListener("click",function(){
-    fetch("/api/google/exit")
-    .then(response => response.json())
-    .then(data => {
-        if(data.status !== 'ok'){
-            alert("好像有点问题，我们好像未能给您退出登录。");
-        }
-        else{
-            window.location.href = '/';
-        }
-    })
-    .catch(error =>{
-        console.error(error);
-        alert("出现错误，我们好像未能给您退出登录。")
-    })
-})
-
-fetch("/api/google/me")
-  .then(response => response.json())
-  .then(data => {
-    if(!data.authenticated){
-        window.location.href = '/';
-    }else{
-        avatar.src = data.user.picture;
-        username.innerHTML = data.user.name;
-        email.innerHTML = data.user.email;
-    };
-  })
-  .catch(error => {
+document.getElementById('logout_btn').addEventListener('click', async () => {
+  try {
+    const response = await fetch('/api/google/exit');
+    const data = await response.json();
+    if (!response.ok || data.status !== 'ok') throw new Error('logout_failed');
+    location.href = localeHome;
+  } catch (error) {
     console.error(error);
-  })
+    alert(copy.logoutError);
+  }
+});
+
+fetch('/api/google/me').then(response => response.json()).then(data => {
+  if (!data.authenticated) return location.href = localeHome;
+  document.getElementById('avatar').src = data.user.picture || '';
+  document.getElementById('username').textContent = data.user.name || '';
+  document.getElementById('email').textContent = data.user.email || '';
+}).catch(error => { console.error(error); alert(copy.loadError); });

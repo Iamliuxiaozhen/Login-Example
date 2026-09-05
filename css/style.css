@@ -99,6 +99,54 @@ a:hover {
     align-items: center;
 }
 
+.locale-switcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding-left: 10px;
+    border-left: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+body > .locale-switcher {
+    width: min(100% - 32px, 1120px);
+    margin: 18px auto;
+}
+
+#pages {
+    width: min(100% - 32px, 760px);
+    margin: 32px auto 64px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+}
+
+#pages h1,
+#pages h2,
+#pages h3 {
+    margin: 1.25em 0 0.55em;
+}
+
+#pages h1:first-child {
+    margin-top: 0;
+}
+
+#pages p,
+#pages li {
+    margin-top: 0.6em;
+}
+
+@media (max-width: 520px) {
+    #pages {
+        padding: 18px;
+    }
+}
+
+.locale-switcher a {
+    color: var(--muted);
+}
+
 .site-brand {
     gap: 9px;
     color: var(--text);
@@ -374,6 +422,16 @@ a:focus-visible {
     display: grid;
     justify-items: start;
     margin-top: 4px;
+}
+
+.cf-turnstile {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.verify-status--loading {
+    color: var(--primary);
 }
 
 .verify-status {

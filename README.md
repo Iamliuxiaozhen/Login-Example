@@ -18,6 +18,12 @@
 
 ## 重要声明
 
+### 语言路径
+
+网站提供简体中文、繁體中文和 English 三种语言：`/zh-cn`、`/zh-hant`、`/en-us`。访问根路径时会根据浏览器语言自动选择；旧的无语言前缀地址会兼容重定向。
+
+部署 OAuth 登录前，请配置 `TURNSTILE_SECRET_KEY`、`TURNSTILE_SESSION_SECRET` 以及各平台的 OAuth 环境变量。`TURNSTILE_SESSION_SECRET` 用于签署短期验证和 OAuth 状态 Cookie，不应与前端代码或仓库共享。
+
 本网站仅作为登录演示使用，不包含任何钓鱼内容。本网站及其后端代码均已开源，如有疑问可自行审查源代码。
 
 **仓库地址：** [https://github.com/Iamliuxiaozhen/Login---Example](https://github.com/Iamliuxiaozhen/Login-Example)
@@ -35,3 +41,9 @@ Both the frontend and backend code are **open-source**, and anyone may review th
 [服务协议](agreement/terms-service/text.md)
 [隐私政策](agreement/PrivacyPolicy/text.md)  
 本作品采用 Apache License开源
+
+## Languages
+
+The site is available at `/zh-cn`, `/zh-hant`, and `/en-us`. Visiting `/` selects a locale from the browser language and falls back to English.
+
+For deployed OAuth and Turnstile flows, configure `TURNSTILE_SECRET_KEY`, `TURNSTILE_SESSION_SECRET`, `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`, and `MICROSOFT_REDIRECT_URI` as server-side secrets or variables. `TURNSTILE_SESSION_SECRET` should be a separate random value in production.

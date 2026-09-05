@@ -172,3 +172,10 @@ body {
         gap: 20px;
     }
 }
+.locale-switcher {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 8px;
+    font-size: 13px;
+}

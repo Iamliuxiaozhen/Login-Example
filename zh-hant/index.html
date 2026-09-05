@@ -104,6 +104,8 @@
             document.getElementById('google-login')
         ];
         const verifyText = document.getElementById('verifytext');
+        const turnstileSiteKey = document.querySelector('.cf-turnstile').dataset.sitekey.trim();
+        const hasTurnstileSiteKey = turnstileSiteKey && !turnstileSiteKey.includes('%VITE_TURNSTILE_SITE_KEY%');
 
         function setVerifyStatus(type, message) {
             verifyText.className = `verify-status verify-status--${type}`;
@@ -180,6 +182,9 @@
         }
 
         function onError(error) {
+            if (!hasTurnstileSiteKey) {
+                return;
+            }
             setVerifyStatus('error', copy.verificationFailed);
             setLoginDisabled(true);
         }
@@ -189,8 +194,16 @@
             setLoginDisabled(true);
         }
 
-        if (new URLSearchParams(window.location.search).get('error') === 'verification') {
+        const query = new URLSearchParams(window.location.search);
+        if (query.get('error') === 'verification') {
             setVerifyStatus('error', copy.verificationFailed);
+        } else if (query.get('error') === 'configuration') {
+            const providerNames = { github: copy.github, microsoft: 'Microsoft', google: 'Google' };
+            const provider = providerNames[query.get('provider')] || copy.chooseProvider;
+            setVerifyStatus('error', copy.providerConfigurationMissing.replace('{provider}', provider));
+            setLoginDisabled(false);
+        } else if (!hasTurnstileSiteKey) {
+            setLoginDisabled(false);
         }
     </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>

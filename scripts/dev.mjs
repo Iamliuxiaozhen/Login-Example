@@ -9,9 +9,6 @@ const env = { ...process.env, NODE_ENV: 'development' };
 const viteArgs = ['exec', 'vite', '--', '--host', '127.0.0.1', '--port', '5173', '--strictPort'];
 const pagesArgs = ['exec', 'wrangler', '--', 'pages', 'dev', 'dist', '--proxy', '5173', '--port', '8788', '--local-protocol', 'https', '--compatibility-date', '2026-09-05', '--compatibility-flag', 'nodejs_compat', '--env-file', '.env'];
 
-const check = spawnSync(npm, ['run', 'check:env'], { env, stdio: 'inherit' });
-if (check.status !== 0) process.exit(check.status || 1);
-
 const build = spawnSync(npm, ['run', 'build', '--', '--mode', 'development'], { env, stdio: 'inherit' });
 if (build.status !== 0) process.exit(build.status || 1);
 

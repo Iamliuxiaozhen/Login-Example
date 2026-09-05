@@ -56,7 +56,7 @@ For deployed OAuth and Turnstile flows, configure `TURNSTILE_SECRET_KEY`, `TURNS
 4. Run `npm run dev`.
 5. Open `https://localhost:8788/zh-cn/`, `https://localhost:8788/zh-hant/`, or `https://localhost:8788/en-us/`.
 
-The development command starts Vite on `5173` and Wrangler Pages Functions on HTTPS port `8788`. Vite handles frontend HMR; Wrangler handles `/auth/*`, `/api/*`, and `/verify`.
+The development command starts Vite on `5173` and Wrangler Pages Functions on HTTPS port `8788`. It does not block startup for missing environment variables: selecting an unconfigured OAuth provider shows a localized message in the frontend. Use `npm run check:env` before deploying to validate the complete configuration. Vite handles frontend HMR; Wrangler handles `/auth/*`, `/api/*`, and `/verify`.
 
 For Cloudflare Pages Git builds, set the dashboard Build command to `npm run build` and Build output directory to `dist`. The repository intentionally does not include an auto-detected `wrangler.jsonc` Pages build configuration, so an existing Pages project without a build command will continue deploying its configured root directory instead of failing because `dist` was never created.
 

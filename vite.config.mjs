@@ -31,7 +31,7 @@ function copyStaticDirectories() {
 
 export default defineConfig(({ mode }) => {
   const env = { ...loadEnv(mode, root, ''), ...process.env };
-  if (!env.VITE_TURNSTILE_SITE_KEY) {
+  if (mode === 'production' && !env.VITE_TURNSTILE_SITE_KEY) {
     throw new Error('Missing required environment variable: VITE_TURNSTILE_SITE_KEY');
   }
 

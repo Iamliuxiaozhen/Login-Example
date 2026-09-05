@@ -20,7 +20,7 @@ export const onRequestGet: PagesFunction = async ({ request, env }) => {
         code,
         client_id: env.GOOGLE_CLIENT_ID,
         client_secret: env.GOOGLE_CLIENT_SECRET,
-        redirect_uri: "https://login-example.liuxiaozhen.dev/auth/Google/", // 必须与控制台一致
+        redirect_uri: env.GOOGLE_REDIRECT_URI,
         grant_type: "authorization_code",
       }),
     });

@@ -22,6 +22,7 @@ export const onRequestGet: PagesFunction = async ({ request, env }) => {
         client_id: env.GITHUB_CLIENT_ID,
         client_secret: env.GITHUB_CLIENT_SECRET,
         code,
+        redirect_uri: env.GITHUB_REDIRECT_URI,
       }),
     });
 

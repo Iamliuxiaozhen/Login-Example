@@ -80,7 +80,7 @@
                 <h3 id="verify-title" data-i18n="securityCheck">Security check</h3>
                 <p data-i18n="completeCheck">Complete the check before signing in.</p>
                 <form id="cf-turnstile-form" class="turnstile-form">
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAB7b6u8SPKylOvzp" data-callback="onSubmit" data-error-callback="onError" data-expired-callback="onExpired" data-timeout-callback="onExpired" data-size="flexible"></div>
+                    <div class="cf-turnstile" data-sitekey="%VITE_TURNSTILE_SITE_KEY%" data-callback="onSubmit" data-error-callback="onError" data-expired-callback="onExpired" data-timeout-callback="onExpired" data-size="flexible"></div>
                 </form>
                 <p id="verifytext" class="verify-status" aria-live="polite">
                     <span class="status-icon" aria-hidden="true"></span>

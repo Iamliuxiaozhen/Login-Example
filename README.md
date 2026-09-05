@@ -47,3 +47,15 @@ Both the frontend and backend code are **open-source**, and anyone may review th
 The site is available at `/zh-cn`, `/zh-hant`, and `/en-us`. Visiting `/` selects a locale from the browser language and falls back to English.
 
 For deployed OAuth and Turnstile flows, configure `TURNSTILE_SECRET_KEY`, `TURNSTILE_SESSION_SECRET`, `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`, and `MICROSOFT_REDIRECT_URI` as server-side secrets or variables. `TURNSTILE_SESSION_SECRET` should be a separate random value in production.
+
+## Local development with Vite
+
+1. Copy `.env.example` to `.env`.
+2. Put local OAuth credentials and `https://localhost:8788` callback URLs in `.env`.
+3. Run `npm install`.
+4. Run `npm run dev`.
+5. Open `https://localhost:8788/zh-cn/`, `https://localhost:8788/zh-hant/`, or `https://localhost:8788/en-us/`.
+
+The development command starts Vite on `5173` and Wrangler Pages Functions on HTTPS port `8788`. Vite handles frontend HMR; Wrangler handles `/auth/*`, `/api/*`, and `/verify`.
+
+The project accepts both exported shell variables and `.env` values. Existing exported variables win over values loaded from `.env`. Do not commit `.env`; use `.env.example` as the template. OAuth client secrets and signing keys are server-only variables, while `VITE_TURNSTILE_SITE_KEY` is intentionally exposed to the browser.

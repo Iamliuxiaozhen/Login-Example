@@ -24,7 +24,7 @@ export function onRequest(context) {
   const legacyPath = url.pathname.replace(/\/$/, "");
   if (legacy[legacyPath]) {
     const language = requestLanguage(context.request);
-    return Response.redirect(new URL(`/${language}/${legacy[url.pathname]}/`, url), 302);
+    return Response.redirect(new URL(`/${language}/${legacy[legacyPath]}/`, url), 302);
   }
 
   return context.next();

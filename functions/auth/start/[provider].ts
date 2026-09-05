@@ -10,10 +10,19 @@ export const onRequestGet: PagesFunction = async ({ request, env, params }) => {
 
   const state = crypto.randomUUID();
   const stateCookie = await signValue({ state, provider, locale, exp: Date.now() + 10 * 60 * 1000 }, secret);
+  const githubClientId = env.GITHUB_CLIENT_ID;
+  const googleClientId = env.GOOGLE_CLIENT_ID;
+  const microsoftClientId = env.MICROSOFT_CLIENT_ID;
+  const githubRedirectUri = env.GITHUB_REDIRECT_URI;
+  const googleRedirectUri = env.GOOGLE_REDIRECT_URI;
+  const microsoftRedirectUri = env.MICROSOFT_REDIRECT_URI;
+  if (!secret || !githubClientId || !googleClientId || !microsoftClientId || !githubRedirectUri || !googleRedirectUri || !microsoftRedirectUri) {
+    return new Response(JSON.stringify({ error: 'missing_oauth_configuration' }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+  }
   const urls: Record<string, string> = {
-    github: `https://github.com/login/oauth/authorize?client_id=${encodeURIComponent(env.GITHUB_CLIENT_ID || 'Ov23liriGTHyDb56siMT')}&state=${encodeURIComponent(state)}`,
-    microsoft: `https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize?client_id=${encodeURIComponent(env.MICROSOFT_CLIENT_ID || '7bb3e9f8-cace-4a24-86a1-62f2696fed4c')}&response_type=code&redirect_uri=${encodeURIComponent(env.MICROSOFT_REDIRECT_URI || 'https://login-example.liuxiaozhen.dev/auth/microsoft')}&response_mode=query&scope=${encodeURIComponent('openid profile email User.Read')}&prompt=consent&state=${encodeURIComponent(state)}`,
-    google: `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(env.GOOGLE_CLIENT_ID || '805290356269-vto4bacmf9tkbe4fi6rc5auspbgn829l.apps.googleusercontent.com')}&redirect_uri=${encodeURIComponent('https://login-example.liuxiaozhen.dev/auth/Google/')}&response_type=code&scope=${encodeURIComponent('openid email profile')}&state=${encodeURIComponent(state)}`
+    github: `https://github.com/login/oauth/authorize?client_id=${encodeURIComponent(githubClientId)}&redirect_uri=${encodeURIComponent(githubRedirectUri)}&state=${encodeURIComponent(state)}`,
+    microsoft: `https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize?client_id=${encodeURIComponent(microsoftClientId)}&response_type=code&redirect_uri=${encodeURIComponent(microsoftRedirectUri)}&response_mode=query&scope=${encodeURIComponent('openid profile email User.Read')}&prompt=consent&state=${encodeURIComponent(state)}`,
+    google: `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(googleClientId)}&redirect_uri=${encodeURIComponent(googleRedirectUri)}&response_type=code&scope=${encodeURIComponent('openid email profile')}&state=${encodeURIComponent(state)}`
   };
   if (!urls[provider]) return new Response('Unknown provider', { status: 404 });
   return new Response(null, { status: 302, headers: { Location: urls[provider], 'Set-Cookie': cookie('oauth_state', stateCookie, 600) } });

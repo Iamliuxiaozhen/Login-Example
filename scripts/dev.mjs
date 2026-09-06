@@ -1,4 +1,5 @@
 import { spawn, spawnSync } from 'node:child_process';
+import fs from 'node:fs';
 import path from 'node:path';
 import dotenv from 'dotenv';
 
@@ -7,7 +8,23 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env'), override: false });
 const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 const env = { ...process.env, NODE_ENV: 'development' };
 const viteArgs = ['exec', 'vite', '--', '--host', '127.0.0.1', '--port', '5173', '--strictPort'];
-const pagesArgs = ['exec', 'wrangler', '--', 'pages', 'dev', 'dist', '--proxy', '5173', '--port', '8788', '--local-protocol', 'https', '--compatibility-date', '2026-09-05', '--compatibility-flag', 'nodejs_compat', '--env-file', '.env'];
+
+const certPath = path.resolve(process.cwd(), '.wrangler/certs/localhost.pem');
+const keyPath = path.resolve(process.cwd(), '.wrangler/certs/localhost-key.pem');
+
+const pagesArgs = [
+  'exec', 'wrangler', '--', 'pages', 'dev', 'dist',
+  '--proxy', '5173',
+  '--port', '8788',
+  '--local-protocol', 'https',
+  '--compatibility-date', '2026-09-05',
+  '--compatibility-flag', 'nodejs_compat',
+  '--env-file', '.env'
+];
+
+if (fs.existsSync(certPath) && fs.existsSync(keyPath)) {
+  pagesArgs.push('--https-cert-path', certPath, '--https-key-path', keyPath);
+}
 
 const build = spawnSync(npm, ['run', 'build', '--', '--mode', 'development'], { env, stdio: 'inherit' });
 if (build.status !== 0) process.exit(build.status || 1);

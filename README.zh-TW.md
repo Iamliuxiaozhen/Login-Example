@@ -34,8 +34,11 @@
 1. 複製 `.env.example` 為 `.env`。
 2. 在 `.env` 填入本機 OAuth 憑證，並將回呼網址指向 `https://localhost:8788`。
 3. 執行 `npm install`。
-4. 執行 `npm run dev`。
-5. 開啟 `https://localhost:8788/zh-cn/`、`https://localhost:8788/zh-hant/` 或 `https://localhost:8788/en-us/`。
+4. 執行 `npm run setup:certs`，產生並信任本機 HTTPS 憑證（需要安裝 [mkcert](https://github.com/FiloSottile/mkcert)）。
+5. 執行 `npm run dev`。
+6. 開啟 `https://localhost:8788/zh-cn/`、`https://localhost:8788/zh-hant/` 或 `https://localhost:8788/en-us/`。
+
+> **HTTPS 憑證說明**：Wrangler 會在本地透過 HTTPS 連接埠 `8788` 提供 Pages Functions。如果不安裝本機可信憑證，瀏覽器會顯示「您的連線不是私人連線」警告，同時 Vite HMR 的 `wss://localhost:8788` 連線可能失敗，並在 Wrangler 日誌中出現 OpenSSL `CERTIFICATE_UNKNOWN` 錯誤。`npm run setup:certs` 會使用 [mkcert](https://github.com/FiloSottile/mkcert) 安裝本機 CA，並產生 `.wrangler/certs/localhost.pem` 與 `.wrangler/certs/localhost-key.pem`，覆蓋 `localhost`、`127.0.0.1` 與 `::1`。當這些檔案存在時，`npm run dev` 會自動把它們傳給 Wrangler。
 
 開發指令會在 `5173` 啟動 Vite，並在 HTTPS 連接埠 `8788` 啟動 Wrangler Pages Functions。它不會因缺少環境變數而阻止啟動：選擇未設定的 OAuth 平台時，前端會顯示本地化提示。部署前請使用 `npm run check:env` 驗證完整設定。Vite 負責前端 HMR；Wrangler 負責 `/auth/*`、`/api/*` 與 `/verify`。
 

@@ -38,8 +38,11 @@ The site is available at `/zh-cn`, `/zh-hant`, and `/en-us`. Visiting `/` select
 1. Copy `.env.example` to `.env`.
 2. Put local OAuth credentials and `https://localhost:8788` callback URLs in `.env`.
 3. Run `npm install`.
-4. Run `npm run dev`.
-5. Open `https://localhost:8788/zh-cn/`, `https://localhost:8788/zh-hant/`, or `https://localhost:8788/en-us/`.
+4. Run `npm run setup:certs` to generate and trust a local HTTPS certificate (requires [mkcert](https://github.com/FiloSottile/mkcert)).
+5. Run `npm run dev`.
+6. Open `https://localhost:8788/zh-cn/`, `https://localhost:8788/zh-hant/`, or `https://localhost:8788/en-us/`.
+
+> **HTTPS certificates**: Wrangler serves the local Pages Functions behind HTTPS on port `8788`. Without a trusted local certificate, the browser shows a "Your connection is not private" warning, and Vite HMR's `wss://localhost:8788` connection can fail with OpenSSL `CERTIFICATE_UNKNOWN` errors in the Wrangler logs. `npm run setup:certs` uses [mkcert](https://github.com/FiloSottile/mkcert) to install a local CA and create `.wrangler/certs/localhost.pem` + `.wrangler/certs/localhost-key.pem` covering `localhost`, `127.0.0.1`, and `::1`. `npm run dev` automatically passes those certificates to Wrangler when they exist.
 
 The development command starts Vite on `5173` and Wrangler Pages Functions on HTTPS port `8788`. It does not block startup for missing environment variables: selecting an unconfigured OAuth provider shows a localized message in the frontend. Use `npm run check:env` before deploying to validate the complete configuration. Vite handles frontend HMR; Wrangler handles `/auth/*`, `/api/*`, and `/verify`.
 

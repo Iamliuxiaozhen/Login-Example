@@ -16,7 +16,8 @@
     "dev:pages": "wrangler pages dev dist --proxy 5173 --port 8788 --local-protocol https --compatibility-date 2026-09-05 --compatibility-flag nodejs_compat",
     "dev:vite": "vite --host 127.0.0.1 --port 5173 --strictPort",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
-    "test": "node scripts/check.mjs"
+    "test": "node scripts/check.mjs",
+    "setup:certs": "node scripts/setup-local-cert.mjs"
   },
   "repository": {
     "type": "git",

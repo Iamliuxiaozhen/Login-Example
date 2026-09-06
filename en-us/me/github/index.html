@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-US" data-locale="en-us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub account | Login Example</title>
+    <link href="/css/me/style.css" rel="stylesheet">
+    <script src="/js/i18n.js" defer></script>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1 data-i18n="home">Login Example</h1>
+            <nav class="locale-switcher"><a data-locale-link="zh-cn" href="/zh-cn/">简中</a><a data-locale-link="zh-hant" href="/zh-hant/">繁中</a><a data-locale-link="en-us" href="/en-us/">EN</a></nav>
+        </div>
+    </div>
+
+    <div class="profile-container">
+        <div class="avatar">
+                <img src="" alt="Loading…" data-i18n-aria-label="loading" id="avatar">
+        </div>
+
+        <div class="user-info">
+            <h1 class="username" id="username">Loading…</h1>
+            <p class="login" id="login">@Loading…</p>
+            <p class="bio" id="bio"></p>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="Repositories"></div>
+                <div class="stat-label" data-i18n="repositories">Repositories</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="Followers"></div>
+                <div class="stat-label" data-i18n="followers">Followers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="Following"></div>
+                <div class="stat-label" data-i18n="following">Following</div>
+            </div>
+        </div>
+
+            <button class="logout-btn" id="logout_btn" data-i18n="logout">
+            Sign out
+        </button>
+            <button class="logout-btn" id="Log_out_bin" data-i18n="revoke" style="display: none;">
+            Revoke authorization
+        </button>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Login - Example </p>
+    </div>
+
+
+</body>
+<script src="/me/github/script/script.js" defer></script>
+</html>

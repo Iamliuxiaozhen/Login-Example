@@ -1,11 +1,14 @@
 // @ts-nocheck
+import { clearCookie, normalizeLocale, readCookie, verifyValue } from "../_lib/security";
 
 export const onRequestGet: PagesFunction = async ({ request, env }) => {
   try {
     const url = new URL(request.url);
     const code = url.searchParams.get("code");
+    const state = url.searchParams.get("state");
+    const stateData = await verifyValue(readCookie(request, "oauth_state"), env.TURNSTILE_SESSION_SECRET || env.TURNSTILE_SECRET_KEY);
 
-    if (!code) {
+    if (!code || !stateData || stateData.provider !== "google" || stateData.state !== state) {
       return new Response(JSON.stringify({ error: "missing_code" }), { status: 400 });
     }
 
@@ -17,7 +20,7 @@ export const onRequestGet: PagesFunction = async ({ request, env }) => {
         code,
         client_id: env.GOOGLE_CLIENT_ID,
         client_secret: env.GOOGLE_CLIENT_SECRET,
-        redirect_uri: "https://login-example.liuxiaozhen.dev/auth/Google/", // 必须与控制台一致
+        redirect_uri: env.GOOGLE_REDIRECT_URI,
         grant_type: "authorization_code",
       }),
     });
@@ -44,12 +47,13 @@ export const onRequestGet: PagesFunction = async ({ request, env }) => {
       `Expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}`,
     ].join("; ");
 
+    const headers = new Headers({ Location: `/${normalizeLocale(stateData.locale)}/me/google/` });
+    headers.append("Set-Cookie", cookie);
+    headers.append("Set-Cookie", clearCookie("oauth_state"));
+    headers.append("Set-Cookie", clearCookie("turnstile_session"));
     return new Response(null, {
       status: 302,
-      headers: {
-        "Set-Cookie": cookie,
-        Location: "/me/google",
-      },
+      headers,
     });
   } catch (err: any) {
     return new Response(JSON.stringify({ error: "server_error", message: err.message }), {

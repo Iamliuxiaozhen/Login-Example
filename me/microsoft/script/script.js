@@ -1,34 +1,20 @@
-const avatar = document.getElementById("avatar");
-const mail = document.getElementById("mail");
-const username = document.getElementById("username");
-const logout_btn = document.getElementById("logout_btn");
+const copy = window.AppI18n.t;
+const localeHome = `/${window.AppI18n.locale}/`;
 
-fetch("/api/microsoft/me")
-.then(response => response.json())
-.then(data =>{
-    if(!data.authenticated){
-        window.location.href = '/';
-    }else{
-        username.innerHTML = data.user.displayName;
-        mail.innerHTML = data.user.mail;
-    };
-})
-.catch(error => {
+document.getElementById('logout_btn').addEventListener('click', async () => {
+  try {
+    const response = await fetch('/api/microsoft/exit');
+    const data = await response.json();
+    if (!response.ok || data.status !== 'ok') throw new Error('logout_failed');
+    location.href = localeHome;
+  } catch (error) {
     console.error(error);
-})
+    alert(copy.logoutError);
+  }
+});
 
-logout_btn.addEventListener('click',function(){
-    fetch('/api/microsoft/exit')
-    .then(data => {
-        if(!data.status === 'ok'){
-            alert("好像有点问题，我们好像未能给您退出登录。");
-        }
-        else{
-            window.location.href = '/';
-        }
-    })
-    .catch(error =>{
-        console.error(error);
-        alert("出现错误，我们好像未能给您退出登录。")
-    })
-})
+fetch('/api/microsoft/me').then(response => response.json()).then(data => {
+  if (!data.authenticated) return location.href = localeHome;
+  document.getElementById('username').textContent = data.user.displayName || '';
+  document.getElementById('mail').textContent = data.user.mail || '';
+}).catch(error => { console.error(error); alert(copy.loadError); });

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-locale="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Example</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <header class="site-header">
+            <a class="site-brand" href="/" data-i18n-aria-label="home">
+            <span class="brand-dot" aria-hidden="true"></span>
+            <span>Login Example</span>
+        </a>
+        <nav class="site-nav" aria-label="Project links">
+            <a href="https://github.com/Iamliuxiaozhen/Login---Example" data-i18n="github">GitHub</a>
+            <a href="/agreement/terms-service" data-localized-path="/agreement/terms-service/" data-i18n="terms">Terms</a>
+            <a href="/agreement/PrivacyPolicy" data-localized-path="/agreement/PrivacyPolicy/" data-i18n="privacy">Privacy</a>
+            <span class="locale-switcher" aria-label="Language"><span data-i18n="language">Language</span> <a data-locale-link="zh-cn" href="/zh-cn/">简中</a> <a data-locale-link="zh-hant" href="/zh-hant/">繁中</a> <a data-locale-link="en-us" href="/en-us/">EN</a></span>
+        </nav>
+    </header>
+
+    <main class="page-shell" aria-labelledby="page-title">
+        <section class="intro-panel" aria-labelledby="page-title">
+            <div class="badges" aria-label="Project status">
+                <span class="badge" data-i18n="demo">Demo</span>
+                <span class="badge badge--muted" data-i18n="version">v1.0.0</span>
+                <span class="badge badge--live" data-i18n="turnstile">Turnstile enabled</span>
+            </div>
+
+            <h1 id="page-title">Login Example</h1>
+            <p class="intro-text" data-i18n="intro">A minimal OAuth login demo for GitHub, Microsoft, and Google.</p>
+
+            <ul class="feature-list" data-i18n-list></ul>
+
+            <a class="repo-link" href="https://github.com/Iamliuxiaozhen/Login---Example" data-i18n-aria-label="repository">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path>
+                </svg>
+                <span>Iamliuxiaozhen/Login---Example</span>
+            </a>
+        </section>
+
+        <section class="login-panel" aria-label="Sign in">
+            <header class="login-header">
+                <h2 data-i18n="signIn">Sign in</h2>
+                <p data-i18n="chooseProvider">Choose a provider to continue.</p>
+            </header>
+
+            <div class="login-actions" aria-label="Login providers">
+                <button class="login-button login-button--github" id="github-login" type="button" data-i18n-aria-label="githubLogin" aria-label="Continue with GitHub" disabled>
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path>
+                    </svg>
+                    <span data-i18n="githubLogin">Continue with GitHub</span>
+                </button>
+
+                <button class="login-button login-button--microsoft" id="microsoft-login" type="button" data-i18n-aria-label="microsoftLogin" aria-label="Continue with Microsoft" disabled>
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path fill="#f25022" d="M1 1h6.5v6.5H1V1z"/>
+                        <path fill="#7fba00" d="M8.5 1H15v6.5H8.5V1z"/>
+                        <path fill="#00a4ef" d="M1 8.5h6.5V15H1V8.5z"/>
+                        <path fill="#ffb900" d="M8.5 8.5H15V15H8.5V8.5z"/>
+                    </svg>
+                    <span data-i18n="microsoftLogin">Continue with Microsoft</span>
+                </button>
+
+                <button class="login-button login-button--google" id="google-login" type="button" data-i18n-aria-label="googleLogin" aria-label="Continue with Google" disabled>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    <span data-i18n="googleLogin">Continue with Google</span>
+                </button>
+            </div>
+
+            <section class="verify-panel" aria-labelledby="verify-title">
+                <h3 id="verify-title" data-i18n="securityCheck">Security check</h3>
+                <p data-i18n="completeCheck">Complete the check before signing in.</p>
+                <form id="cf-turnstile-form" class="turnstile-form">
+                    <div class="cf-turnstile" data-sitekey="%VITE_TURNSTILE_SITE_KEY%" data-callback="onSubmit" data-error-callback="onError" data-expired-callback="onExpired" data-timeout-callback="onExpired" data-size="flexible"></div>
+                </form>
+                <p id="verifytext" class="verify-status" aria-live="polite">
+                    <span class="status-icon" aria-hidden="true"></span>
+                    <span data-i18n="waiting">Waiting for verification</span>
+                </p>
+            </section>
+
+            <footer class="login-footer">
+                <p data-i18n="protected">Protected by Cloudflare Turnstile</p>
+                <p><span data-i18n="agreement">By continuing, you agree to the</span> <a href="/agreement/terms-service" data-localized-path="/agreement/terms-service/" id="Terms_Service" data-i18n="terms">Terms</a> <span data-i18n="and">and</span> <a href="/agreement/PrivacyPolicy" data-localized-path="/agreement/PrivacyPolicy/" id="Privacy_Policy" data-i18n="privacy">Privacy Policy</a>.</p>
+            </footer>
+        </section>
+    </main>
+
+    <script src="/js/i18n.js"></script>
+    <script>
+        const copy = window.AppI18n.t;
+        const loginButtons = [
+            document.getElementById('github-login'),
+            document.getElementById('microsoft-login'),
+            document.getElementById('google-login')
+        ];
+        const verifyText = document.getElementById('verifytext');
+        const turnstileSiteKey = document.querySelector('.cf-turnstile').dataset.sitekey.trim();
+        const hasTurnstileSiteKey = turnstileSiteKey && !turnstileSiteKey.includes('%VITE_TURNSTILE_SITE_KEY%');
+
+        function setVerifyStatus(type, message) {
+            verifyText.className = `verify-status verify-status--${type}`;
+            verifyText.innerHTML = '<span class="status-icon" aria-hidden="true"></span><span>' + message + '</span>';
+        }
+
+        function setLoginDisabled(disabled) {
+            loginButtons.forEach(button => {
+                button.disabled = disabled;
+                if (!disabled) {
+                    button.classList.remove('is-loading');
+                    button.removeAttribute('aria-busy');
+                }
+            });
+        }
+
+        function startLogin(button) {
+            if (button.disabled) {
+                return false;
+            }
+
+            loginButtons.forEach(loginButton => {
+                loginButton.disabled = true;
+                loginButton.classList.toggle('is-loading', loginButton === button);
+                loginButton.setAttribute('aria-busy', loginButton === button ? 'true' : 'false');
+            });
+
+            return true;
+        }
+
+        document.getElementById('github-login').addEventListener('click', function() {
+            if (!startLogin(this)) {
+                return;
+            }
+            window.location.href = `/auth/start/github?locale=${window.AppI18n.locale}`;
+        });
+
+        document.getElementById('microsoft-login').addEventListener('click', function() {
+            if (!startLogin(this)) {
+                return;
+            }
+            const loginUrl = `/auth/start/microsoft?locale=${window.AppI18n.locale}`;
+            window.location.href = loginUrl;
+        });
+
+        document.getElementById("google-login").addEventListener("click", function() {
+            if (!startLogin(this)) {
+                return;
+            }
+            window.location.href = `/auth/start/google?locale=${window.AppI18n.locale}`;
+        });
+
+        function onSubmit(token) {
+            setVerifyStatus('loading', copy.verifying);
+            fetch('/verify', {
+                method: 'POST',
+                body: new FormData(document.getElementById('cf-turnstile-form'))
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    setVerifyStatus('success', copy.verified);
+                    setLoginDisabled(false);
+                } else {
+                    setVerifyStatus('error', copy.verificationFailed);
+                    setLoginDisabled(true);
+                }
+            })
+            .catch(error => {
+                console.error('验证错误:', error);
+                setVerifyStatus('error', copy.verificationFailed);
+                setLoginDisabled(true);
+            });
+        }
+
+        function onError(error) {
+            if (!hasTurnstileSiteKey) {
+                return;
+            }
+            setVerifyStatus('error', copy.verificationFailed);
+            setLoginDisabled(true);
+        }
+
+        function onExpired() {
+            setVerifyStatus('error', copy.expired);
+            setLoginDisabled(true);
+        }
+
+        const query = new URLSearchParams(window.location.search);
+        if (query.get('error') === 'verification') {
+            setVerifyStatus('error', copy.verificationFailed);
+        } else if (query.get('error') === 'configuration') {
+            const providerNames = { github: copy.github, microsoft: 'Microsoft', google: 'Google' };
+            const provider = providerNames[query.get('provider')] || copy.chooseProvider;
+            setVerifyStatus('error', copy.providerConfigurationMissing.replace('{provider}', provider));
+            setLoginDisabled(false);
+        } else if (!hasTurnstileSiteKey) {
+            setLoginDisabled(false);
+        }
+    </script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>

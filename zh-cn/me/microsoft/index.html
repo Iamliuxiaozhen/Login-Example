@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-locale="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft account | Login Example</title>
+    <link href="/css/me/style.css" rel="stylesheet">
+    <script src="/js/i18n.js" defer></script>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1 data-i18n="home">Login Example</h1>
+            <nav class="locale-switcher"><a data-locale-link="zh-cn" href="/zh-cn/">简中</a><a data-locale-link="zh-hant" href="/zh-hant/">繁中</a><a data-locale-link="en-us" href="/en-us/">EN</a></nav>
+            <p>Microsoft</p>
+        </div>
+    </div>
+
+    <div class="profile-container">
+        <div class="user-info">
+            <h1 class="username" id="username">Loading…</h1>
+            <p class="login" id="mail">@Loading…</p>
+        </div>
+
+        <button class="logout-btn" id="logout_btn" data-i18n="logout">
+            Sign out
+        </button>
+        <button class="logout-btn" id="Log_out_bin" data-i18n="revoke" style="display: none;">
+            Revoke authorization
+        </button>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Login - Example </p>
+    </div>
+
+
+</body>
+<script src="/me/microsoft/script/script.js" defer></script>
+</html>

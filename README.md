@@ -1,37 +1,59 @@
 # Login-example
 
-这是一个登录演示项目，教你接入各平台的登录，教程在Wiki里。您可用在网页端体验。
+An open-source project that demonstrates OAuth login flows for GitHub, Microsoft, Google, and more. Step-by-step tutorials live in the Wiki. You can try it at the hosted page.
+
 [https://login-example.liuxiaozhen.dev/](https://login-example.liuxiaozhen.dev/)
 
-## 各平台接入
-|平台|情况|教程|
+## Readme languages
+
+- [繁體中文](README.zh-TW.md) (Traditional Chinese)
+- [简体中文](README.zh-CN.md) (Simplified Chinese)
+
+## Supported providers
+
+| Provider | Status | Tutorial |
 |---|---|---|
-|Github|✅已接入|⏳正在进行|
-|Microsoft|✅已接入|⏳正在进行|
-|Google|✅已接入|⏳正在进行|
-|X（Twitter）|🗒︎正在计划|🗒︎正在计划|
-|Facebook|⏹计划终止|⏹计划终止|
-|Apple|⏹计划终止|⏹计划终止|
+| GitHub | Done | In progress |
+| Microsoft | Done | In progress |
+| Google | Done | In progress |
+| X (Twitter) | Planned | Planned |
+| Facebook | Ended | Ended |
+| Apple | Ended | Ended |
 
->[!Important]
->本仓库已于2025年10月19日公开。
+> [!Important]
+> This repository was made public on October 19, 2025.
 
-## 重要声明
+## Important notice
 
-本网站仅作为登录演示使用，不包含任何钓鱼内容。本网站及其后端代码均已开源，如有疑问可自行审查源代码。
-
-**仓库地址：** [https://github.com/Iamliuxiaozhen/Login---Example](https://github.com/Iamliuxiaozhen/Login-Example)
-
----
-
-## Important Notice
-
-This website is for **OAuth login demonstration purposes only** and does **not** contain any phishing content.  
-Both the frontend and backend code are **open-source**, and anyone may review the source code for verification.
+This website is for **OAuth login demonstration purposes only** and does **not** contain any phishing content. Both the frontend and backend code are **open-source**, and anyone may review the source code for verification.
 
 **Repository:** [https://github.com/Iamliuxiaozhen/Login---Example](https://github.com/Iamliuxiaozhen/Login-Example)
 
+### Language paths
+
+The site is available at `/zh-cn`, `/zh-hant`, and `/en-us`. Visiting `/` selects a locale from the browser language and falls back to English. Legacy addresses without a locale prefix are redirected to a matching path.
+
+## Local development with Vite
+
+1. Copy `.env.example` to `.env`.
+2. Put local OAuth credentials and `https://localhost:8788` callback URLs in `.env`.
+3. Run `npm install`.
+4. Run `npm run dev`.
+5. Open `https://localhost:8788/zh-cn/`, `https://localhost:8788/zh-hant/`, or `https://localhost:8788/en-us/`.
+
+The development command starts Vite on `5173` and Wrangler Pages Functions on HTTPS port `8788`. It does not block startup for missing environment variables: selecting an unconfigured OAuth provider shows a localized message in the frontend. Use `npm run check:env` before deploying to validate the complete configuration. Vite handles frontend HMR; Wrangler handles `/auth/*`, `/api/*`, and `/verify`.
+
+## Cloudflare Pages builds
+
+Set the dashboard Build command to `npm run build` and Build output directory to `dist`. The repository intentionally does not include an auto-detected `wrangler.jsonc` Pages build configuration, so an existing Pages project without a build command will continue deploying its configured root directory instead of failing because `dist` was never created.
+
+## Environment variables
+
+The project accepts both exported shell variables and `.env` values. Existing exported variables win over values loaded from `.env`. Do not commit `.env`; use `.env.example` as the template. OAuth client secrets and signing keys are server-only variables, while `VITE_TURNSTILE_SITE_KEY` is intentionally exposed to the browser.
+
 © 2025 Login-example.
-[服务协议](agreement/terms-service/text.md)
-[隐私政策](agreement/PrivacyPolicy/text.md)  
-本作品采用 Apache License开源
+
+[Terms of Service](agreement/terms-service/text.md)
+[Privacy Policy](agreement/PrivacyPolicy/text.md)
+
+This project is licensed under the Apache License 2.0.

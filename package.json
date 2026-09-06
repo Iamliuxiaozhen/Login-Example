@@ -1,13 +1,22 @@
 {
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20251011.0"
+    "@cloudflare/workers-types": "^5.20260905.1",
+    "dotenv": "^17.4.2",
+    "vite": "^8.2.2",
+    "wrangler": "^4.129.0"
   },
   "name": "login---example",
   "version": "1.0.0",
   "description": "这是一个登录演示项目，教你接入各平台的登录，教程在Wiki里。您可用在网页端体验。 [https://login-example.liuxiaozhen.dev/](https://login-example.liuxiaozhen.dev/)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "vite build",
+    "check:env": "node scripts/check-env.mjs",
+    "dev": "node scripts/dev.mjs",
+    "dev:pages": "wrangler pages dev dist --proxy 5173 --port 8788 --local-protocol https --compatibility-date 2026-09-05 --compatibility-flag nodejs_compat",
+    "dev:vite": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
+    "test": "node scripts/check.mjs"
   },
   "repository": {
     "type": "git",
@@ -15,7 +24,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Iamliuxiaozhen/Login---Example/issues"
   },

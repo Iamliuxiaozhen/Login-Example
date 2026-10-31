@@ -29,7 +29,7 @@
             </div>
 
             <h1 id="page-title">Login Example</h1>
-            <p class="intro-text" data-i18n="intro">A minimal OAuth login demo for GitHub, Microsoft, and Google.</p>
+            <p class="intro-text" data-i18n="intro">A minimal OAuth login demo for GitHub, Microsoft, Google, and Qyxy.</p>
 
             <ul class="feature-list" data-i18n-list></ul>
 
@@ -74,6 +74,13 @@
                     </svg>
                     <span data-i18n="googleLogin">Continue with Google</span>
                 </button>
+
+                <button class="login-button login-button--qyxy" id="qyxy-login" type="button" data-i18n-aria-label="qyxyLogin" aria-label="Continue with Qyxy" disabled>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="#12B5A5" d="M6.5 18a5.5 5.5 0 0 1-.9-10.93A6.5 6.5 0 0 1 18.35 8.5 5 5 0 0 1 17.5 18h-11Z"/>
+                    </svg>
+                    <span data-i18n="qyxyLogin">Continue with Qyxy</span>
+                </button>
             </div>
 
             <section class="verify-panel" aria-labelledby="verify-title">
@@ -101,7 +108,8 @@
         const loginButtons = [
             document.getElementById('github-login'),
             document.getElementById('microsoft-login'),
-            document.getElementById('google-login')
+            document.getElementById('google-login'),
+            document.getElementById('qyxy-login')
         ];
         const verifyText = document.getElementById('verifytext');
         const turnstileSiteKey = document.querySelector('.cf-turnstile').dataset.sitekey.trim();
@@ -158,6 +166,13 @@
             window.location.href = `/auth/start/google?locale=${window.AppI18n.locale}`;
         });
 
+        document.getElementById("qyxy-login").addEventListener("click", function() {
+            if (!startLogin(this)) {
+                return;
+            }
+            window.location.href = `/auth/start/qyxy?locale=${window.AppI18n.locale}`;
+        });
+
         function onSubmit(token) {
             setVerifyStatus('loading', copy.verifying);
             fetch('/verify', {
@@ -198,7 +213,7 @@
         if (query.get('error') === 'verification') {
             setVerifyStatus('error', copy.verificationFailed);
         } else if (query.get('error') === 'configuration') {
-            const providerNames = { github: copy.github, microsoft: 'Microsoft', google: 'Google' };
+            const providerNames = { github: copy.github, microsoft: 'Microsoft', google: 'Google', qyxy: copy.qyxy };
             const provider = providerNames[query.get('provider')] || copy.chooseProvider;
             setVerifyStatus('error', copy.providerConfigurationMissing.replace('{provider}', provider));
             setLoginDisabled(false);

@@ -20,6 +20,14 @@ async function signature(payload: string, secret: string) {
   return toBase64Url(new Uint8Array(await crypto.subtle.sign('HMAC', key, encoder.encode(payload))));
 }
 
+export async function generatePkce() {
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  const verifier = toBase64Url(bytes);
+  const challenge = toBase64Url(new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(verifier))));
+  return { verifier, challenge };
+}
+
 export async function signValue(data: object, secret: string) {
   const payload = toBase64Url(encoder.encode(JSON.stringify(data)));
   return `${payload}.${await signature(payload, secret)}`;

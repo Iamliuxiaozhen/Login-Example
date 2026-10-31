@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { cookie, normalizeLocale, readCookie, signValue, verifyValue } from '../../_lib/security';
+import { cookie, generatePkce, normalizeLocale, readCookie, signValue, verifyValue } from '../../_lib/security';
 
 export const onRequestGet: PagesFunction = async ({ request, env, params }) => {
   const provider = String(params.provider || '').toLowerCase();
@@ -7,7 +7,8 @@ export const onRequestGet: PagesFunction = async ({ request, env, params }) => {
   const providerConfig: Record<string, { clientId?: string; clientSecret?: string; redirectUri?: string }> = {
     github: { clientId: env.GITHUB_CLIENT_ID, clientSecret: env.GITHUB_CLIENT_SECRET, redirectUri: env.GITHUB_REDIRECT_URI },
     microsoft: { clientId: env.MICROSOFT_CLIENT_ID, clientSecret: env.MICROSOFT_CLIENT_SECRET, redirectUri: env.MICROSOFT_REDIRECT_URI },
-    google: { clientId: env.GOOGLE_CLIENT_ID, clientSecret: env.GOOGLE_CLIENT_SECRET, redirectUri: env.GOOGLE_REDIRECT_URI }
+    google: { clientId: env.GOOGLE_CLIENT_ID, clientSecret: env.GOOGLE_CLIENT_SECRET, redirectUri: env.GOOGLE_REDIRECT_URI },
+    qyxy: { clientId: env.QYXY_CLIENT_ID, clientSecret: env.QYXY_CLIENT_SECRET, redirectUri: env.QYXY_REDIRECT_URI }
   };
   if (!providerConfig[provider]) return new Response('Unknown provider', { status: 404 });
 
@@ -21,11 +22,25 @@ export const onRequestGet: PagesFunction = async ({ request, env, params }) => {
   if (!verification) return Response.redirect(new URL(`/${locale}/?error=verification`, request.url), 302);
 
   const state = crypto.randomUUID();
-  const stateCookie = await signValue({ state, provider, locale, exp: Date.now() + 10 * 60 * 1000 }, secret);
+  const pkce = provider === 'qyxy' ? await generatePkce() : null;
+  const stateCookie = await signValue({ state, provider, locale, exp: Date.now() + 10 * 60 * 1000, ...(pkce ? { verifier: pkce.verifier } : {}) }, secret);
   const urls: Record<string, string> = {
     github: `https://github.com/login/oauth/authorize?client_id=${encodeURIComponent(selectedProvider.clientId)}&redirect_uri=${encodeURIComponent(selectedProvider.redirectUri)}&state=${encodeURIComponent(state)}`,
     microsoft: `https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize?client_id=${encodeURIComponent(selectedProvider.clientId)}&response_type=code&redirect_uri=${encodeURIComponent(selectedProvider.redirectUri)}&response_mode=query&scope=${encodeURIComponent('openid profile email User.Read')}&prompt=consent&state=${encodeURIComponent(state)}`,
     google: `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(selectedProvider.clientId)}&redirect_uri=${encodeURIComponent(selectedProvider.redirectUri)}&response_type=code&scope=${encodeURIComponent('openid email profile')}&state=${encodeURIComponent(state)}`
   };
+  if (provider === 'qyxy') {
+    const authBase = String(env.QYXY_AUTH_URL || 'https://cloud.hopex.top/account').replace(/\/+$/, '');
+    const query = new URLSearchParams({
+      response_type: 'code',
+      client_id: selectedProvider.clientId,
+      redirect_uri: selectedProvider.redirectUri,
+      state,
+      scope: 'userinfo',
+      code_challenge: pkce.challenge,
+      code_challenge_method: 'S256'
+    });
+    urls.qyxy = `${authBase}/authorize.php?${query}`;
+  }
   return new Response(null, { status: 302, headers: { Location: urls[provider], 'Set-Cookie': cookie('oauth_state', stateCookie, 600) } });
 };

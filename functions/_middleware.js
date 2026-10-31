@@ -18,6 +18,7 @@ export function onRequest(context) {
     "/me/github": "me/github",
     "/me/google": "me/google",
     "/me/microsoft": "me/microsoft",
+    "/me/qyxy": "me/qyxy",
     "/agreement/terms-service": "agreement/terms-service",
     "/agreement/PrivacyPolicy": "agreement/PrivacyPolicy",
   };

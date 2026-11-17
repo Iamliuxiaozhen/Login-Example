@@ -9,6 +9,10 @@ An open-source project that demonstrates OAuth login flows for GitHub, Microsoft
 - [繁體中文](README.zh-TW.md) (Traditional Chinese)
 - [简体中文](README.zh-CN.md) (Simplified Chinese)
 
+## Documentation
+
+Full reference docs live in [`docs/`](docs/README.md): architecture, API, environment variables, deployment, troubleshooting, testing, and the local DeepSeek bridge. Start with the [documentation index](docs/README.md).
+
 ## Supported providers
 
 | Provider | Status | Tutorial |
@@ -16,6 +20,8 @@ An open-source project that demonstrates OAuth login flows for GitHub, Microsoft
 | GitHub | Done | In progress |
 | Microsoft | Done | In progress |
 | Google | Done | In progress |
+| Qyxy (青云学研) | Done | See [deployment guide](docs/DEPLOYMENT.md) |
+| DeepSeek (local only) | Demo | [DSH-BRIDGE.md](docs/DSH-BRIDGE.md) |
 | X (Twitter) | Planned | Planned |
 | Facebook | Ended | Ended |
 | Apple | Ended | Ended |
@@ -53,6 +59,10 @@ Set the dashboard Build command to `npm run build` and Build output directory to
 ## Local DeepSeek account bridge (demo only)
 
 A local-only demo shows your own DeepSeek account info (avatar, nickname, masked contact, balances). Public deployments only show a "try locally" notice. Run `npm run dev:dsh`, then open the DSH entry on the home page and sign in with your DeepSeek account. See [docs/DSH-BRIDGE.md](docs/DSH-BRIDGE.md).
+
+## Checks and contributing
+
+Run `npm test` for static integrity checks and `npm run check:env` to validate configuration before deploying; see [docs/TESTING.md](docs/TESTING.md). Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and the [changelog](CHANGELOG.md).
 
 ## Environment variables
 

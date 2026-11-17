@@ -73,6 +73,7 @@ export function validateCallbackOrigin(value) {
 /**
  * 校验授权完成后的回跳地址:必须是本机 origin,且路径指向本地账号页。
  * 防止开放重定向——只允许 localhost/127.0.0.1/[::1] 的 /me/dsh 路径。
+ * 协议允许 http(桥/vite) 与 https(wrangler pages dev 的 --local-protocol https)。
  * @returns {string} 规范化后的绝对 URL(无 hash)。
  */
 export function validateReturnTo(value) {
@@ -85,7 +86,8 @@ export function validateReturnTo(value) {
   } catch {
     throw new Error('回跳地址不是合法 URL')
   }
-  if (url.protocol !== 'http:'
+  const isLocalProtocol = url.protocol === 'http:' || url.protocol === 'https:'
+  if (!isLocalProtocol
       || !['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)
       || url.username || url.password
       || !url.pathname.startsWith('/me/dsh')

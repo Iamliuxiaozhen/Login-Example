@@ -6,3 +6,6 @@ dist/
 .env.*.local
 
 .trae-html-share-packages
+
+# WorkBuddy 项目数据（工作日志等），非源码，不入库
+.workbuddy/

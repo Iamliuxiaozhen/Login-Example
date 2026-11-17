@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-locale="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSH account | Login Example</title>
+    <link href="/css/me/style.css" rel="stylesheet">
+    <script src="/js/i18n.js" defer></script>
+    <script src="/js/dsh-entry.js" defer></script>
+    <style>
+        .dsh-note { max-width: 620px; margin: 16px auto; padding: 14px 18px; border-radius: 12px; background: #fff8e6; border: 1px solid #f0d9a0; color: #6b5316; line-height: 1.7; font-size: 14px; }
+        .dsh-note code { background: #f6ecd2; padding: 2px 6px; border-radius: 6px; }
+        .dsh-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+        .dsh-actions button { cursor: pointer; border: 0; border-radius: 10px; padding: 10px 18px; font-size: 14px; background: #1a73e8; color: #fff; }
+        .dsh-actions button[disabled] { opacity: .5; cursor: not-allowed; }
+        .dsh-status { text-align: center; color: #555; margin-top: 12px; font-size: 14px; }
+        .dsh-hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1 data-i18n="home">Login Example</h1>
+            <nav class="locale-switcher"><a data-locale-link="zh-cn" href="/zh-cn/">简中</a><a data-locale-link="zh-hant" href="/zh-hant/">繁中</a><a data-locale-link="en-us" href="/en-us/">EN</a></nav>
+        </div>
+    </div>
+
+    <div class="profile-container">
+        <div class="avatar">
+            <img src="" alt="" id="dsh-avatar">
+        </div>
+        <div class="user-info">
+            <h1 class="username" id="dsh-name">Loading…</h1>
+            <p class="login" id="dsh-contact"></p>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="dsh-balance">—</div>
+                <div class="stat-label" data-i18n="dshBalance">Recharge balance</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="dsh-bonus">—</div>
+                <div class="stat-label" data-i18n="dshBonus">Bonus balance</div>
+            </div>
+        </div>
+        <div class="dsh-actions">
+            <button id="dsh-signin" type="button" data-i18n="dshLogin">Sign in with DeepSeek account</button>
+            <button id="dsh-logout" type="button" data-i18n="logout">Sign out</button>
+        </div>
+        <p class="dsh-status" id="dsh-status"></p>
+    </div>
+
+    <div id="dsh-local-only" class="dsh-note dsh-hidden" data-i18n="dshLocalOnly">
+        该功能仅在本地运行。请在本地启动桥接服务后刷新此页。
+    </div>
+    <div id="dsh-hint" class="dsh-note dsh-hidden" data-i18n="dshHint">
+        本地运行: 在项目根目录执行 npm run dev:dsh,然后刷新本页并点击「使用 DeepSeek 账号登录」。
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Login - Example </p>
+    </div>
+</body>
+<script src="/me/dsh/script/script.js" defer></script>
+</html>

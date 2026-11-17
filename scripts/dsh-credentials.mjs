@@ -128,7 +128,13 @@ export function readBridgeGrant() {
   if (!existsSync(path)) return null
   try {
     const parsed = JSON.parse(readFileSync(path, 'utf8'))
-    return normalizeGrant(parsed)
+    // 桥存储是扁平结构 { version, token, issuer },不像 DSH 凭据那样带 kind 包装。
+    if (!parsed || typeof parsed !== 'object') return null
+    const { version, token, issuer } = parsed
+    if (version !== 1 && version !== '1') return null
+    if (typeof token !== 'string' || token.length === 0) return null
+    if (typeof issuer !== 'string' || issuer.length === 0) return null
+    return { token, issuer }
   } catch {
     return null
   }

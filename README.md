@@ -50,6 +50,10 @@ The development command starts Vite on `5173` and Wrangler Pages Functions on HT
 
 Set the dashboard Build command to `npm run build` and Build output directory to `dist`. The repository intentionally does not include an auto-detected `wrangler.jsonc` Pages build configuration, so an existing Pages project without a build command will continue deploying its configured root directory instead of failing because `dist` was never created.
 
+## Local DeepSeek account bridge (demo only)
+
+A local-only demo shows your own DeepSeek account info (avatar, nickname, masked contact, balances). Public deployments only show a "try locally" notice. Run `npm run dev:dsh`, then open the DSH entry on the home page and sign in with your DeepSeek account. See [docs/DSH-BRIDGE.md](docs/DSH-BRIDGE.md).
+
 ## Environment variables
 
 The project accepts both exported shell variables and `.env` values. Existing exported variables win over values loaded from `.env`. Do not commit `.env`; use `.env.example` as the template. OAuth client secrets and signing keys are server-only variables, while `VITE_TURNSTILE_SITE_KEY` is intentionally exposed to the browser.

@@ -46,6 +46,10 @@
 
 在仪表盘中设置 Build command 为 `npm run build`，Build output directory 为 `dist`。本仓库刻意不包含自动识别的 `wrangler.jsonc` Pages 构建配置，因此已有未配置构建命令的 Pages 项目会继续部署其配置的根目录，而不是因从未生成 `dist` 而构建失败。
 
+## 本地 DeepSeek 账号信息桥接（仅演示）
+
+一个**仅本地运行**的演示：展示你自己的 DeepSeek 账号信息（头像、昵称、脱敏手机号、充值/赠送余额）。公网部署只显示「请在本地尝试」。运行 `npm run dev:dsh` 后，从首页的 DSH 入口进入并用 DeepSeek 账号登录即可。详见 [docs/DSH-BRIDGE.md](docs/DSH-BRIDGE.md)。
+
 ## 环境变量
 
 项目同时接受导出的 shell 变量和 `.env` 值。已导出的变量优先于从 `.env` 加载的值。不要提交 `.env`，以 `.env.example` 为模板。OAuth Client Secret 和签名密钥是仅服务端的变量，而 `VITE_TURNSTILE_SITE_KEY` 会暴露给浏览器。

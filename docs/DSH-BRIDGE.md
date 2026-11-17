@@ -13,7 +13,7 @@ npm run dev:dsh
 
 默认监听 `http://127.0.0.1:8789`（仅回环地址，局域网/公网无法访问）。可用环境变量 `DSH_BRIDGE_PORT` 改端口。
 
-在首页点击「使用 DeepSeek 账号登录（新标签页）」即可直接发起授权：入口脚本 `js/dsh-entry.js` 会先判断环境——
+在首页点击「使用 DeepSeek 账号登录」即可直接发起授权：入口脚本 `js/dsh-entry.js` 会先判断环境——
 
 - 公网域名 → 跳到 `/me/dsh/` 显示「该功能仅在本地运行」；
 - 本地但桥未启动 → 同样跳到 `/me/dsh/` 提示先运行 `npm run dev:dsh`；

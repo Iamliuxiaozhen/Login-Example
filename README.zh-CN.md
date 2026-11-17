@@ -3,6 +3,10 @@
 这是一个登录演示项目，教你接入各平台（如 Google、Microsoft 和 GitHub）的登录，教程在 Wiki 里。您可在网页端体验。
 [https://login-example.liuxiaozhen.dev/](https://login-example.liuxiaozhen.dev/)
 
+## 项目文档
+
+完整的技术文档在 [`docs/`](docs/README.md) 目录：架构说明、API 参考、环境变量、部署指南、故障排查、测试说明与本地 DeepSeek 桥接。请从[文档索引](docs/README.md)开始。
+
 ## 各平台接入
 
 | 平台 | 情况 | 教程 |
@@ -10,6 +14,8 @@
 | GitHub | ✅ 已接入 | ⏳ 正在进行 |
 | Microsoft | ✅ 已接入 | ⏳ 正在进行 |
 | Google | ✅ 已接入 | ⏳ 正在进行 |
+| Qyxy（青云学研） | ✅ 已接入 | 见[部署指南](docs/DEPLOYMENT.md) |
+| DeepSeek（仅本地） | 🧪 演示 | [DSH-BRIDGE.md](docs/DSH-BRIDGE.md) |
 | X（Twitter） | 🗒︎ 正在计划 | 🗒︎ 正在计划 |
 | Facebook | ⏹ 计划终止 | ⏹ 计划终止 |
 | Apple | ⏹ 计划终止 | ⏹ 计划终止 |
@@ -49,6 +55,10 @@
 ## 本地 DeepSeek 账号信息桥接（仅演示）
 
 一个**仅本地运行**的演示：展示你自己的 DeepSeek 账号信息（头像、昵称、脱敏手机号、充值/赠送余额）。公网部署只显示「请在本地尝试」。运行 `npm run dev:dsh` 后，从首页的 DSH 入口进入并用 DeepSeek 账号登录即可。详见 [docs/DSH-BRIDGE.md](docs/DSH-BRIDGE.md)。
+
+## 检查与贡献
+
+提交前运行 `npm test` 做静态完整性检查、`npm run check:env` 校验环境变量，详见 [测试说明](docs/TESTING.md)。欢迎贡献，请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 与 [变更记录](CHANGELOG.md)。
 
 ## 环境变量
 

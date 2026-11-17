@@ -110,6 +110,7 @@
     </main>
 
     <script src="/js/i18n.js"></script>
+    <script src="/js/dsh-entry.js"></script>
     <script>
         const copy = window.AppI18n.t;
         const loginButtons = [
@@ -181,7 +182,9 @@
         });
 
         document.getElementById("dsh-login").addEventListener("click", function() {
-            window.location.href = `/me/dsh/?locale=${window.AppI18n.locale}`;
+            const locale = window.AppI18n.locale;
+            const returnTo = `${window.location.origin}/me/dsh/?locale=${locale}`;
+            window.DshEntry.startSignIn(locale, returnTo);
         });
 
         function onSubmit(token) {

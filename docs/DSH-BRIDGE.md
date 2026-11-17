@@ -13,11 +13,13 @@ npm run dev:dsh
 
 默认监听 `http://127.0.0.1:8789`（仅回环地址，局域网/公网无法访问）。可用环境变量 `DSH_BRIDGE_PORT` 改端口。
 
-在首页点击「查看 DeepSeek 账号（仅本地）」进入 `/me/dsh/`。页面会先判断是否为本地环境、再探测桥是否启动：
+在首页点击「使用 DeepSeek 账号登录（新标签页）」即可直接发起授权：入口脚本 `js/dsh-entry.js` 会先判断环境——
 
-- 公网域名 → 显示「该功能仅在本地运行」；
-- 本地但桥未启动 → 提示先运行 `npm run dev:dsh`；
-- 本地且桥正常 → 展示账号信息。
+- 公网域名 → 跳到 `/me/dsh/` 显示「该功能仅在本地运行」；
+- 本地但桥未启动 → 同样跳到 `/me/dsh/` 提示先运行 `npm run dev:dsh`；
+- 本地且桥正常 → 用**新标签页**打开 DeepSeek 授权页，用户无需返回原页面。
+
+授权完成后，新标签页自动跳回本地账号页 `/me/dsh/`，直接展示头像、昵称、脱敏手机号与余额。回跳地址经严格校验，只接受本机 origin 的 `/me/dsh` 路径，防止开放重定向。
 
 ## 首次使用：授权账号
 
@@ -26,12 +28,13 @@ npm run dev:dsh
 1. 桥自己的本地存储 `~/.login-example-dsh/credentials.json`（本功能登录后写入）；
 2. DSH 自身的凭据 `~/.dsh/.credentials.yaml` 中 `deepseek-account-platform/default` 记录。
 
-若两者都没有，点击页面上的「使用 DeepSeek 账号登录」：
+若两者都没有，点击首页（或账号页）的 DeepSeek 登录按钮：
 
-1. 桥调用 `auth_init`，生成 S256 PKCE 参数；
-2. 浏览器打开 DeepSeek 授权页，你用自己的账号登录并同意；
-3. 平台回跳到 `http://127.0.0.1:<端口>/oauth/callback`，桥校验 state 后用 code 兑换 token；
-4. token 存入桥自己的本地存储（不修改 DSH 的凭据文件）。
+1. 前端探测到本机桥可用后，在用户点击的同步调用栈内预开新标签页（规避浏览器弹窗拦截），再调用 `POST /api/login/start`；
+2. 桥调用 `auth_init`，生成 S256 PKCE 参数，并把本地账号页作为 `returnTo` 存入会话；
+3. 新标签页打开 DeepSeek 授权页，你用自己的账号登录并同意；
+4. 平台回跳到 `http://127.0.0.1:<端口>/oauth/callback`，桥校验 state 后用 code 兑换 token；
+5. token 存入桥自己的本地存储（不修改 DSH 的凭据文件），随后 302 回跳到 `returnTo` 指定的本地账号页。
 
 回调只接受带显式端口的 `localhost` / `127.0.0.1` / `[::1]`，并做同源、固定路径、state 常量时间比较与单值校验，与 DSH 官方实现一致。
 

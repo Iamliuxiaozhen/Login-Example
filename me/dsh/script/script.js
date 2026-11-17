@@ -112,22 +112,12 @@
     }
   }
 
-  els.signin.addEventListener('click', async function () {
+  els.signin.addEventListener('click', function () {
+    const locale = (window.AppI18n && window.AppI18n.locale) || 'zh-cn'
+    const returnTo = `${window.location.origin}/me/dsh/?locale=${encodeURIComponent(locale)}`
     els.signin.disabled = true
-    try {
-      const locale = (window.AppI18n && window.AppI18n.locale) || 'zh-cn'
-      const result = await bridgeFetch('/api/login/start', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ locale }),
-      })
-      if (!result.ok || !result.authorizeUrl) throw new Error('login start failed')
-      setStatus(t.dshOpeningBrowser || '正在打开浏览器完成授权……')
-      window.location.href = result.authorizeUrl
-    } catch (error) {
-      setStatus(t.dshLoginError || '发起登录失败,请确认本地桥已启动。')
-      els.signin.disabled = false
-    }
+    setStatus(t.dshOpeningBrowser || '正在打开浏览器完成授权……')
+    window.DshEntry.startSignIn(locale, returnTo)
   })
 
   els.logout.addEventListener('click', async function () {

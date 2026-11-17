@@ -70,6 +70,31 @@ export function validateCallbackOrigin(value) {
   return `${url.protocol}//${url.hostname}:${Number(matched[1])}`
 }
 
+/**
+ * 校验授权完成后的回跳地址:必须是本机 origin,且路径指向本地账号页。
+ * 防止开放重定向——只允许 localhost/127.0.0.1/[::1] 的 /me/dsh 路径。
+ * @returns {string} 规范化后的绝对 URL(无 hash)。
+ */
+export function validateReturnTo(value) {
+  if (typeof value !== 'string' || value.length === 0) {
+    throw new Error('回跳地址不能为空')
+  }
+  let url
+  try {
+    url = new URL(value)
+  } catch {
+    throw new Error('回跳地址不是合法 URL')
+  }
+  if (url.protocol !== 'http:'
+      || !['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)
+      || url.username || url.password
+      || !url.pathname.startsWith('/me/dsh')
+      || url.hash) {
+    throw new Error('回跳地址仅支持本机 /me/dsh 路径')
+  }
+  return url.href
+}
+
 /** 校验浏览器跳转地址(源码 browserUrl):同源 + 固定路径。 */
 function validateBrowserUrl(value, origin, path) {
   let url
@@ -119,12 +144,22 @@ async function protocolRequest(method, body, client, options = {}) {
  * @returns {{ sessionId: string, authorizeUrl: string, expiresAt: number, callbackOrigin: string }}
  */
 export async function beginSignIn(callbackOriginInput, client = {}, options = {}) {
+  // returnTo 非法时忽略(向后兼容),不阻断登录本身。
+  let returnTo = null
+  if (options.returnTo) {
+    try {
+      returnTo = validateReturnTo(options.returnTo)
+    } catch {
+      returnTo = null
+    }
+  }
   if (currentAttempt && Date.now() < currentAttempt.expiresAt) {
     return {
       sessionId: currentAttempt.id,
       authorizeUrl: currentAttempt.authorizeUrl,
       expiresAt: currentAttempt.expiresAt,
       callbackOrigin: currentAttempt.callbackOrigin,
+      returnTo: currentAttempt.returnTo,
     }
   }
   const callbackOrigin = validateCallbackOrigin(callbackOriginInput)
@@ -163,12 +198,14 @@ export async function beginSignIn(callbackOriginInput, client = {}, options = {}
     callbackOrigin,
     client: headersClient,
     origin,
+    returnTo,
   }
   return {
     sessionId: currentAttempt.id,
     authorizeUrl,
     expiresAt: currentAttempt.expiresAt,
     callbackOrigin,
+    returnTo,
   }
 }
 
@@ -197,7 +234,7 @@ export function validateCallback(req) {
 
 /**
  * 用授权码兑换 token,存入桥本地存储(不触碰 DSH 凭据文件)。
- * @returns {{ authorizedUrl: string, profile: object | null }}
+ * @returns {{ authorizedUrl: string, returnTo: string | null, profile: object | null }}
  */
 export async function completeSignIn(options = {}) {
   const attempt = currentAttempt
@@ -217,7 +254,7 @@ export async function completeSignIn(options = {}) {
   const authorizedUrl = validateBrowserUrl(result.authorized_url, attempt.origin, '/dsh/authorized')
   saveBridgeGrant(result.token, attempt.origin)
   currentAttempt = null
-  return { authorizedUrl, profile: result.user ?? null }
+  return { authorizedUrl, returnTo: attempt.returnTo || null, profile: result.user ?? null }
 }
 
 /** 把校验通过的 code 挂到当前会话(供 completeSignIn 使用)。 */

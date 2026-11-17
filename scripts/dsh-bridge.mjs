@@ -128,8 +128,10 @@ const server = createServer(async (req, res) => {
         searchParams: url.searchParams,
       })
       attachCode(code)
-      const { authorizedUrl } = await completeSignIn()
-      res.writeHead(302, { location: authorizedUrl, 'cache-control': 'no-store' })
+      const { authorizedUrl, returnTo } = await completeSignIn()
+      // 有合法的本地回跳地址则回本地账号页,否则兼容旧行为跳平台完成页。
+      const location = returnTo || authorizedUrl
+      res.writeHead(302, { location, 'cache-control': 'no-store' })
       res.end()
       log(req.method, pathname, 302)
     } catch (error) {
@@ -167,7 +169,7 @@ const server = createServer(async (req, res) => {
     try {
       const body = await readJson(req)
       const callbackOrigin = `http://${req.headers.host || `${HOST}:${PORT}`}`
-      const result = await beginSignIn(callbackOrigin, { locale: body.locale || 'zh-CN' })
+      const result = await beginSignIn(callbackOrigin, { locale: body.locale || 'zh-CN' }, { returnTo: body.returnTo })
       send(res, 200, { ok: true, ...result }, corsHeaders(req))
       log(req.method, pathname, 200)
     } catch (error) {
